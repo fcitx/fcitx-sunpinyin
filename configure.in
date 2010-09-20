@@ -3,14 +3,14 @@
 
 AC_INIT
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([src/sunpinyin.h])
+AC_CONFIG_SRCDIR([src/eim.h])
 AM_INIT_AUTOMAKE(fcitx-sunpinyin, "0.1.0")
 
 AC_CANONICAL_HOST
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
-AC_PROG_CC
+AC_PROG_CXX
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 LT_INIT

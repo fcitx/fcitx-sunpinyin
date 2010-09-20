@@ -1,7 +1,8 @@
 
 lib_LTLIBRARIES=libfcitx-sunpinyin.la
 libfcitx_sunpinyin_la_SOURCES= \
-                             sunpinyin.c sunpinyin.h \
+                             eim.cpp eim.h \
+							 handler.cpp handler.h \
 							 $(NULL)
 
 libfcitx_sunpinyin_la_LDFLAGS= -version-number 0:1:0 -no-undefined
@@ -11,7 +12,7 @@ INCLUDES = \
 	@SUNPINYIN_CFLAGS@ \
 	$(NULL)
 
-LDADD = \
+libfcitx_sunpinyin_la_LIBADD = \
 	@FCITX_LIBS@ \
 	@SUNPINYIN_LIBS@ \
 	$(NULL)
