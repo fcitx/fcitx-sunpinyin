@@ -62,8 +62,8 @@ void Reset (void)
 __EXPORT_API
 INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
 {
-    if (keycode < 0x20 && keycode > 0x7E)
-        keycode = 0;
+    if ((keycode <= 0x20 || keycode > 0x7E) && view->getIC()->isEmpty())
+        return IRV_TO_PROCESS;
 
     printf("keycode:%u\n", keycode);
 
@@ -71,13 +71,14 @@ INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
     unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
 
     if (instance->commit_flag)
-    {
         return IRV_GET_CANDWORDS;
-    }
-    if (!changeMasks & CIMIView::KEYEVENT_USED)
+    if (!(changeMasks & CIMIView::KEYEVENT_USED))
         return IRV_DONOT_PROCESS;
+
+    printf("%u\n", changeMasks);
     if (changeMasks & CIMIView::CANDIDATE_MASK)
     {
+        printf("a\n");
         return IRV_DISPLAY_CANDWORDS;
     }
 
@@ -116,7 +117,7 @@ int Init (char *arg)
     prof->clear();
     prof->addPageUpKey(CKeyEvent(IM_VK_MINUS));
     prof->addPageDownKey(CKeyEvent(IM_VK_EQUALS));
-    view->setCancelOnBackspace(0);
+    view->setCancelOnBackspace(1);
     instance->set_eim(&EIM);
 
     return 0;
