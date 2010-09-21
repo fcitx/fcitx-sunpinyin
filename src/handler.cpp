@@ -15,8 +15,9 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
     memset(buf_, 0, MAX_USER_INPUT + 1);
     
     WCSTOMBS(buf_, front_src, MAX_USER_INPUT);
-    buf_[strlen(buf_)] = '|';
+    eim->CaretPos = strlen(buf_);
     WCSTOMBS(&buf_[strlen(buf_)], end_src, MAX_USER_INPUT);
+    candidate_flag = true;
 }
 
 void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)

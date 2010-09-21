@@ -68,7 +68,7 @@ INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
     instance->commit_flag = false;
     instance->candidate_flag = false;
     unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
-    
+
     if (instance->commit_flag)
         return IRV_GET_CANDWORDS;
     if (!(changeMasks & CIMIView::KEYEVENT_USED))
