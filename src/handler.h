@@ -14,9 +14,10 @@ public:
         eim = eim_;
     }
 
+    bool commit_flag ; 
+
 private:
     EXTRA_IM* eim;   
-    char buf_[BUF_SIZE];
     TWCHAR front_src[BUF_SIZE];
     TWCHAR end_src[BUF_SIZE];
 };
