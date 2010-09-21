@@ -62,8 +62,6 @@ void Reset (void)
 __EXPORT_API
 INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
 {
-    printf("keycode:%u %d\n", keycode, view->getIC()->isEmpty());
-
     if ((keycode <= 0x20 || keycode > 0x7E) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
@@ -71,8 +69,6 @@ INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
     instance->candidate_flag = false;
     unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
     
-    printf("%u\n", changeMasks);
-
     if (instance->commit_flag)
         return IRV_GET_CANDWORDS;
     if (!(changeMasks & CIMIView::KEYEVENT_USED))
@@ -102,15 +98,12 @@ __EXPORT_API
 int Init (char *arg)
 {
     FcitxConfig *fc = (FcitxConfig*)EIM.fc;
-    EIM.StringGet = new char[40 * 6];
-    memset(EIM.StringGet, 0, 40 * 6);
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
     fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
     view = fac.createSession();
 
     instance = new FcitxWindowHandler();
     view->getIC()->setCharsetLevel(1);// GBK
-    printf("%d\n", fc->iMaxCandWord);
     view->setCandiWindowSize(fc->iMaxCandWord);
     view->attachWinHandler(instance);
     // page up/down key
