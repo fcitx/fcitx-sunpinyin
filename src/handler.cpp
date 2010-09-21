@@ -30,6 +30,8 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
     }
 
     eim->CandWordCount = pcl->size();
+
+    candidate_flag = true;
 }
 
 void FcitxWindowHandler::commit(const TWCHAR* str)

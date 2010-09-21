@@ -62,27 +62,28 @@ void Reset (void)
 __EXPORT_API
 INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
 {
+    printf("keycode:%u %d\n", keycode, view->getIC()->isEmpty());
+
     if ((keycode <= 0x20 || keycode > 0x7E) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
-    printf("keycode:%u\n", keycode);
-
     instance->commit_flag = false;
+    instance->candidate_flag = false;
     unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
+    
+    printf("%u\n", changeMasks);
 
     if (instance->commit_flag)
         return IRV_GET_CANDWORDS;
     if (!(changeMasks & CIMIView::KEYEVENT_USED))
-        return IRV_DONOT_PROCESS;
+        return IRV_TO_PROCESS;
 
-    printf("%u\n", changeMasks);
-    if (changeMasks & CIMIView::CANDIDATE_MASK)
+    if (instance->candidate_flag)
     {
-        printf("a\n");
         return IRV_DISPLAY_CANDWORDS;
     }
 
-    return IRV_DO_NOTHING;
+    return IRV_TO_PROCESS;
 }
 
 __EXPORT_API

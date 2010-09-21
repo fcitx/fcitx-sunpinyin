@@ -15,6 +15,7 @@ public:
     }
 
     bool commit_flag ; 
+    bool candidate_flag ;
 
 private:
     EXTRA_IM* eim;   
