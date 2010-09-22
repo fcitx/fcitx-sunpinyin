@@ -9,7 +9,7 @@ autoconf || exit 1
 
 if [ -z "$1" ] ; then
   echo
-  echo 'fcitx-config now prepared to build. Run:'
+  echo 'fcitx-sunpinyin now prepared to build. Run:'
   echo " ./configure && make"
 else
   ./configure "$@" || exit 1
