@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sunpinyin.h>
+#include <fcitx-config/hotkey.h>
 #include <fcitx-config/configfile.h>
 #include <fcitx-config/profile.h>
 
@@ -27,7 +28,6 @@ extern "C" {
         GetCandWord,
         Init,
         Destroy,
-        NULL,
         NULL,
         NULL,
         NULL,
@@ -91,6 +91,19 @@ INPUT_RETURN_VALUE GetCandWords(SEARCH_MODE searchMode)
 __EXPORT_API
 char *GetCandWord (int iIndex)
 {
+    EIM.CandWordCount = 0;
+    instance->commit_flag = false;
+    instance->candidate_flag = false;
+    if (iIndex <= 8)
+    {
+        unsigned int keycode = '1' + iIndex;
+        unsigned int state = 0;
+        unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
+
+        if (instance->commit_flag)
+            return EIM.StringGet;
+    }
+    
     return NULL;
 }
 
@@ -104,13 +117,21 @@ int Init (char *arg)
 
     instance = new FcitxWindowHandler();
     view->getIC()->setCharsetLevel(1);// GBK
+
     view->setCandiWindowSize(fc->iMaxCandWord);
     view->attachWinHandler(instance);
     // page up/down key
     CHotkeyProfile* prof = view->getHotkeyProfile();
     prof->clear();
-    prof->addPageUpKey(CKeyEvent(IM_VK_MINUS));
-    prof->addPageDownKey(CKeyEvent(IM_VK_EQUALS));
+
+    int i = 0;
+    for (i = 0 ; i < 2; i++)
+    {
+        if (fc->hkPrevPage[i].iKeyCode)
+            prof->addPageUpKey(CKeyEvent(fc->hkPrevPage[i].iKeyCode));
+        if (fc->hkNextPage[i].iKeyCode)
+            prof->addPageDownKey(CKeyEvent(fc->hkNextPage[i].iKeyCode));
+    }
     view->setCancelOnBackspace(1);
     instance->set_eim(&EIM);
 

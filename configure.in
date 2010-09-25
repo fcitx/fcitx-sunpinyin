@@ -25,8 +25,8 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 AC_PROG_INTLTOOL([0.35.0])
 AM_GNU_GETTEXT([external])
 
-PKG_CHECK_MODULES(FCITX, fcitx)
-PKG_CHECK_MODULES(FCITX_CONFIG, fcitx-config)
+PKG_CHECK_MODULES(FCITX, [ fcitx >= 0.95 ])
+PKG_CHECK_MODULES(FCITX_CONFIG, [ fcitx-config >= 0.95 ])
 PKG_CHECK_MODULES(SUNPINYIN, sunpinyin-2.0)
 AC_SUBST(FCITX_LIBS)
 AC_SUBST(FCITX_CFLAGS)
@@ -51,6 +51,7 @@ AC_CHECK_FUNCS([memmove memset mkdir setlocale strcasecmp strstr strtol asprintf
 AC_CONFIG_FILES([
                  Makefile
                  src/Makefile
+                 data/Makefile
                  po/Makefile.in
                  ])
 
