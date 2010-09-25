@@ -2,8 +2,9 @@
 #include <fcitx/im.h>
 #include <stdio.h>
 #include <string.h>
-#include <sunpinyin.h>
 #include <fcitx-config/hotkey.h>
+#include <ime-core/imi_view.h>
+#include <ime-core/imi_options.h>
 #include <fcitx-config/configfile.h>
 #include <fcitx-config/profile.h>
 

@@ -1,4 +1,4 @@
-#include <sunpinyin.h>
+#include <ime-core/imi_view.h>
 #include <fcitx/im.h>
 #define BUF_SIZE 4096
 

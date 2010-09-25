@@ -1,3 +1,3 @@
-SUBDIRS=src data po
+SUBDIRS=src data po debian
 
 ACLOCAL_AMFLAGS= -I m4

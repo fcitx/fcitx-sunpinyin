@@ -1,0 +1,13 @@
+Source: fcitx-sunpinyin
+Priority: optional
+Maintainer: saber <saber@unknown>
+Build-Depends: debhelper (>= 7), libsunpinyin-dev (>=2.0.2), fcitx (>= 4.0~beta1~r436), intltool, autotools-dev, libsqlite3-dev, pkg-config
+Standards-Version: 3.8.3
+Section: utils
+Homepage: http://code.google.com/p/fcitx
+
+Package: fcitx-sunpinyin
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends} sunpinyin-data
+Description: Fcitx Wrapper for sunpinyin
+ Fcitx Wrapper for sunpinyin
