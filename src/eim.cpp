@@ -66,6 +66,9 @@ INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
     if ((keycode <= 0x20 || keycode > 0x7E) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
+    if (keycode == 0xFF8D)
+        keycode -= 0x80;
+
     instance->commit_flag = false;
     instance->candidate_flag = false;
     unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
