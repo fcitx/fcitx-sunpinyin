@@ -3,9 +3,10 @@ lib_LTLIBRARIES=libfcitx-sunpinyin.la
 libfcitx_sunpinyin_la_SOURCES= \
                              eim.cpp eim.h \
 							 handler.cpp handler.h \
+							 config.cpp \
 							 $(NULL)
 
-libfcitx_sunpinyin_la_LDFLAGS= -version-number 0:1:1 -no-undefined
+libfcitx_sunpinyin_la_LDFLAGS= -version-number 0:2:0 -no-undefined
 
 INCLUDES = \
 	@FCITX_CFLAGS@ \

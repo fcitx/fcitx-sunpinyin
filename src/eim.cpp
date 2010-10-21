@@ -2,26 +2,22 @@
 #include <fcitx/im.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include <fcitx-config/hotkey.h>
 #include <ime-core/imi_view.h>
 #include <ime-core/imi_options.h>
 #include <fcitx-config/configfile.h>
 #include <fcitx-config/profile.h>
+#include <fcitx-config/xdg.h>
 
 #include "handler.h"
 #include "eim.h"
-
-#ifdef _
-#undef _
-#endif
-
-#define _(x) x
 
 #ifdef __cplusplus
 extern "C" {
 #endif
     EXTRA_IM EIM = {
-        _("sunpinyin"), /* Name */
+        "Sunpinyin", /* Name */
         "fcitx-sunpinyin", /* IconName */
         Reset, /* Reset */
         DoInput, /* DoInput */
@@ -48,8 +44,14 @@ extern "C" {
 }
 #endif
 
+static ConfigFileDesc* GetSunpinyinConfigDesc();
+static void LoadConfig(Bool reload = False);
+static void SaveConfig();
+
 static FcitxWindowHandler* instance = NULL;
 static CIMIView* view = NULL;
+static ConfigFileDesc* sunpinyinConfigDesc;
+static FcitxSunpinyinConfig fs;
 
 __EXPORT_API
 void Reset (void)
@@ -115,8 +117,19 @@ __EXPORT_API
 int Init (char *arg)
 {
     FcitxConfig *fc = (FcitxConfig*)EIM.fc;
+
+    LoadConfig();
+
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
-    fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
+
+    if (fs.bUseShuangpin)
+        fac.setPinyinScheme(CSunpinyinSessionFactory::SHUANGPIN);
+    else
+        fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
+
+    AShuangpinSchemePolicy::instance().setShuangpinType(fs.SPScheme);
+    AQuanpinSchemePolicy::instance().setFuzzySegmentation(fs.bFuzzySegmentation);
+    AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs.bFuzzyInnerSegmentation);
     view = fac.createSession();
 
     instance = new FcitxWindowHandler();
@@ -154,3 +167,55 @@ int Destroy (void)
     return 0;
 }
 
+ConfigFileDesc* GetSunpinyinConfigDesc()
+{
+    if (!sunpinyinConfigDesc)
+    {
+        FILE *tmpfp;
+        tmpfp = GetXDGFileData("addon/fcitx-sunpinyin.desc", "r", NULL);
+        sunpinyinConfigDesc = ParseConfigFileDescFp(tmpfp);
+        fclose(tmpfp);
+    }
+
+    return sunpinyinConfigDesc;
+}
+
+void LoadConfig(Bool reload)
+{
+    ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
+
+    FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "rt", NULL);
+
+    if (!fp)
+    {
+        if (!reload && errno == ENOENT)
+        {
+            SaveConfig();
+            LoadConfig(True);
+        }
+        return;
+    }
+    ConfigFile *cfile = ParseConfigFileFp(fp, configDesc);
+
+    if (cfile)
+    {
+        FcitxSunpinyinConfigConfigBind(&fs, cfile, configDesc);
+        ConfigBindSync((GenericConfig*)&fs);
+    }
+    else
+    {
+        fs.bUseShuangpin = False;
+        fs.SPScheme = MS2003;
+        fs.bFuzzySegmentation = False;
+        fs.bFuzzyInnerSegmentation = False;
+    }
+
+}
+
+void SaveConfig()
+{
+    ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
+    FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "wt", NULL);
+    SaveConfigFileFp(fp, fs.gconfig.configFile, configDesc);
+    fclose(fp);
+}
