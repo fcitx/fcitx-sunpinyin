@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-16 16:34+0800\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2010-11-17 11:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/sunpinyin.c:24
-msgid "english"
+#: unknown
+msgid "ABC"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:27
+msgid "Fuzzy Inner Segmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:22
+msgid "Fuzzy Segmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:24
+msgid "FuzzyInnerSegmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:19
+msgid "FuzzySegmentation"
+msgstr ""
+
+#: unknown
+msgid "MS2003"
+msgstr ""
+
+#: unknown
+msgid "PINYINJIAJIA"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:17
+msgid "Shuangpin Scheme in Sunpinyin"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:6
+msgid "ShuangpinSchema"
+msgstr ""
+
+# unknown
+#: src/eim.cpp:24
+msgid "Sunpinyin"
+msgstr ""
+
+#: unknown
+msgid "USERDEFINE"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:4
+msgid "Use Shuangpin Instead of Quanpin"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:1
+msgid "UseShuangpin"
+msgstr ""
+
+#: unknown
+msgid "XIAOHE"
+msgstr ""
+
+#: unknown
+msgid "ZIGUANG"
+msgstr ""
+
+#: unknown
+msgid "ZIRANMA"
 msgstr ""

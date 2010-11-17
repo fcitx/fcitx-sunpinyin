@@ -1,0 +1,128 @@
+[Sunpinyin/UseShuangpin]
+Type=Boolean
+DefaultValue=False
+Description=Use Shuangpin Instead of Quanpin
+
+[Sunpinyin/ShuangpinSchema]
+Type=Enum
+DefaultValue=MS2003
+EnumCount=7
+Enum0=MS2003
+Enum1=ABC
+Enum2=ZIRANMA
+Enum3=PINYINJIAJIA
+Enum4=ZIGUANG
+Enum5=XIAOHE
+Enum6=USERDEFINE
+Description=Shuangpin Scheme in Sunpinyin
+
+[Sunpinyin/FuzzySegmentation]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Segmentation
+
+[Sunpinyin/FuzzyInnerSegmentation]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Inner Segmentation
+
+[QuanPin/FuzzyZhiZi]
+Type=Boolean
+DefaultValue=False
+Description=
+
+[QuanPin/FuzzyChiCi]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Chi Ci
+
+[QuanPin/FuzzyShiSi]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Shi Si
+
+[QuanPin/FuzzyAnAng]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy An Ang
+
+[QuanPin/FuzzyOnOng]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy On Ong
+
+[QuanPin/FuzzyEnEng]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy En Eng
+
+[QuanPin/FuzzyInIng]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy In Ing
+
+[QuanPin/FuzzyEngOng]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Eng Ong
+
+[QuanPin/FuzzyIanIang]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Ian Iang
+
+[QuanPin/FuzzyUanUang]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Uan Uang
+
+[QuanPin/FuzzyNeLe]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Ne Le
+
+[QuanPin/FuzzyFoHe]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Fo He
+
+[QuanPin/FuzzyLeRi]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Le Ri
+
+[QuanPin/FuzzyKeGe]
+Type=Boolean
+DefaultValue=False
+Description=Fuzzy Ke Ge
+
+[QuanPin/AutoCorrectingIgnIng]
+Type=Boolean
+DefaultValue=False
+Description=AutoCorrect Ign Ing
+
+[QuanPin/AutoCorrectingOgnOng]
+Type=Boolean
+DefaultValue=False
+Description=AutoCorrect Ogn Ong
+
+[QuanPin/AutoCorrectingUenUn]
+Type=Boolean
+DefaultValue=False
+Description=AutoCorrect Uen Un
+
+[QuanPin/AutoCorrectingImgIng]
+Type=Boolean
+DefaultValue=False
+Description=AutoCorrect Img Ing
+
+[QuanPin/AutoCorrectingIouIu]
+Type=Boolean
+DefaultValue=False
+Description=AutoCorrect Iou Iu
+
+[QuanPin/AutoCorrectingUeiUi]
+Type=Boolean
+DefaultValue=False
+Description=AutoCorrect Uei Ui
+

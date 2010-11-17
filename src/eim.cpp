@@ -6,18 +6,22 @@
 #include <fcitx-config/hotkey.h>
 #include <ime-core/imi_view.h>
 #include <ime-core/imi_options.h>
+#include <ime-core/utils.h>
 #include <fcitx-config/configfile.h>
 #include <fcitx-config/profile.h>
 #include <fcitx-config/xdg.h>
+#include <string>
 
 #include "handler.h"
 #include "eim.h"
+
+#define _(x) (x)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
     EXTRA_IM EIM = {
-        "Sunpinyin", /* Name */
+        _("Sunpinyin"), /* Name */
         "fcitx-sunpinyin", /* IconName */
         Reset, /* Reset */
         DoInput, /* DoInput */
@@ -53,6 +57,32 @@ static CIMIView* view = NULL;
 static ConfigFileDesc* sunpinyinConfigDesc;
 static FcitxSunpinyinConfig fs;
 
+static const char* fuzzyPairs[][2] = {
+    {"sh", "s"},
+    {"zh", "z"},
+    {"ch", "c"},
+    {"an", "ang"},
+    {"on", "ong"},
+    {"en", "eng"},
+    {"in", "ing"},
+    {"eng", "ong"},
+    {"ian", "iang"},
+    {"uan", "uang"},
+    {"n", "l"},
+    {"f", "h"},
+    {"l", "r"},
+    {"k", "g"}
+};
+
+static const char *correctionPairs[][2] = {
+    {"ign", "ing"},
+    {"ogn", "ong"},
+    {"uen", "un"},
+    {"img", "ing"},
+    {"iou", "iu"},
+    {"uei", "ui"}
+};
+
 __EXPORT_API
 void Reset (void)
 {
@@ -65,7 +95,7 @@ void Reset (void)
 __EXPORT_API
 INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
 {
-    if ((keycode <= 0x20 || keycode > 0x7E) && view->getIC()->isEmpty())
+    if ((keycode <= 0x20 || keycode > 0x7E || keycode == 0x3b ) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
     if (keycode == 0xFF8D)
@@ -149,6 +179,35 @@ int Init (char *arg)
         if (fc->hkNextPage[i].iKeyCode)
             prof->addPageDownKey(CKeyEvent(fc->hkNextPage[i].iKeyCode));
     }
+    
+    string_pairs fuzzy, correction;
+    for (i = 0; i < FUZZY_SIZE; i++)
+        if (fs.bFuzzy[i])
+            fuzzy.push_back(std::make_pair<std::string, std::string>(fuzzyPairs[i][0], fuzzyPairs[i][1]));
+    
+    for (i = 0; i < CORRECT_SIZE; i++)
+        if (fs.bAutoCorrecting[i])
+            correction.push_back(std::make_pair<std::string, std::string>(correctionPairs[i][0], correctionPairs[i][1]));
+    
+    if (fuzzy.size() != 0)
+    {
+        AQuanpinSchemePolicy::instance().setFuzzyForwarding(true);
+        AQuanpinSchemePolicy::instance().setFuzzyPinyinPairs(fuzzy);
+    }
+    else
+    {
+        AQuanpinSchemePolicy::instance().setFuzzyForwarding(false);
+        AQuanpinSchemePolicy::instance().clearFuzzyPinyinPairs();
+    }
+    
+    if (correction.size() != 0)
+    {
+        AQuanpinSchemePolicy::instance().setAutoCorrecting(true);
+        AQuanpinSchemePolicy::instance().setAutoCorrectionPairs(correction);
+    }
+    else
+        AQuanpinSchemePolicy::instance().setAutoCorrecting(false);
+        
     view->setCancelOnBackspace(1);
     instance->set_eim(&EIM);
 
@@ -208,6 +267,12 @@ void LoadConfig(Bool reload)
         fs.SPScheme = MS2003;
         fs.bFuzzySegmentation = False;
         fs.bFuzzyInnerSegmentation = False;
+        int i = 0;
+        for (i = 0; i < FUZZY_SIZE; i ++)
+            fs.bFuzzy[i] = False;
+        
+        for (i = 0; i < CORRECT_SIZE; i ++)
+            fs.bAutoCorrecting[i] = False;
     }
 
 }
