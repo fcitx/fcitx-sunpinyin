@@ -21,20 +21,180 @@ msgstr ""
 msgid "ABC"
 msgstr ""
 
+#: data/fcitx-sunpinyin.desc:102
+msgid "AutoCorrect Ign Ing"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:117
+msgid "AutoCorrect Img Ing"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:122
+msgid "AutoCorrect Iou Iu"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:107
+msgid "AutoCorrect Ogn Ong"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:127
+msgid "AutoCorrect Uei Ui"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:112
+msgid "AutoCorrect Uen Un"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:99
+msgid "AutoCorrectingIgnIng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:114
+msgid "AutoCorrectingImgIng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:119
+msgid "AutoCorrectingIouIu"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:104
+msgid "AutoCorrectingOgnOng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:124
+msgid "AutoCorrectingUeiUi"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:109
+msgid "AutoCorrectingUenUn"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:47
+msgid "Fuzzy An Ang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:37
+msgid "Fuzzy Chi Ci"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:57
+msgid "Fuzzy En Eng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:67
+msgid "Fuzzy Eng Ong"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:87
+msgid "Fuzzy Fo He"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:72
+msgid "Fuzzy Ian Iang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:62
+msgid "Fuzzy In Ing"
+msgstr ""
+
 #: data/fcitx-sunpinyin.desc:27
 msgid "Fuzzy Inner Segmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:97
+msgid "Fuzzy Ke Ge"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:92
+msgid "Fuzzy Le Ri"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:82
+msgid "Fuzzy Ne Le"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:52
+msgid "Fuzzy On Ong"
 msgstr ""
 
 #: data/fcitx-sunpinyin.desc:22
 msgid "Fuzzy Segmentation"
 msgstr ""
 
+#: data/fcitx-sunpinyin.desc:42
+msgid "Fuzzy Shi Si"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:77
+msgid "Fuzzy Uan Uang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:32
+msgid "Fuzzy Zhi Zi"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:44
+msgid "FuzzyAnAng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:34
+msgid "FuzzyChiCi"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:54
+msgid "FuzzyEnEng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:64
+msgid "FuzzyEngOng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:84
+msgid "FuzzyFoHe"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:69
+msgid "FuzzyIanIang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:59
+msgid "FuzzyInIng"
+msgstr ""
+
 #: data/fcitx-sunpinyin.desc:24
 msgid "FuzzyInnerSegmentation"
 msgstr ""
 
+#: data/fcitx-sunpinyin.desc:94
+msgid "FuzzyKeGe"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:89
+msgid "FuzzyLeRi"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:79
+msgid "FuzzyNeLe"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:49
+msgid "FuzzyOnOng"
+msgstr ""
+
 #: data/fcitx-sunpinyin.desc:19
 msgid "FuzzySegmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:39
+msgid "FuzzyShiSi"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:74
+msgid "FuzzyUanUang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:29
+msgid "FuzzyZhiZi"
 msgstr ""
 
 #: unknown
@@ -43,6 +203,10 @@ msgstr ""
 
 #: unknown
 msgid "PINYINJIAJIA"
+msgstr ""
+
+# unknown
+msgid "QuanPin"
 msgstr ""
 
 #: data/fcitx-sunpinyin.desc:17

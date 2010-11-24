@@ -29,7 +29,7 @@ Description=Fuzzy Inner Segmentation
 [QuanPin/FuzzyZhiZi]
 Type=Boolean
 DefaultValue=False
-Description=
+Description=Fuzzy Zhi Zi
 
 [QuanPin/FuzzyChiCi]
 Type=Boolean
