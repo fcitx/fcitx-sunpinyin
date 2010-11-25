@@ -5,11 +5,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2010-11-17 11:48+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-25 17:17+0800\n"
 "PO-Revision-Date: 2010-11-25 14:08+0800\n"
-"Last-Translator: Weng Xuetian <hurricanek@126.com>\n"
-"Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
+"Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
+"Language-Team: Fcitx Development <fcitx-dev@googlegroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,7 +126,7 @@ msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin的双拼方案"
 
 # unknown
-#: src/eim.cpp:24
+#: /home/saber/Develop/fcitx-sunpinyin/po/../src/eim.cpp:24
 msgid "Sunpinyin"
 msgstr "Sunpinyin"
 
@@ -149,4 +149,3 @@ msgstr "紫光"
 #: unknown
 msgid "ZIRANMA"
 msgstr "自然码"
-
