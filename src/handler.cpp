@@ -1,6 +1,28 @@
+/*  Copyright (C) 2010~2010 by CSSlayer
+    wengxt@gmail.com 
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+
 #include <sunpinyin.h>
 #include "handler.h"
 
+/**
+ * @brief handler called while preedit updated
+ *
+ * @param ppd preedit string
+ * @return void
+ **/
 void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
 {
     char *buf_ = eim->CodeInput;
@@ -20,6 +42,12 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
     candidate_flag = true;
 }
 
+/**
+ * @brief sunpinyin called this function while updating candidate words
+ *
+ * @param pcl candidate list
+ * @return void
+ **/
 void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
 {
     wstring cand_str;
@@ -35,6 +63,12 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
     candidate_flag = true;
 }
 
+/**
+ * @brief sunpinyin called this function while commit the string
+ *
+ * @param str committed string
+ * @return void
+ **/
 void FcitxWindowHandler::commit(const TWCHAR* str)
 {
     char *buf_ = eim->StringGet;
