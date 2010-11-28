@@ -1,3 +1,9 @@
+fcitx-sunpinyin (0.2.0-1) lucid; urgency=low
+
+  * 0.2.0 Release
+
+ -- CSSlayer <wengxt@gmail.com>  Sun, 28 Nov 2010 21:29:50 +0800
+
 fcitx-sunpinyin (0.1.1-1) lucid; urgency=low
 
   * Binding paging key support with fcitx, add 2nd 3nd support in fcitx

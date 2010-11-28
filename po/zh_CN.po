@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 17:17+0800\n"
+"POT-Creation-Date: 2010-11-28 21:31+0800\n"
 "PO-Revision-Date: 2010-11-25 14:08+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Fcitx Development <fcitx-dev@googlegroups.com>\n"
@@ -126,7 +126,7 @@ msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin的双拼方案"
 
 # unknown
-#: /home/saber/Develop/fcitx-sunpinyin/po/../src/eim.cpp:24
+#: /home/saber/Develop/fcitx-sunpinyin/po/../src/eim.cpp:41
 msgid "Sunpinyin"
 msgstr "Sunpinyin"
 
