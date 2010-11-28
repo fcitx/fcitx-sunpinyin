@@ -14,9 +14,12 @@ set( fcitx_sunpinyin_sources
     config.cpp
     )
 
-add_library( fcitx-sunpinyin SHARED ${fcitx_sunpinyin_sources} )
+add_definitions( ${KDE4_DEFINITIONS} )
 
-install(TARGETS fcitx-sunpinyin LIBRARY DESTINATION lib)
+add_library( fcitx-sunpinyin MODULE ${fcitx_sunpinyin_sources} )
+set_target_properties( fcitx-sunpinyin PROPERTIES PREFIX "")
+
+install(TARGETS fcitx-sunpinyin DESTINATION ${libdir}/fcitx/)
 
 target_link_libraries (fcitx-sunpinyin ${SUNPINYIN_LIBRARIES})
 target_link_libraries (fcitx-sunpinyin ${FCITX_CONFIG_LIBRARIES})
