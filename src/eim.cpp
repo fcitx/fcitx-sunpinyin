@@ -27,6 +27,7 @@
 #include <fcitx-config/profile.h>
 #include <fcitx-config/xdg.h>
 #include <string>
+#include <libintl.h>
 
 #include "handler.h"
 #include "eim.h"
@@ -198,7 +199,7 @@ char *GetCandWord (int iIndex)
 __EXPORT_API
 int Init (char *arg)
 {
-    printf("abcc\n");
+    bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
     FcitxConfig *fc = (FcitxConfig*)EIM.fc;
 
     LoadConfig();
@@ -318,7 +319,11 @@ void LoadConfig(Bool reload)
     {
         if (!reload && errno == ENOENT)
         {
+            char *lastdomain = strdup(textdomain(NULL));
+            textdomain("fcitx-sunpinyin");
             SaveConfig();
+            textdomain(lastdomain);
+            free(lastdomain);
             LoadConfig(True);
         }
         return;

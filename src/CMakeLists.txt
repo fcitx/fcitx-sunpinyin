@@ -14,7 +14,7 @@ set( fcitx_sunpinyin_sources
     config.cpp
     )
 
-add_definitions( ${KDE4_DEFINITIONS} )
+add_definitions( -DLOCALEDIR=\"${CMAKE_INSTALL_PREFIX}/share/locale\" )
 
 add_library( fcitx-sunpinyin MODULE ${fcitx_sunpinyin_sources} )
 set_target_properties( fcitx-sunpinyin PROPERTIES PREFIX "")
