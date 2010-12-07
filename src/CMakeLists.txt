@@ -1,7 +1,7 @@
 include(FindPkgConfig)
 
 PKG_CHECK_MODULES(SUNPINYIN REQUIRED "sunpinyin-2.0 >= 2.0" )
-PKG_CHECK_MODULES(FCITX_CONFIG REQUIRED "fcitx-config >= 0.95" )
+PKG_CHECK_MODULES(FCITX_CONFIG REQUIRED "fcitx-config >= 1.0" )
 PKG_CHECK_MODULES(FCITX REQUIRED "fcitx" )
 
 include_directories (${SUNPINYIN_INCLUDE_DIRS})

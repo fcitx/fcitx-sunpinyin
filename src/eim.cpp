@@ -228,10 +228,10 @@ int Init (char *arg)
     int i = 0;
     for (i = 0 ; i < 2; i++)
     {
-        if (fc->hkPrevPage[i].iKeyCode)
-            prof->addPageUpKey(CKeyEvent(fc->hkPrevPage[i].iKeyCode));
-        if (fc->hkNextPage[i].iKeyCode)
-            prof->addPageDownKey(CKeyEvent(fc->hkNextPage[i].iKeyCode));
+        if (fc->hkPrevPage[i].sym)
+            prof->addPageUpKey(CKeyEvent(fc->hkPrevPage[i].sym, 0, fc->hkPrevPage[i].state));
+        if (fc->hkNextPage[i].sym)
+            prof->addPageDownKey(CKeyEvent(fc->hkNextPage[i].sym, 0, fc->hkPrevPage[i].state));
     }
     
     string_pairs fuzzy, correction;
