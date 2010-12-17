@@ -23,8 +23,6 @@
 #include <ime-core/imi_view.h>
 #include <ime-core/imi_options.h>
 #include <ime-core/utils.h>
-#include <fcitx-config/configfile.h>
-#include <fcitx-config/profile.h>
 #include <fcitx-config/xdg.h>
 #include <string>
 #include <libintl.h>
@@ -107,9 +105,11 @@ static const char *correctionPairs[][2] = {
 __EXPORT_API
 void Reset (void)
 {
-    FcitxProfile *profile = (FcitxProfile*) EIM.profile;
-    view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, profile->bCorner);
-    view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, profile->bChnPunc);
+    GenericConfig *profile = (GenericConfig*) EIM.profile;
+    ConfigValueType corner = ConfigGetBindValue(profile, "Profile", "Corner");
+    ConfigValueType punc = ConfigGetBindValue(profile, "Profile", "ChnPunc");
+    view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, *corner.boolean);
+    view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, *punc.boolean);
     view->clearIC();
 }
 
@@ -200,9 +200,16 @@ __EXPORT_API
 int Init (char *arg)
 {
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
-    FcitxConfig *fc = (FcitxConfig*)EIM.fc;
+    GenericConfig *fc = (GenericConfig*)EIM.fc;
+    ConfigValueType candword;
+    ConfigValueType prevpage;
+    ConfigValueType nextpage;
 
     LoadConfig();
+
+    candword = ConfigGetBindValue(fc, "Appearance", "CandidateWordNumber");
+    prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
+    nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");
 
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
 
@@ -219,7 +226,7 @@ int Init (char *arg)
     instance = new FcitxWindowHandler();
     view->getIC()->setCharsetLevel(1);// GBK
 
-    view->setCandiWindowSize(fc->iMaxCandWord);
+    view->setCandiWindowSize(*candword.integer);
     view->attachWinHandler(instance);
     // page up/down key
     CHotkeyProfile* prof = view->getHotkeyProfile();
@@ -228,10 +235,10 @@ int Init (char *arg)
     int i = 0;
     for (i = 0 ; i < 2; i++)
     {
-        if (fc->hkPrevPage[i].sym)
-            prof->addPageUpKey(CKeyEvent(fc->hkPrevPage[i].sym, 0, fc->hkPrevPage[i].state));
-        if (fc->hkNextPage[i].sym)
-            prof->addPageDownKey(CKeyEvent(fc->hkNextPage[i].sym, 0, fc->hkPrevPage[i].state));
+        if (prevpage.hotkey[i].sym)
+            prof->addPageUpKey(CKeyEvent(prevpage.hotkey[i].sym, 0, prevpage.hotkey[i].state));
+        if (nextpage.hotkey[i].sym)
+            prof->addPageDownKey(CKeyEvent(nextpage.hotkey[i].sym, 0, nextpage.hotkey[i].state));
     }
     
     string_pairs fuzzy, correction;
