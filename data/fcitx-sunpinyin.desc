@@ -3,7 +3,7 @@ Type=Boolean
 DefaultValue=False
 Description=Use Shuangpin Instead of Quanpin
 
-[Sunpinyin/ShuangpinSchema]
+[Sunpinyin/ShuangpinScheme]
 Type=Enum
 DefaultValue=MS2003
 EnumCount=7
