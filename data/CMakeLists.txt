@@ -1,5 +1,5 @@
-add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/desc.po
-                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/getdescpo ${CMAKE_CURRENT_SOURCE_DIR})
+add_custom_command(OUTPUT desc.po
+                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/getdescpo ${fcitx-sunpinyin_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_target(desc ALL DEPENDS desc.po)
 
