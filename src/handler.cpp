@@ -22,6 +22,11 @@
 #include "handler.h"
 #include "eim.h"
 
+extern "C"
+{
+    #include <fcitx-utils/cutils.h>
+}
+
 /**
  * @brief handler called while preedit updated
  *
@@ -32,24 +37,27 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
 {
     FcitxInstance* instance = owner->owner;
     FcitxInputState* input = &instance->input;
-    char *buf_ = input->strCodeInput;
     TIConvSrcPtr src = (TIConvSrcPtr) (ppd->string());
-    memset(front_src, 0, BUF_SIZE * sizeof(TWCHAR));
-    memset(end_src, 0, BUF_SIZE * sizeof(TWCHAR));
     
     memcpy(front_src, src, ppd->caret() * sizeof(TWCHAR));
     memcpy(end_src, src + ppd->caret() * sizeof(TWCHAR), 
            (ppd->size() - ppd->caret() + 1) * sizeof(TWCHAR));
     
-    memset(buf_, 0, MAX_USER_INPUT + 1);
+    front_src[ppd->caret()] = 0;
+    end_src[ppd->size() - ppd->caret() + 1] = 0;
     
-    WCSTOMBS(buf_, front_src, MAX_USER_INPUT);
-    input->iCursorPos = strlen(buf_);
-    WCSTOMBS(&buf_[strlen(buf_)], end_src, MAX_USER_INPUT);
+    memset(preedit, 0, MAX_USER_INPUT + 1);
+    
+    WCSTOMBS(preedit, front_src, MAX_USER_INPUT);
+    input->iCursorPos = strlen(preedit);
+    WCSTOMBS(&preedit[strlen(preedit)], end_src, MAX_USER_INPUT);
     candidate_flag = true;
 
     SetMessageCount(GetMessageUp(instance), 0);
-    AddMessageAtLast(GetMessageUp(instance), MSG_INPUT, buf_);
+    AddMessageAtLast(GetMessageUp(instance), MSG_INPUT, preedit);
+    
+    const wstring& codeinput = this->owner->view->getPySegmentor()->getInputBuffer();
+    WCSTOMBS(input->strCodeInput, codeinput.c_str(), MAX_USER_INPUT);
 }
 
 /**
@@ -66,6 +74,11 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
     char str[3] = { '\0', '\0', '\0' };
     input->iCandWordCount = pcl->size();
     SetMessageCount(GetMessageDown(instance), 0);
+    if ( ConfigGetPointAfterNumber(&instance->config)) {
+        str[1] = '.';
+        str[2] = '\0';
+    } else
+        str[1] = '\0';
     for (int i = 0, sz = pcl->size(); i < sz; i++) {
         const TWCHAR* pcand = pcl->candiString(i);
         cand_str = pcand;
