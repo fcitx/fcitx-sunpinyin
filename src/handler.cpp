@@ -1,21 +1,26 @@
-/*  Copyright (C) 2010~2010 by CSSlayer
-    wengxt@gmail.com 
-
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+/***************************************************************************
+ *   Copyright (C) 2010~2010 by CSSlayer                                   *
+ *   wengxt@gmail.com                                                      *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
 
 #include <sunpinyin.h>
 #include "handler.h"
+#include "eim.h"
 
 /**
  * @brief handler called while preedit updated
@@ -25,7 +30,9 @@
  **/
 void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
 {
-    char *buf_ = eim->CodeInput;
+    FcitxInstance* instance = owner->owner;
+    FcitxInputState* input = &instance->input;
+    char *buf_ = input->strCodeInput;
     TIConvSrcPtr src = (TIConvSrcPtr) (ppd->string());
     memset(front_src, 0, BUF_SIZE * sizeof(TWCHAR));
     memset(end_src, 0, BUF_SIZE * sizeof(TWCHAR));
@@ -37,9 +44,12 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
     memset(buf_, 0, MAX_USER_INPUT + 1);
     
     WCSTOMBS(buf_, front_src, MAX_USER_INPUT);
-    eim->CaretPos = strlen(buf_);
+    input->iCursorPos = strlen(buf_);
     WCSTOMBS(&buf_[strlen(buf_)], end_src, MAX_USER_INPUT);
     candidate_flag = true;
+
+    SetMessageCount(GetMessageUp(instance), 0);
+    AddMessageAtLast(GetMessageUp(instance), MSG_INPUT, buf_);
 }
 
 /**
@@ -50,15 +60,33 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
  **/
 void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
 {
+    FcitxInstance* instance = owner->owner;
+    FcitxInputState* input = &owner->owner->input;
     wstring cand_str;
+    char str[3] = { '\0', '\0', '\0' };
+    input->iCandWordCount = pcl->size();
+    SetMessageCount(GetMessageDown(instance), 0);
     for (int i = 0, sz = pcl->size(); i < sz; i++) {
         const TWCHAR* pcand = pcl->candiString(i);
         cand_str = pcand;
         TIConvSrcPtr src = (TIConvSrcPtr)(cand_str.c_str());
-        WCSTOMBS(eim->CandTable[i], (const TWCHAR*) src, MAX_CAND_LEN);
+        WCSTOMBS(owner->CandTable[i], (const TWCHAR*) src, MAX_CAND_LEN);
+        
+        if (i == 9)
+            str[0] = '0';
+        else
+            str[0] = i + 1 + '0';
+        AddMessageAtLast(GetMessageDown(instance), MSG_INDEX, "%s", str);
+
+        MSG_TYPE iType = MSG_OTHER;
+
+        AddMessageAtLast(GetMessageDown(instance), iType, "%s", owner->CandTable[i]);
+        
+        if (i != (input->iCandWordCount - 1)) {
+            MessageConcatLast(GetMessageDown(instance), " ");
+        }
     }
 
-    eim->CandWordCount = pcl->size();
 
     candidate_flag = true;
 }
@@ -71,7 +99,7 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
  **/
 void FcitxWindowHandler::commit(const TWCHAR* str)
 {
-    char *buf_ = eim->StringGet;
+    char *buf_ = GetOutputString(&owner->owner->input);
     memset(buf_, 0, MAX_USER_INPUT);
     WCSTOMBS(buf_, str, MAX_USER_INPUT);
     commit_flag = true;

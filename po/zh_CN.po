@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-28 21:31+0800\n"
+"POT-Creation-Date: 2011-07-05 12:45+0800\n"
 "PO-Revision-Date: 2010-11-25 14:08+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Fcitx Development <fcitx-dev@googlegroups.com>\n"
@@ -21,55 +21,55 @@ msgstr ""
 msgid "ABC"
 msgstr "智能ABC"
 
-#: data/fcitx-sunpinyin.desc:102
+#: data/fcitx-sunpinyin.desc:107
 msgid "AutoCorrect Ign Ing"
 msgstr "自动更正ign/ing"
 
-#: data/fcitx-sunpinyin.desc:117
+#: data/fcitx-sunpinyin.desc:122
 msgid "AutoCorrect Img Ing"
 msgstr "自动更正img/ing"
 
-#: data/fcitx-sunpinyin.desc:122
+#: data/fcitx-sunpinyin.desc:127
 msgid "AutoCorrect Iou Iu"
 msgstr "自动更正iou/iu"
 
-#: data/fcitx-sunpinyin.desc:107
+#: data/fcitx-sunpinyin.desc:112
 msgid "AutoCorrect Ogn Ong"
 msgstr "自动更正ogn/ong"
 
-#: data/fcitx-sunpinyin.desc:127
+#: data/fcitx-sunpinyin.desc:132
 msgid "AutoCorrect Uei Ui"
 msgstr "自动更正uei/ui"
 
-#: data/fcitx-sunpinyin.desc:112
+#: data/fcitx-sunpinyin.desc:117
 msgid "AutoCorrect Uen Un"
 msgstr "自动更正uen/un"
 
-#: data/fcitx-sunpinyin.desc:47
+#: data/fcitx-sunpinyin.desc:52
 msgid "Fuzzy An Ang"
 msgstr "模糊an/ang"
 
-#: data/fcitx-sunpinyin.desc:37
+#: data/fcitx-sunpinyin.desc:42
 msgid "Fuzzy Chi Ci"
 msgstr "模糊chi/ci"
 
-#: data/fcitx-sunpinyin.desc:57
+#: data/fcitx-sunpinyin.desc:62
 msgid "Fuzzy En Eng"
 msgstr "模糊en/eng"
 
-#: data/fcitx-sunpinyin.desc:67
+#: data/fcitx-sunpinyin.desc:72
 msgid "Fuzzy Eng Ong"
 msgstr "模糊eng/ong"
 
-#: data/fcitx-sunpinyin.desc:87
+#: data/fcitx-sunpinyin.desc:92
 msgid "Fuzzy Fo He"
 msgstr "模糊f/h"
 
-#: data/fcitx-sunpinyin.desc:72
+#: data/fcitx-sunpinyin.desc:77
 msgid "Fuzzy Ian Iang"
 msgstr "模糊ian/iang"
 
-#: data/fcitx-sunpinyin.desc:62
+#: data/fcitx-sunpinyin.desc:67
 msgid "Fuzzy In Ing"
 msgstr "模糊in/ing"
 
@@ -77,19 +77,19 @@ msgstr "模糊in/ing"
 msgid "Fuzzy Inner Segmentation"
 msgstr "支持内模糊音节 (xian->xi'an)"
 
-#: data/fcitx-sunpinyin.desc:97
+#: data/fcitx-sunpinyin.desc:102
 msgid "Fuzzy Ke Ge"
 msgstr "模糊k/g"
 
-#: data/fcitx-sunpinyin.desc:92
+#: data/fcitx-sunpinyin.desc:97
 msgid "Fuzzy Le Ri"
 msgstr "模糊l/r"
 
-#: data/fcitx-sunpinyin.desc:82
+#: data/fcitx-sunpinyin.desc:87
 msgid "Fuzzy Ne Le"
 msgstr "模糊n/l"
 
-#: data/fcitx-sunpinyin.desc:52
+#: data/fcitx-sunpinyin.desc:57
 msgid "Fuzzy On Ong"
 msgstr "模糊on/ong"
 
@@ -97,15 +97,15 @@ msgstr "模糊on/ong"
 msgid "Fuzzy Segmentation"
 msgstr "模糊切分"
 
-#: data/fcitx-sunpinyin.desc:42
+#: data/fcitx-sunpinyin.desc:47
 msgid "Fuzzy Shi Si"
 msgstr "模糊shi/si"
 
-#: data/fcitx-sunpinyin.desc:77
+#: data/fcitx-sunpinyin.desc:82
 msgid "Fuzzy Uan Uang"
 msgstr "模糊uan/uang"
 
-#: data/fcitx-sunpinyin.desc:32
+#: data/fcitx-sunpinyin.desc:37
 msgid "Fuzzy Zhi Zi"
 msgstr "模糊zhi/zi"
 
@@ -118,6 +118,12 @@ msgid "PINYINJIAJIA"
 msgstr "拼音加加"
 
 # unknown
+#: data/fcitx-sunpinyin.desc:32
+#, fuzzy
+msgid "Priority of Sunpinyin"
+msgstr "Sunpinyin"
+
+# unknown
 msgid "QuanPin"
 msgstr "全拼"
 
@@ -126,7 +132,7 @@ msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin的双拼方案"
 
 # unknown
-#: /home/saber/Develop/fcitx-sunpinyin/po/../src/eim.cpp:41
+#: /home/saber/Develop/fcitx-sunpinyin/po/../src/eim.cpp:225
 msgid "Sunpinyin"
 msgstr "Sunpinyin"
 

@@ -1,76 +1,62 @@
-/*  Copyright (C) 2010~2010 by CSSlayer
-    wengxt@gmail.com 
-
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+/***************************************************************************
+ *   Copyright (C) 2010~2010 by CSSlayer                                   *
+ *   wengxt@gmail.com                                                      *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
 
 #include <stdlib.h>
-#include <fcitx/im.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <fcitx-config/hotkey.h>
 #include <ime-core/imi_view.h>
 #include <ime-core/imi_options.h>
 #include <ime-core/utils.h>
+
+extern "C" {
+#include <fcitx/ime.h>
+#include <fcitx-config/hotkey.h>
 #include <fcitx-config/xdg.h>
+#include <fcitx-utils/cutils.h>
+#include <fcitx-config/fcitx-config.h>
+#include <fcitx/instance.h>
+}
 #include <string>
 #include <libintl.h>
 
 #include "handler.h"
 #include "eim.h"
 
-#define _(x) (x)
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-    EXTRA_IM EIM = {
-        _("Sunpinyin"), /* Name */
-        "fcitx-sunpinyin", /* IconName */
-        Reset, /* Reset */
-        DoInput, /* DoInput */
-        GetCandWords, /* GetCandWords */
-        GetCandWord,
-        Init,
-        Destroy,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        NULL,
-        NULL
-    };
+FcitxIMClass ime = {
+    FcitxSunpinyinCreate,
+    FcitxSunpinyinDestroy
+};
 #ifdef __cplusplus
 }
 #endif
 
-static ConfigFileDesc* GetSunpinyinConfigDesc();
-static void LoadConfig(Bool reload = False);
-static void SaveConfig();
+CONFIG_DESC_DEFINE(GetSunpinyinConfigDesc, "addon/fcitx-sunpinyin.desc")
 
-static FcitxWindowHandler* instance = NULL;
-static CIMIView* view = NULL;
-static ConfigFileDesc* sunpinyinConfigDesc;
-static FcitxSunpinyinConfig fs;
+static void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload = (0));
+static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
+static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
+
 
 static const char* fuzzyPairs[][2] = {
     {"sh", "s"},
@@ -103,14 +89,14 @@ static const char *correctionPairs[][2] = {
  *
  **/
 __EXPORT_API
-void Reset (void)
+void FcitxSunpinyinReset (void* arg)
 {
-    GenericConfig *profile = (GenericConfig*) EIM.profile;
-    ConfigValueType corner = ConfigGetBindValue(profile, "Profile", "Corner");
-    ConfigValueType punc = ConfigGetBindValue(profile, "Profile", "ChnPunc");
-    view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, *corner.boolean);
-    view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, *punc.boolean);
-    view->clearIC();
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    FcitxUIStatus* puncStatus = GetUIStatus(sunpinyin->owner, "punc");
+    FcitxUIStatus* fullwidthStatus = GetUIStatus(sunpinyin->owner, "fullwidth");
+    sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, fullwidthStatus->getCurrentStatus(fullwidthStatus->arg));
+    sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, puncStatus->getCurrentStatus(puncStatus->arg));
+    sunpinyin->view->clearIC();
 }
 
 /**
@@ -122,22 +108,25 @@ void Reset (void)
  * @return INPUT_RETURN_VALUE
  **/
 __EXPORT_API
-INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
+INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state)
 {
-    if ((keycode <= 0x20 || keycode > 0x7E) && view->getIC()->isEmpty())
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    CIMIView* view = sunpinyin->view;
+    FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
+    if ((sym <= 0x20 || sym > 0x7E) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
     
-    if (keycode == 0x003b && view->getIC()->isEmpty())
+    if (sym == 0x003b && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;         
 
-    if (keycode == 0xFF8D)
-        keycode = 0xFF0D;
+    if (sym == 0xFF8D)
+        sym = 0xFF0D;
 
-    instance->commit_flag = false;
-    instance->candidate_flag = false;
-    unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
+    windowHandler->commit_flag = false;
+    windowHandler->candidate_flag = false;
+    unsigned int changeMasks = view->onKeyEvent(CKeyEvent(sym, sym, state));
 
-    if (instance->commit_flag)
+    if (windowHandler->commit_flag)
         return IRV_GET_CANDWORDS;
     if (!(changeMasks & CIMIView::KEYEVENT_USED))
         return IRV_TO_PROCESS;
@@ -145,13 +134,19 @@ INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
     if (view->getIC()->isEmpty())
         return IRV_CLEAN;
 
-    if (instance->candidate_flag)
+    if (windowHandler->candidate_flag)
     {
         return IRV_DISPLAY_CANDWORDS;
     }
 
     return IRV_TO_PROCESS;
 }
+
+boolean FcitxSunpinyinInit(void* arg)
+{
+    return true;
+}
+
 
 /**
  * @brief function DoInput has done everything for us.
@@ -160,7 +155,7 @@ INPUT_RETURN_VALUE DoInput (unsigned int keycode, unsigned int state, int count)
  * @return INPUT_RETURN_VALUE
  **/
 __EXPORT_API
-INPUT_RETURN_VALUE GetCandWords(SEARCH_MODE searchMode)
+INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg, SEARCH_MODE searchMode)
 {
     return IRV_DO_NOTHING;
 }
@@ -172,19 +167,20 @@ INPUT_RETURN_VALUE GetCandWords(SEARCH_MODE searchMode)
  * @return the string of canidate word
  **/
 __EXPORT_API
-char *GetCandWord (int iIndex)
+char *FcitxSunpinyinGetCandWord (void* arg, int iIndex)
 {
-    EIM.CandWordCount = 0;
-    instance->commit_flag = false;
-    instance->candidate_flag = false;
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
+    sunpinyin->owner->input.iCandWordCount = 0;
+    sunpinyin->windowHandler->commit_flag = false;
+    sunpinyin->windowHandler->candidate_flag = false;
     if (iIndex <= 8)
     {
         unsigned int keycode = '1' + iIndex;
         unsigned int state = 0;
-        unsigned int changeMasks = view->onKeyEvent(CKeyEvent(keycode, keycode, state));
+        unsigned int changeMasks = sunpinyin->view->onKeyEvent(CKeyEvent(keycode, keycode, state));
 
-        if (instance->commit_flag)
-            return EIM.StringGet;
+        if (sunpinyin->windowHandler->commit_flag)
+            return sunpinyin->owner->input.strStringGet;
     }
     
     return NULL;
@@ -197,39 +193,129 @@ char *GetCandWord (int iIndex)
  * @return successful or not
  **/
 __EXPORT_API
-int Init (char *arg)
+void* FcitxSunpinyinCreate (FcitxInstance* instance)
 {
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_malloc0(sizeof(FcitxSunpinyin));
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
-    GenericConfig *fc = (GenericConfig*)EIM.fc;
-    ConfigValueType candword;
-    ConfigValueType prevpage;
-    ConfigValueType nextpage;
+    sunpinyin->owner = instance;
+    GenericConfig *fc = &instance->config.gconfig;
+    FcitxSunpinyinConfig* fs = &sunpinyin->fs;
 
-    LoadConfig();
-
-    candword = ConfigGetBindValue(fc, "Appearance", "CandidateWordNumber");
-    prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
-    nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");
-
+    LoadSunpinyinConfig(&sunpinyin->fs);
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
 
-    if (fs.bUseShuangpin)
+    if (fs->bUseShuangpin)
         fac.setPinyinScheme(CSunpinyinSessionFactory::SHUANGPIN);
     else
         fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
 
-    AShuangpinSchemePolicy::instance().setShuangpinType(fs.SPScheme);
-    AQuanpinSchemePolicy::instance().setFuzzySegmentation(fs.bFuzzySegmentation);
-    AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs.bFuzzyInnerSegmentation);
-    view = fac.createSession();
+    sunpinyin->view = fac.createSession();
 
-    instance = new FcitxWindowHandler();
-    view->getIC()->setCharsetLevel(1);// GBK
+    FcitxWindowHandler* windowHandler = new FcitxWindowHandler();
+    sunpinyin->windowHandler = windowHandler;
+    sunpinyin->view->getIC()->setCharsetLevel(1);// GBK
 
-    view->setCandiWindowSize(*candword.integer);
-    view->attachWinHandler(instance);
+    sunpinyin->view->attachWinHandler(windowHandler);
+    sunpinyin->windowHandler->SetOwner(sunpinyin);
+    
+    ConfigSunpinyin(sunpinyin);
+    
+    FcitxRegisterIM(instance,
+                    sunpinyin,
+                    _("Sunpinyin"),
+                    "fcitx-sunpinyin",
+                    FcitxSunpinyinInit,
+                    FcitxSunpinyinReset,
+                    FcitxSunpinyinDoInput,
+                    FcitxSunpinyinGetCandWords,
+                    FcitxSunpinyinGetCandWord,
+                    NULL,
+                    NULL,
+                    ReloadConfigFcitxSunpinyin,
+                    NULL,
+                    fs->iSunpinyinPriority
+                   );
+    return sunpinyin;
+}
+
+/**
+ * @brief Destroy the input method while unload it.
+ *
+ * @return int
+ **/
+__EXPORT_API
+void FcitxSunpinyinDestroy (void* arg)
+{
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
+    fac.destroySession(sunpinyin->view);
+
+    if (sunpinyin->windowHandler)
+        delete sunpinyin->windowHandler;
+    
+    free(arg);
+}
+
+/**
+ * @brief Load the config file for fcitx-sunpinyin
+ *
+ * @param Bool is reload or not
+ **/
+void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload)
+{
+    ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
+
+    FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "rt", NULL);
+
+    if (!fp)
+    {
+        if (!reload && errno == ENOENT)
+        {
+            char *lastdomain = strdup(textdomain(NULL));
+            textdomain("fcitx-sunpinyin");
+            SaveSunpinyinConfig(fs);
+            textdomain(lastdomain);
+            free(lastdomain);
+            LoadSunpinyinConfig(fs, true);
+        }
+        return;
+    }
+    ConfigFile *cfile = ParseConfigFileFp(fp, configDesc);
+
+    if (cfile)
+    {
+        FcitxSunpinyinConfigConfigBind(fs, cfile, configDesc);
+        ConfigBindSync(&fs->gconfig);
+    }
+    else
+    {
+        fs->bUseShuangpin = False;
+        fs->SPScheme = MS2003;
+        fs->bFuzzySegmentation = False;
+        fs->bFuzzyInnerSegmentation = False;
+        int i = 0;
+        for (i = 0; i < FUZZY_SIZE; i ++)
+            fs->bFuzzy[i] = False;
+        
+        for (i = 0; i < CORRECT_SIZE; i ++)
+            fs->bAutoCorrecting[i] = False;
+    }
+}
+
+void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
+{
+    ConfigValueType candword;
+    ConfigValueType prevpage;
+    ConfigValueType nextpage;
+    FcitxInstance* instance = sunpinyin->owner;
+    GenericConfig *fc = &instance->config.gconfig;
+    FcitxSunpinyinConfig *fs = &sunpinyin->fs;
+    candword = ConfigGetBindValue(fc, "Output", "CandidateWordNumber");
+    prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
+    nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");    
+    sunpinyin->view->setCandiWindowSize(*candword.integer);
     // page up/down key
-    CHotkeyProfile* prof = view->getHotkeyProfile();
+    CHotkeyProfile* prof = sunpinyin->view->getHotkeyProfile();
     prof->clear();
 
     int i = 0;
@@ -243,11 +329,11 @@ int Init (char *arg)
     
     string_pairs fuzzy, correction;
     for (i = 0; i < FUZZY_SIZE; i++)
-        if (fs.bFuzzy[i])
+        if (fs->bFuzzy[i])
             fuzzy.push_back(std::make_pair<std::string, std::string>(fuzzyPairs[i][0], fuzzyPairs[i][1]));
     
     for (i = 0; i < CORRECT_SIZE; i++)
-        if (fs.bAutoCorrecting[i])
+        if (fs->bAutoCorrecting[i])
             correction.push_back(std::make_pair<std::string, std::string>(correctionPairs[i][0], correctionPairs[i][1]));
     
     if (fuzzy.size() != 0)
@@ -269,93 +355,17 @@ int Init (char *arg)
     else
         AQuanpinSchemePolicy::instance().setAutoCorrecting(false);
         
-    view->setCancelOnBackspace(1);
-    instance->set_eim(&EIM);
-
-    return 0;
+    sunpinyin->view->setCancelOnBackspace(1);
+    AShuangpinSchemePolicy::instance().setShuangpinType(fs->SPScheme);
+    AQuanpinSchemePolicy::instance().setFuzzySegmentation(fs->bFuzzySegmentation);
+    AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs->bFuzzyInnerSegmentation);
 }
 
-
-/**
- * @brief Destroy the input method while unload it.
- *
- * @return int
- **/
-__EXPORT_API
-int Destroy (void)
+__EXPORT_API void ReloadConfigFcitxSunpinyin(void* arg)
 {
-    CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
-    fac.destroySession(view);
-
-    if (instance)
-        delete instance;
-
-    return 0;
-}
-
-/**
- * @brief Get the config description of fcitx-sunpinyin.
- *
- * @return ConfigFileDesc*
- **/
-ConfigFileDesc* GetSunpinyinConfigDesc()
-{
-    if (!sunpinyinConfigDesc)
-    {
-        FILE *tmpfp;
-        tmpfp = GetXDGFileData("addon/fcitx-sunpinyin.desc", "r", NULL);
-        sunpinyinConfigDesc = ParseConfigFileDescFp(tmpfp);
-        fclose(tmpfp);
-    }
-
-    return sunpinyinConfigDesc;
-}
-
-/**
- * @brief Load the config file for fcitx-sunpinyin
- *
- * @param Bool is reload or not
- **/
-void LoadConfig(Bool reload)
-{
-    ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
-
-    FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "rt", NULL);
-
-    if (!fp)
-    {
-        if (!reload && errno == ENOENT)
-        {
-            char *lastdomain = strdup(textdomain(NULL));
-            textdomain("fcitx-sunpinyin");
-            SaveConfig();
-            textdomain(lastdomain);
-            free(lastdomain);
-            LoadConfig(True);
-        }
-        return;
-    }
-    ConfigFile *cfile = ParseConfigFileFp(fp, configDesc);
-
-    if (cfile)
-    {
-        FcitxSunpinyinConfigConfigBind(&fs, cfile, configDesc);
-        ConfigBindSync((GenericConfig*)&fs);
-    }
-    else
-    {
-        fs.bUseShuangpin = False;
-        fs.SPScheme = MS2003;
-        fs.bFuzzySegmentation = False;
-        fs.bFuzzyInnerSegmentation = False;
-        int i = 0;
-        for (i = 0; i < FUZZY_SIZE; i ++)
-            fs.bFuzzy[i] = False;
-        
-        for (i = 0; i < CORRECT_SIZE; i ++)
-            fs.bAutoCorrecting[i] = False;
-    }
-
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    LoadSunpinyinConfig(&sunpinyin->fs);
+    ConfigSunpinyin(sunpinyin);
 }
 
 /**
@@ -363,10 +373,10 @@ void LoadConfig(Bool reload)
  *
  * @return void
  **/
-void SaveConfig()
+void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
 {
     ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
     FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "wt", NULL);
-    SaveConfigFileFp(fp, fs.gconfig.configFile, configDesc);
+    SaveConfigFileFp(fp, &fs->gconfig, configDesc);
     fclose(fp);
 }

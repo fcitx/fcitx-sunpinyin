@@ -1,12 +1,11 @@
 file(GLOB PO_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.po) 
 
-set(POT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/fcitx-sunpinyin.pot)
-
+set(POT_FILE ${CMAKE_CURRENT_BINARY_DIR}/fcitx-sunpinyin.pot)
 
 add_custom_command(
     OUTPUT ${POT_FILE}
     COMMAND INTLTOOL_EXTRACT=${INTLTOOL_EXTRACT} srcdir=${CMAKE_CURRENT_SOURCE_DIR} ${INTLTOOL_UPDATE} --gettext-package fcitx-sunpinyin --pot
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
 
 # Update .po files and compile them to binary .gmo files

@@ -2,8 +2,6 @@ cmake_minimum_required (VERSION 2.6)
 
 project(fcitx-sunpinyin)
 
-include(CPack)
-
 FIND_PACKAGE(Gettext REQUIRED)
 FIND_PROGRAM(INTLTOOL_EXTRACT intltool-extract)
 FIND_PROGRAM(INTLTOOL_UPDATE intltool-update)
