@@ -223,7 +223,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     FcitxRegisterIM(instance,
                     sunpinyin,
                     _("Sunpinyin"),
-                    "fcitx-sunpinyin",
+                    "sunpinyin",
                     FcitxSunpinyinInit,
                     FcitxSunpinyinReset,
                     FcitxSunpinyinDoInput,
