@@ -289,16 +289,16 @@ void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload)
     }
     else
     {
-        fs->bUseShuangpin = False;
+        fs->bUseShuangpin = false;
         fs->SPScheme = MS2003;
-        fs->bFuzzySegmentation = False;
-        fs->bFuzzyInnerSegmentation = False;
+        fs->bFuzzySegmentation = false;
+        fs->bFuzzyInnerSegmentation = false;
         int i = 0;
         for (i = 0; i < FUZZY_SIZE; i ++)
-            fs->bFuzzy[i] = False;
+            fs->bFuzzy[i] = false;
         
         for (i = 0; i < CORRECT_SIZE; i ++)
-            fs->bAutoCorrecting[i] = False;
+            fs->bAutoCorrecting[i] = false;
     }
 }
 

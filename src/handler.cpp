@@ -37,6 +37,7 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
 {
     FcitxInstance* instance = owner->owner;
     FcitxInputState* input = &instance->input;
+    instance->bShowCursor = true;
     TIConvSrcPtr src = (TIConvSrcPtr) (ppd->string());
     
     memcpy(front_src, src, ppd->caret() * sizeof(TWCHAR));
@@ -112,8 +113,10 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
  **/
 void FcitxWindowHandler::commit(const TWCHAR* str)
 {
+    FcitxInstance* instance = owner->owner;
     char *buf_ = GetOutputString(&owner->owner->input);
     memset(buf_, 0, MAX_USER_INPUT);
     WCSTOMBS(buf_, str, MAX_USER_INPUT);
     commit_flag = true;
+    instance->bShowCursor = false;
 }
