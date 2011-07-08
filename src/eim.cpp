@@ -51,7 +51,7 @@ FcitxIMClass ime = {
 }
 #endif
 
-CONFIG_DESC_DEFINE(GetSunpinyinConfigDesc, "addon/fcitx-sunpinyin.desc")
+CONFIG_DESC_DEFINE(GetSunpinyinConfigDesc, "fcitx-sunpinyin.desc")
 
 static void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload = (0));
 static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
@@ -265,7 +265,7 @@ void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload)
 {
     ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
 
-    FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "rt", NULL);
+    FILE *fp = GetXDGFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "rt", NULL);
 
     if (!fp)
     {
@@ -376,7 +376,7 @@ __EXPORT_API void ReloadConfigFcitxSunpinyin(void* arg)
 void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
 {
     ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
-    FILE *fp = GetXDGFileUser( "addon/fcitx-sunpinyin.config", "wt", NULL);
+    FILE *fp = GetXDGFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "wt", NULL);
     SaveConfigFileFp(fp, &fs->gconfig, configDesc);
     fclose(fp);
 }
