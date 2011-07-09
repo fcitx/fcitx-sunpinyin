@@ -19,10 +19,8 @@
  ***************************************************************************/
 
 #include <ime-core/imi_view.h>
-extern "C" {
-    #include <fcitx/ime.h>
-    #include <fcitx/instance.h>
-}
+#include <fcitx/ime.h>
+#include <fcitx/instance.h>
 #define BUF_SIZE 4096
 
 struct FcitxSunpinyin;

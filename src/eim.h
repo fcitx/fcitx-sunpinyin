@@ -22,18 +22,16 @@
 #define EIM_H
 
 #include <sunpinyin.h>
-
-extern "C"
-{
-    #include <fcitx/ime.h>
-    #include <fcitx-config/fcitx-config.h>
-}
+#include <fcitx/ime.h>
+#include <fcitx-config/fcitx-config.h>
 
 #ifdef __cplusplus
 #define __EXPORT_API extern "C"
 #else
 #define __EXPORT_API
 #endif
+
+#define _(x) gettext(x)
 
 class FcitxWindowHandler;
 struct FcitxSunpinyinConfig

@@ -19,13 +19,9 @@
  ***************************************************************************/
 
 #include <sunpinyin.h>
+#include <fcitx-utils/utils.h>
 #include "handler.h"
 #include "eim.h"
-
-extern "C"
-{
-    #include <fcitx-utils/cutils.h>
-}
 
 /**
  * @brief handler called while preedit updated
