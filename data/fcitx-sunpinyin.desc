@@ -131,3 +131,5 @@ Type=Boolean
 DefaultValue=False
 Description=AutoCorrect Uei Ui
 
+[DescriptionFile]
+LocaleDomain=fcitx-sunpinyin

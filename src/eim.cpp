@@ -269,11 +269,7 @@ void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload)
     {
         if (!reload && errno == ENOENT)
         {
-            char *lastdomain = strdup(textdomain(NULL));
-            textdomain("fcitx-sunpinyin");
             SaveSunpinyinConfig(fs);
-            textdomain(lastdomain);
-            free(lastdomain);
             LoadSunpinyinConfig(fs, true);
         }
         return;
