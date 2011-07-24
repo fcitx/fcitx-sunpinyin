@@ -55,6 +55,7 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
     
     const wstring& codeinput = this->owner->view->getPySegmentor()->getInputBuffer();
     WCSTOMBS(input->strCodeInput, codeinput.c_str(), MAX_USER_INPUT);
+    input->iCodeInputCount = strlen(input->strCodeInput);
 }
 
 /**

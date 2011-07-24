@@ -1,6 +1,9 @@
 [Addon]
 Name=fcitx-sunpinyin
+_GeneralName=Sunpinyin
+_Comment=Sunpinyin Wrapper For Fcitx
 Category=InputMethod
 Enabled=True
 Library=fcitx-sunpinyin.so
 Type=SharedLibrary
+Dependency=fcitx-punc

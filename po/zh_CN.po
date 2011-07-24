@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-09 23:31+0800\n"
-"PO-Revision-Date: 2011-07-05 21:57+0800\n"
+"POT-Creation-Date: 2011-07-24 14:21+0800\n"
+"PO-Revision-Date: 2011-07-24 14:22+0800\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
 "Language: \n"
@@ -127,9 +127,14 @@ msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin 的双拼方案"
 
 # unknown
+#: /home/saber/Develop/fcitx-sunpinyin/build/po/..//data/fcitx-sunpinyin.conf.in.h:1
 #: /home/saber/Develop/fcitx-sunpinyin/build/po/../..//src/eim.cpp:223
 msgid "Sunpinyin"
 msgstr "Sunpinyin"
+
+#: /home/saber/Develop/fcitx-sunpinyin/build/po/..//data/fcitx-sunpinyin.conf.in.h:2
+msgid "Sunpinyin Wrapper For Fcitx"
+msgstr "Fcitx 的 Sunpinyin 封装"
 
 #: unknown
 msgid "USERDEFINE"

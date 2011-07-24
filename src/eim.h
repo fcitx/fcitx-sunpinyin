@@ -24,6 +24,7 @@
 #include <sunpinyin.h>
 #include <fcitx/ime.h>
 #include <fcitx-config/fcitx-config.h>
+#include <fcitx/instance.h>
 
 #ifdef __cplusplus
 #define __EXPORT_API extern "C"
