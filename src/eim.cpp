@@ -52,7 +52,7 @@ FcitxIMClass ime = {
 
 CONFIG_DESC_DEFINE(GetSunpinyinConfigDesc, "fcitx-sunpinyin.desc")
 
-static void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload = (0));
+boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
 
@@ -200,7 +200,11 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     GenericConfig *fc = &instance->config.gconfig;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
 
-    LoadSunpinyinConfig(&sunpinyin->fs);
+    if (!LoadSunpinyinConfig(&sunpinyin->fs))
+    {
+        free(sunpinyin);
+        return NULL;
+    }
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
 
     if (fs->bUseShuangpin)
@@ -260,41 +264,27 @@ void FcitxSunpinyinDestroy (void* arg)
  *
  * @param Bool is reload or not
  **/
-void LoadSunpinyinConfig(FcitxSunpinyinConfig* fs, boolean reload)
+boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs)
 {
     ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
+    if (!configDesc)
+        return false;
 
     FILE *fp = GetXDGFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "rt", NULL);
 
     if (!fp)
     {
-        if (!reload && errno == ENOENT)
-        {
+        if (errno == ENOENT)
             SaveSunpinyinConfig(fs);
-            LoadSunpinyinConfig(fs, true);
-        }
-        return;
     }
     ConfigFile *cfile = ParseConfigFileFp(fp, configDesc);
 
-    if (cfile)
-    {
-        FcitxSunpinyinConfigConfigBind(fs, cfile, configDesc);
-        ConfigBindSync(&fs->gconfig);
-    }
-    else
-    {
-        fs->bUseShuangpin = false;
-        fs->SPScheme = MS2003;
-        fs->bFuzzySegmentation = false;
-        fs->bFuzzyInnerSegmentation = false;
-        int i = 0;
-        for (i = 0; i < FUZZY_SIZE; i ++)
-            fs->bFuzzy[i] = false;
-        
-        for (i = 0; i < CORRECT_SIZE; i ++)
-            fs->bAutoCorrecting[i] = false;
-    }
+    FcitxSunpinyinConfigConfigBind(fs, cfile, configDesc);
+    ConfigBindSync(&fs->gconfig);
+    
+    if (fp)
+        fclose(fp);    
+    return true;
 }
 
 void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
@@ -373,5 +363,6 @@ void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
     ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
     FILE *fp = GetXDGFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "wt", NULL);
     SaveConfigFileFp(fp, &fs->gconfig, configDesc);
-    fclose(fp);
+    if (fp)
+        fclose(fp);
 }
