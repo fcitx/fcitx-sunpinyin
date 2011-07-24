@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-24 14:21+0800\n"
+"POT-Creation-Date: 2011-07-24 16:38+0800\n"
 "PO-Revision-Date: 2011-07-24 14:22+0800\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
@@ -122,6 +122,10 @@ msgstr "拼音加加"
 msgid "Priority of Sunpinyin"
 msgstr "Sunpinyin 的优先级"
 
+# unknown
+msgid "QuanPin"
+msgstr "全拼"
+
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:17
 msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin 的双拼方案"
@@ -155,7 +159,3 @@ msgstr "紫光"
 #: unknown
 msgid "ZIRANMA"
 msgstr "自然码"
-
-# unknown
-#~ msgid "QuanPin"
-#~ msgstr "全拼"
