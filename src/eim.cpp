@@ -41,6 +41,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+FCITX_EXPORT_API
 FcitxIMClass ime = {
     FcitxSunpinyinCreate,
     FcitxSunpinyinDestroy
