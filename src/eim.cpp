@@ -32,6 +32,7 @@
 #include <fcitx-config/fcitx-config.h>
 #include <fcitx-utils/utils.h>
 #include <fcitx/instance.h>
+#include <fcitx/keys.h>
 #include <string>
 #include <libintl.h>
 
@@ -112,14 +113,14 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
     CIMIView* view = sunpinyin->view;
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
-    if ((sym <= 0x20 || sym > 0x7E) && view->getIC()->isEmpty())
+    if (IsHotKeySimple(sym, state) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
     
-    if (sym == 0x003b && view->getIC()->isEmpty())
+    if (IsHotKey(sym, state, FCITX_SEMICOLON) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;         
 
-    if (sym == 0xFF8D)
-        sym = 0xFF0D;
+    if (sym == Key_KP_Enter)
+        sym = Key_Return;
 
     windowHandler->commit_flag = false;
     windowHandler->candidate_flag = false;
