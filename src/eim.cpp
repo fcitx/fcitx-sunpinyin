@@ -113,7 +113,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
     CIMIView* view = sunpinyin->view;
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
-    if (IsHotKeySimple(sym, state) && view->getIC()->isEmpty())
+    if (!IsHotKeySimple(sym, state) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
     
     if (IsHotKey(sym, state, FCITX_SEMICOLON) && view->getIC()->isEmpty())
