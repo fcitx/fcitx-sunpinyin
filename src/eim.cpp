@@ -121,13 +121,18 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
 
     if (sym == Key_KP_Enter)
         sym = Key_Return;
+    
+    if (IsHotKeyDigit(sym, state))
+        return IRV_TO_PROCESS;
+    if (IsHotKey(sym, state, sunpinyin->owner->config.hkPrevPage) || IsHotKey(sym, state, sunpinyin->owner->config.hkNextPage))
+        return IRV_TO_PROCESS;
 
     windowHandler->commit_flag = false;
     windowHandler->candidate_flag = false;
     unsigned int changeMasks = view->onKeyEvent(CKeyEvent(sym, sym, state));
 
     if (windowHandler->commit_flag)
-        return IRV_GET_CANDWORDS;
+        return IRV_COMMIT_STRING;
     if (!(changeMasks & CIMIView::KEYEVENT_USED))
         return IRV_TO_PROCESS;
     
@@ -155,9 +160,54 @@ boolean FcitxSunpinyinInit(void* arg)
  * @return INPUT_RETURN_VALUE
  **/
 __EXPORT_API
-INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg, SEARCH_MODE searchMode)
+INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 {
-    return IRV_DO_NOTHING;
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
+    FcitxInstance* instance = sunpinyin->owner;
+    FcitxInputState* input = &sunpinyin->owner->input;
+    
+    CPreEditString ppd;
+    sunpinyin->view->getPreeditString(ppd);
+    TIConvSrcPtr src = (TIConvSrcPtr) (ppd.string());
+    
+    memcpy(sunpinyin->front_src, src, ppd.caret() * sizeof(TWCHAR));
+    memcpy(sunpinyin->end_src, src + ppd.caret() * sizeof(TWCHAR), 
+           (ppd.size() - ppd.caret() + 1) * sizeof(TWCHAR));
+    
+    sunpinyin->front_src[ppd.caret()] = 0;
+    sunpinyin->end_src[ppd.size() - ppd.caret() + 1] = 0;
+    
+    memset(sunpinyin->preedit, 0, MAX_USER_INPUT + 1);
+    
+    WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
+    input->iCursorPos = strlen(sunpinyin->preedit);
+    WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
+
+    CleanInputWindowUp(instance);
+    AddMessageAtLast(input->msgPreedit, MSG_INPUT, sunpinyin->preedit);
+    
+    CCandidateList pcl;
+    sunpinyin->view->getCandidateList(pcl, 0, sunpinyin->candNum);
+    for (int i = 0; i < sunpinyin->candNum; i ++ )
+    {
+        int *index = (int*) fcitx_malloc0(sizeof(int));
+        *index = i;
+        CandidateWord candWord;
+        candWord.callback = FcitxSunpinyinGetCandWord;
+        candWord.owner = sunpinyin;
+        candWord.priv = index;
+        candWord.strExtra = NULL;
+                
+        const TWCHAR* pcand = pcl.candiString(i);
+        wstring cand_str = pcand;
+        TIConvSrcPtr src = (TIConvSrcPtr)(cand_str.c_str());
+        WCSTOMBS(sunpinyin->ubuf, (const TWCHAR*) src, MAX_CAND_LEN);
+        
+        candWord.strWord = strdup(sunpinyin->ubuf);
+        
+        CandidateWordAppend(sunpinyin->owner->input.candList, &candWord);
+    }
+    return IRV_DISPLAY_CANDWORDS;
 }
 
 /**
@@ -167,23 +217,21 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg, SEARCH_MODE searchMode)
  * @return the string of canidate word
  **/
 __EXPORT_API
-char *FcitxSunpinyinGetCandWord (void* arg, int iIndex)
+INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void* arg, CandidateWord* candWord)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
-    sunpinyin->owner->input.iCandWordCount = 0;
     sunpinyin->windowHandler->commit_flag = false;
     sunpinyin->windowHandler->candidate_flag = false;
-    if (iIndex <= 8)
-    {
-        unsigned int keycode = '1' + iIndex;
-        unsigned int state = 0;
-        unsigned int changeMasks = sunpinyin->view->onKeyEvent(CKeyEvent(keycode, keycode, state));
+    int* index = (int*) candWord->priv;
+    sunpinyin->view->onCandidateSelectRequest(*index);
 
-        if (sunpinyin->windowHandler->commit_flag)
-            return sunpinyin->owner->input.strStringGet;
-    }
+    if (sunpinyin->windowHandler->commit_flag)
+        return IRV_COMMIT_STRING;
     
-    return NULL;
+    if (sunpinyin->windowHandler->candidate_flag)
+        return IRV_DISPLAY_CANDWORDS;
+    
+    return IRV_DO_NOTHING;
 }
 
 /**
@@ -232,7 +280,6 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     FcitxSunpinyinReset,
                     FcitxSunpinyinDoInput,
                     FcitxSunpinyinGetCandWords,
-                    FcitxSunpinyinGetCandWord,
                     NULL,
                     NULL,
                     ReloadConfigFcitxSunpinyin,
@@ -290,16 +337,14 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs)
 
 void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
 {
-    ConfigValueType candword;
     ConfigValueType prevpage;
     ConfigValueType nextpage;
     FcitxInstance* instance = sunpinyin->owner;
     GenericConfig *fc = &instance->config.gconfig;
     FcitxSunpinyinConfig *fs = &sunpinyin->fs;
-    candword = ConfigGetBindValue(fc, "Output", "CandidateWordNumber");
     prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
     nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");    
-    sunpinyin->view->setCandiWindowSize(*candword.integer);
+    sunpinyin->view->setCandiWindowSize(2048);
     // page up/down key
     CHotkeyProfile* prof = sunpinyin->view->getHotkeyProfile();
     prof->clear();

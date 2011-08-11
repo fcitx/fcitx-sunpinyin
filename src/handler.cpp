@@ -33,25 +33,7 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
 {
     FcitxInstance* instance = owner->owner;
     FcitxInputState* input = &instance->input;
-    instance->bShowCursor = true;
-    TIConvSrcPtr src = (TIConvSrcPtr) (ppd->string());
-    
-    memcpy(front_src, src, ppd->caret() * sizeof(TWCHAR));
-    memcpy(end_src, src + ppd->caret() * sizeof(TWCHAR), 
-           (ppd->size() - ppd->caret() + 1) * sizeof(TWCHAR));
-    
-    front_src[ppd->caret()] = 0;
-    end_src[ppd->size() - ppd->caret() + 1] = 0;
-    
-    memset(preedit, 0, MAX_USER_INPUT + 1);
-    
-    WCSTOMBS(preedit, front_src, MAX_USER_INPUT);
-    input->iCursorPos = strlen(preedit);
-    WCSTOMBS(&preedit[strlen(preedit)], end_src, MAX_USER_INPUT);
-    candidate_flag = true;
-
-    SetMessageCount(GetMessageUp(instance), 0);
-    AddMessageAtLast(GetMessageUp(instance), MSG_INPUT, preedit);
+    input->bShowCursor = true;
     
     const wstring& codeinput = this->owner->view->getPySegmentor()->getInputBuffer();
     WCSTOMBS(input->strCodeInput, codeinput.c_str(), MAX_USER_INPUT);
@@ -68,36 +50,7 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
 {
     FcitxInstance* instance = owner->owner;
     FcitxInputState* input = &owner->owner->input;
-    wstring cand_str;
-    char str[3] = { '\0', '\0', '\0' };
-    input->iCandWordCount = pcl->size();
-    SetMessageCount(GetMessageDown(instance), 0);
-    if ( ConfigGetPointAfterNumber(&instance->config)) {
-        str[1] = '.';
-        str[2] = '\0';
-    } else
-        str[1] = '\0';
-    for (int i = 0, sz = pcl->size(); i < sz; i++) {
-        const TWCHAR* pcand = pcl->candiString(i);
-        cand_str = pcand;
-        TIConvSrcPtr src = (TIConvSrcPtr)(cand_str.c_str());
-        WCSTOMBS(owner->CandTable[i], (const TWCHAR*) src, MAX_CAND_LEN);
-        
-        if (i == 9)
-            str[0] = '0';
-        else
-            str[0] = i + 1 + '0';
-        AddMessageAtLast(GetMessageDown(instance), MSG_INDEX, "%s", str);
-
-        MSG_TYPE iType = MSG_OTHER;
-
-        AddMessageAtLast(GetMessageDown(instance), iType, "%s", owner->CandTable[i]);
-        
-        if (i != (input->iCandWordCount - 1)) {
-            MessageConcatLast(GetMessageDown(instance), " ");
-        }
-    }
-
+    owner->candNum = pcl->total();
 
     candidate_flag = true;
 }
@@ -111,9 +64,10 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
 void FcitxWindowHandler::commit(const TWCHAR* str)
 {
     FcitxInstance* instance = owner->owner;
+    FcitxInputState* input = &instance->input;
     char *buf_ = GetOutputString(&owner->owner->input);
     memset(buf_, 0, MAX_USER_INPUT);
     WCSTOMBS(buf_, str, MAX_USER_INPUT);
     commit_flag = true;
-    instance->bShowCursor = false;
+    input->bShowCursor = false;
 }

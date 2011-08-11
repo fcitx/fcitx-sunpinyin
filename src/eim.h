@@ -25,6 +25,7 @@
 #include <fcitx/ime.h>
 #include <fcitx-config/fcitx-config.h>
 #include <fcitx/instance.h>
+#include <fcitx/candidate.h>
 
 #ifdef __cplusplus
 #define __EXPORT_API extern "C"
@@ -72,12 +73,14 @@ struct FcitxSunpinyinConfig
 #define CORRECT_INDEX_UeiUi 5
 #define CORRECT_SIZE 6
 
+#define BUF_SIZE 4096
+
 CONFIG_BINDING_DECLARE(FcitxSunpinyinConfig);
 __EXPORT_API void* FcitxSunpinyinCreate(FcitxInstance* instance);
 __EXPORT_API void FcitxSunpinyinDestroy(void* arg);
 __EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state);
-__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords (void *arg, SEARCH_MODE mode);
-__EXPORT_API char *FcitxSunpinyinGetCandWord (void *arg, int iIndex);
+__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords (void *arg);
+__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void *arg, CandidateWord* candWord);
 __EXPORT_API boolean FcitxSunpinyinInit(void*);
 __EXPORT_API void ReloadConfigFcitxSunpinyin(void*);
 
@@ -87,7 +90,12 @@ typedef struct FcitxSunpinyin
     FcitxWindowHandler* windowHandler;
     CIMIView* view ;
     FcitxInstance* owner;
-    char CandTable[10][MAX_CAND_LEN + 1];
+    char ubuf[4096];
+    TWCHAR front_src[BUF_SIZE];
+    TWCHAR end_src[BUF_SIZE];
+    TWCHAR input_src[BUF_SIZE];
+    char preedit[BUF_SIZE];
+    int candNum;
 } FcitxSunpinyin;
 
 #endif
