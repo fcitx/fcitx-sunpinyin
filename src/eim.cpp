@@ -188,8 +188,12 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     
     CCandidateList pcl;
     sunpinyin->view->getCandidateList(pcl, 0, sunpinyin->candNum);
-    for (int i = 0; i < sunpinyin->candNum; i ++ )
+    for (int i = 0; i < pcl.size(); i ++ )
     {
+        const TWCHAR* pcand = pcl.candiString(i);
+        if (pcand == NULL)
+            continue;
+
         int *index = (int*) fcitx_malloc0(sizeof(int));
         *index = i;
         CandidateWord candWord;
@@ -198,7 +202,6 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         candWord.priv = index;
         candWord.strExtra = NULL;
                 
-        const TWCHAR* pcand = pcl.candiString(i);
         wstring cand_str = pcand;
         TIConvSrcPtr src = (TIConvSrcPtr)(cand_str.c_str());
         WCSTOMBS(sunpinyin->ubuf, (const TWCHAR*) src, MAX_CAND_LEN);
