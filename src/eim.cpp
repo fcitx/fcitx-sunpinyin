@@ -265,6 +265,12 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
 
     sunpinyin->view = fac.createSession();
+    
+    if (sunpinyin->view == NULL)
+    {
+        free(sunpinyin);
+        return NULL;
+    }
 
     FcitxWindowHandler* windowHandler = new FcitxWindowHandler();
     sunpinyin->windowHandler = windowHandler;
