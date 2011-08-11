@@ -43,7 +43,7 @@ struct FcitxSunpinyinConfig
     EShuangpinType SPScheme;
     boolean bFuzzySegmentation;
     boolean bFuzzyInnerSegmentation;
-        
+
     boolean bFuzzy[14];
     boolean bAutoCorrecting[6];
     int iSunpinyinPriority;
@@ -99,3 +99,4 @@ typedef struct FcitxSunpinyin
 } FcitxSunpinyin;
 
 #endif
+// kate: indent-mode cstyle; space-indent on; indent-width 0; 

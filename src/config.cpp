@@ -48,3 +48,4 @@ CONFIG_BINDING_REGISTER("QuanPin", "AutoCorrectingImgIng", bAutoCorrecting[CORRE
 CONFIG_BINDING_REGISTER("QuanPin", "AutoCorrectingIouIu", bAutoCorrecting[CORRECT_INDEX_IouIu]);
 CONFIG_BINDING_REGISTER("QuanPin", "AutoCorrectingUeiUi", bAutoCorrecting[CORRECT_INDEX_UeiUi]);
 CONFIG_BINDING_END();
+// kate: indent-mode cstyle; space-indent on; indent-width 0; 

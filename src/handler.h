@@ -35,9 +35,10 @@ public:
         owner = owner_;
     }
 
-    bool commit_flag ; 
+    bool commit_flag ;
     bool candidate_flag ;
 
 private:
     FcitxSunpinyin* owner;
 };
+// kate: indent-mode cstyle; space-indent on; indent-width 0; 
