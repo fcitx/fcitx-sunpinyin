@@ -21,7 +21,6 @@
 #include <ime-core/imi_view.h>
 #include <fcitx/ime.h>
 #include <fcitx/instance.h>
-#define BUF_SIZE 4096
 
 struct FcitxSunpinyin;
 class FcitxWindowHandler : public CIMIWinHandler
@@ -40,9 +39,5 @@ public:
     bool candidate_flag ;
 
 private:
-    FcitxSunpinyin* owner;   
-    TWCHAR front_src[BUF_SIZE];
-    TWCHAR end_src[BUF_SIZE];
-    TWCHAR input_src[BUF_SIZE];
-    char preedit[BUF_SIZE];
+    FcitxSunpinyin* owner;
 };
