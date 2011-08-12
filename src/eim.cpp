@@ -111,6 +111,7 @@ __EXPORT_API
 INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    FcitxInputState* input = &sunpinyin->owner->input;
     CIMIView* view = sunpinyin->view;
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
     if ( (!IsHotKeySimple(sym, state) || IsHotKey(sym, state, FCITX_SPACE)) && view->getIC()->isEmpty())
@@ -124,6 +125,10 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
 
     if (IsHotKeyDigit(sym, state))
         return IRV_TO_PROCESS;
+
+    if (IsHotKey(sym, state, FCITX_SPACE))
+        return CandidateWordChooseByIndex(input->candList, 0);
+
     if (IsHotKey(sym, state, sunpinyin->owner->config.hkPrevPage) || IsHotKey(sym, state, sunpinyin->owner->config.hkNextPage))
         return IRV_TO_PROCESS;
 
