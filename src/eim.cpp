@@ -144,7 +144,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         return IRV_DISPLAY_CANDWORDS;
     }
 
-    return IRV_TO_PROCESS;
+    return IRV_DO_NOTHING;
 }
 
 boolean FcitxSunpinyinInit(void* arg)

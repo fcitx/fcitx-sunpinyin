@@ -34,6 +34,7 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
     FcitxInstance* instance = owner->owner;
     FcitxInputState* input = &instance->input;
     input->bShowCursor = true;
+    candidate_flag = true;
 
     const wstring& codeinput = this->owner->view->getPySegmentor()->getInputBuffer();
     WCSTOMBS(input->strCodeInput, codeinput.c_str(), MAX_USER_INPUT);
