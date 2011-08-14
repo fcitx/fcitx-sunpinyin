@@ -129,7 +129,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     if (IsHotKey(sym, state, FCITX_SPACE))
         return CandidateWordChooseByIndex(input->candList, 0);
 
-    if (IsHotKey(sym, state, sunpinyin->owner->config.hkPrevPage) || IsHotKey(sym, state, sunpinyin->owner->config.hkNextPage))
+    if (IsHotKey(sym, state, sunpinyin->owner->config->hkPrevPage) || IsHotKey(sym, state, sunpinyin->owner->config->hkNextPage))
         return IRV_TO_PROCESS;
 
     windowHandler->commit_flag = false;
@@ -254,7 +254,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_malloc0(sizeof(FcitxSunpinyin));
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
     sunpinyin->owner = instance;
-    GenericConfig *fc = &instance->config.gconfig;
+    GenericConfig *fc = &instance->config->gconfig;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
 
     if (!LoadSunpinyinConfig(&sunpinyin->fs))
@@ -354,7 +354,7 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
     ConfigValueType prevpage;
     ConfigValueType nextpage;
     FcitxInstance* instance = sunpinyin->owner;
-    GenericConfig *fc = &instance->config.gconfig;
+    GenericConfig *fc = &instance->config->gconfig;
     FcitxSunpinyinConfig *fs = &sunpinyin->fs;
     prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
     nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");
@@ -426,4 +426,4 @@ void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
     if (fp)
         fclose(fp);
 }
-// kate: indent-mode cstyle; space-indent on; indent-width 0; 
+// kate: indent-mode cstyle; space-indent on; indent-width 0;

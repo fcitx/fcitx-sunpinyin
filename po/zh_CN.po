@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-26 19:49+0800\n"
+"POT-Creation-Date: 2011-08-14 22:51+0800\n"
 "PO-Revision-Date: 2011-07-24 14:22+0800\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
@@ -132,7 +132,7 @@ msgstr "Sunpinyin 的双拼方案"
 
 # unknown
 #: /home/saber/Develop/fcitx-sunpinyin/build/po/tmp/fcitx-sunpinyin.conf.in.h:1
-#: /home/saber/Develop/fcitx-sunpinyin/build/po/../..//src/eim.cpp:229
+#: /home/saber/Develop/fcitx-sunpinyin/build/po/../..//src/eim.cpp:291
 msgid "Sunpinyin"
 msgstr "Sunpinyin"
 
