@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 2.6)
 project(fcitx-sunpinyin)
 
 FIND_PACKAGE(Gettext REQUIRED)
-FIND_PACKAGE(Fcitx4 REQUIRED)
+FIND_PACKAGE(Fcitx REQUIRED)
 
 # uninstall target
 configure_file(
