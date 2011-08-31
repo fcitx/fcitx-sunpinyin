@@ -141,6 +141,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         && !IsHotKey(sym, state, FCITX_ENTER)
         && !IsHotKey(sym, state, FCITX_LEFT)
         && !IsHotKey(sym, state, FCITX_RIGHT)
+        && !IsHotKey(sym, state, FCITX_HOME)
+        && !IsHotKey(sym, state, FCITX_END)
         )
         return IRV_TO_PROCESS;
 
