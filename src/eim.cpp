@@ -114,10 +114,14 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     FcitxInputState* input = &sunpinyin->owner->input;
     CIMIView* view = sunpinyin->view;
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
+    FcitxSunpinyinConfig* fs = &sunpinyin->fs;
+    CandidateWordSetChoose(input->candList, DIGIT_STR_CHOOSE);
     if ( (!IsHotKeySimple(sym, state) || IsHotKey(sym, state, FCITX_SPACE)) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
-    if (IsHotKey(sym, state, FCITX_SEMICOLON) && view->getIC()->isEmpty())
+    /* there is some special case that ';' is used */
+    if (IsHotKey(sym, state, FCITX_SEMICOLON) && 
+        !(!view->getIC()->isEmpty() && fs->bUseShuangpin && (fs->SPScheme == MS2003 || fs->SPScheme == ZIGUANG)))
         return IRV_TO_PROCESS;
 
     if (sym == Key_KP_Enter)
@@ -128,6 +132,17 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
 
     if (IsHotKey(sym, state, FCITX_SPACE))
         return CandidateWordChooseByIndex(input->candList, 0);
+
+    if (!IsHotKeyUAZ(sym, state) 
+        && !IsHotKeyLAZ(sym, state)
+        && !IsHotKey(sym, state, FCITX_SEMICOLON)
+        && !IsHotKey(sym, state, FCITX_BACKSPACE)
+        && !IsHotKey(sym, state, FCITX_DELETE)
+        && !IsHotKey(sym, state, FCITX_ENTER)
+        && !IsHotKey(sym, state, FCITX_LEFT)
+        && !IsHotKey(sym, state, FCITX_RIGHT)
+        )
+        return IRV_TO_PROCESS;
 
     if (IsHotKey(sym, state, sunpinyin->owner->config->hkPrevPage) || IsHotKey(sym, state, sunpinyin->owner->config->hkNextPage))
         return IRV_TO_PROCESS;
