@@ -123,6 +123,10 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     if (IsHotKey(sym, state, FCITX_SEMICOLON) && 
         !(!view->getIC()->isEmpty() && fs->bUseShuangpin && (fs->SPScheme == MS2003 || fs->SPScheme == ZIGUANG)))
         return IRV_TO_PROCESS;
+        
+    if (IsHotKey(sym, state, FCITX_SEPARATOR) && 
+        view->getIC()->isEmpty())
+        return IRV_TO_PROCESS;
 
     if (sym == Key_KP_Enter)
         sym = Key_Return;
@@ -143,6 +147,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         && !IsHotKey(sym, state, FCITX_RIGHT)
         && !IsHotKey(sym, state, FCITX_HOME)
         && !IsHotKey(sym, state, FCITX_END)
+        && !IsHotKey(sym, state, FCITX_SEPARATOR)
         )
         return IRV_TO_PROCESS;
 
