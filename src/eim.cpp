@@ -276,7 +276,6 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_malloc0(sizeof(FcitxSunpinyin));
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
     sunpinyin->owner = instance;
-    GenericConfig *fc = &instance->config->gconfig;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
 
     if (!LoadSunpinyinConfig(&sunpinyin->fs))

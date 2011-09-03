@@ -14,6 +14,9 @@ configure_file(
 add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
+set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden")
+set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined,--as-needed")
 set(CMAKE_MODULE_LINKER_FLAGS "-Wl,--no-undefined,--as-needed")
 
 if(NOT DEFINED LIB_INSTALL_DIR)
