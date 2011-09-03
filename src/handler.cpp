@@ -49,8 +49,6 @@ void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
  **/
 void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
 {
-    FcitxInstance* instance = owner->owner;
-    FcitxInputState* input = &owner->owner->input;
     owner->candNum = pcl->total();
 
     candidate_flag = true;
@@ -72,4 +70,4 @@ void FcitxWindowHandler::commit(const TWCHAR* str)
     commit_flag = true;
     input->bShowCursor = false;
 }
-// kate: indent-mode cstyle; space-indent on; indent-width 0; 
+// kate: indent-mode cstyle; space-indent on; indent-width 0;
