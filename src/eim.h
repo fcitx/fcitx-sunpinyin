@@ -96,7 +96,9 @@ typedef struct FcitxSunpinyin
     TWCHAR input_src[BUF_SIZE];
     char preedit[BUF_SIZE];
     int candNum;
+    CShuangpinData* shuangpin_data;
+    boolean bShuangpin;
 } FcitxSunpinyin;
 
 #endif
-// kate: indent-mode cstyle; space-indent on; indent-width 0; 
+// kate: indent-mode cstyle; space-indent on; indent-width 0;

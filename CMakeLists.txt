@@ -2,8 +2,12 @@ cmake_minimum_required (VERSION 2.6)
 
 project(fcitx-sunpinyin)
 
+option(ENABLE_TEST "enable function test" Off)
+
 FIND_PACKAGE(Gettext REQUIRED)
 FIND_PACKAGE(Fcitx REQUIRED)
+
+PKG_CHECK_MODULES(SUNPINYIN REQUIRED "sunpinyin-2.0 >= 2.0.4" )
 
 # uninstall target
 configure_file(
@@ -30,3 +34,7 @@ set(libdir ${LIB_INSTALL_DIR})
 add_subdirectory(src)
 add_subdirectory(data)
 add_subdirectory(po)
+if (ENABLE_TEST)
+    enable_testing()
+    add_subdirectory(test)
+endif (ENABLE_TEST)

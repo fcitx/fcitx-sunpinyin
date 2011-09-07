@@ -33,6 +33,7 @@
 #include <fcitx-utils/utils.h>
 #include <fcitx/instance.h>
 #include <fcitx/keys.h>
+#include <fcitx/module.h>
 #include <string>
 #include <libintl.h>
 
@@ -56,6 +57,7 @@ CONFIG_DESC_DEFINE(GetSunpinyinConfigDesc, "fcitx-sunpinyin.desc")
 boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
+static void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args);
 
 
 static const char* fuzzyPairs[][2] = {
@@ -120,11 +122,11 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         return IRV_TO_PROCESS;
 
     /* there is some special case that ';' is used */
-    if (IsHotKey(sym, state, FCITX_SEMICOLON) && 
+    if (IsHotKey(sym, state, FCITX_SEMICOLON) &&
         !(!view->getIC()->isEmpty() && fs->bUseShuangpin && (fs->SPScheme == MS2003 || fs->SPScheme == ZIGUANG)))
         return IRV_TO_PROCESS;
-        
-    if (IsHotKey(sym, state, FCITX_SEPARATOR) && 
+
+    if (IsHotKey(sym, state, FCITX_SEPARATOR) &&
         view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
@@ -137,7 +139,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     if (IsHotKey(sym, state, FCITX_SPACE))
         return CandidateWordChooseByIndex(input->candList, 0);
 
-    if (!IsHotKeyUAZ(sym, state) 
+    if (!IsHotKeyUAZ(sym, state)
         && !IsHotKeyLAZ(sym, state)
         && !IsHotKey(sym, state, FCITX_SEMICOLON)
         && !IsHotKey(sym, state, FCITX_BACKSPACE)
@@ -274,6 +276,7 @@ __EXPORT_API
 void* FcitxSunpinyinCreate (FcitxInstance* instance)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_malloc0(sizeof(FcitxSunpinyin));
+    FcitxAddon* addon = GetAddonByName(&instance->addons, "fcitx-sunpinyin");
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
     sunpinyin->owner = instance;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
@@ -289,6 +292,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         fac.setPinyinScheme(CSunpinyinSessionFactory::SHUANGPIN);
     else
         fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
+    sunpinyin->bShuangpin = fs->bUseShuangpin;
 
     sunpinyin->view = fac.createSession();
 
@@ -321,6 +325,9 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     NULL,
                     fs->iSunpinyinPriority
                    );
+
+    AddFunction(addon, (void*) SunpinyinGetFullPinyin);
+
     return sunpinyin;
 }
 
@@ -335,6 +342,8 @@ void FcitxSunpinyinDestroy (void* arg)
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
     fac.destroySession(sunpinyin->view);
+    if (sunpinyin->shuangpin_data)
+        delete sunpinyin->shuangpin_data;
 
     if (sunpinyin->windowHandler)
         delete sunpinyin->windowHandler;
@@ -422,6 +431,9 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
         AQuanpinSchemePolicy::instance().setAutoCorrecting(false);
 
     sunpinyin->view->setCancelOnBackspace(1);
+    if (sunpinyin->shuangpin_data)
+        delete sunpinyin->shuangpin_data;
+    sunpinyin->shuangpin_data = new CShuangpinData(fs->SPScheme);
     AShuangpinSchemePolicy::instance().setShuangpinType(fs->SPScheme);
     AQuanpinSchemePolicy::instance().setFuzzySegmentation(fs->bFuzzySegmentation);
     AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs->bFuzzyInnerSegmentation);
@@ -447,4 +459,24 @@ void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
     if (fp)
         fclose(fp);
 }
+
+void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args)
+{
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    char* pinyin = (char*) args.args[0];
+    boolean *issp = (boolean*) args.args[1];
+    *issp = sunpinyin->bShuangpin;
+    CMappedYin syls;
+    if (sunpinyin->bShuangpin)
+    {
+        sunpinyin->shuangpin_data->getMapString(pinyin, syls);
+        if (syls.size() == 0)
+            return NULL;
+        else
+            return strdup(syls[0].c_str());
+    }
+    else
+        return NULL;
+}
+
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

@@ -20,6 +20,7 @@
 
 #include <sunpinyin.h>
 #include <fcitx-utils/utils.h>
+#include <fcitx-utils/log.h>
 #include "handler.h"
 #include "eim.h"
 

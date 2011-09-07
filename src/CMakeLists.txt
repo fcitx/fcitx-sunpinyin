@@ -1,7 +1,5 @@
 find_package(PkgConfig REQUIRED)
 
-PKG_CHECK_MODULES(SUNPINYIN REQUIRED "sunpinyin-2.0 >= 2.0.4" )
-
 include_directories (${SUNPINYIN_INCLUDE_DIRS})
 include_directories (${FCITX_CONFIG_INCLUDE_DIRS})
 include_directories (${FCITX_INCLUDE_DIRS})
