@@ -304,7 +304,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
 
     FcitxWindowHandler* windowHandler = new FcitxWindowHandler();
     sunpinyin->windowHandler = windowHandler;
-    sunpinyin->view->getIC()->setCharsetLevel(1);// GBK
+    sunpinyin->view->getIC()->setCharsetLevel(3);
 
     sunpinyin->view->attachWinHandler(windowHandler);
     sunpinyin->windowHandler->SetOwner(sunpinyin);
