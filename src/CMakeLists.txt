@@ -1,9 +1,12 @@
 find_package(PkgConfig REQUIRED)
 
-include_directories (${SUNPINYIN_INCLUDE_DIRS})
-include_directories (${FCITX4_FCITX_UTILS_INCLUDE_DIRS})
-include_directories (${FCITX4_FCITX_CONFIG_INCLUDE_DIRS})
-include_directories (${FCITX4_FCITX_INCLUDE_DIRS})
+include_directories (
+    ${SUNPINYIN_INCLUDE_DIRS}
+    ${FCITX4_FCITX_UTILS_INCLUDE_DIRS}
+    ${FCITX4_FCITX_CONFIG_INCLUDE_DIRS}
+    ${FCITX4_FCITX_INCLUDE_DIRS}
+    ${LIBINTL_INCLUDE_DIR}
+    )
 
 link_directories (${SUNPINYIN_LIBRARY_DIRS}
                   ${FCITX4_FCITX_LIBRARY_DIRS}
@@ -25,4 +28,5 @@ target_link_libraries (fcitx-sunpinyin
                        ${FCITX4_FCITX_CONFIG_LIBRARIES}
                        ${FCITX4_FCITX_UTILS_LIBRARIES}
                        ${FCITX4_FCITX_LIBRARIES}
+                       ${LIBINTL_LIBRARIES}
                        )
