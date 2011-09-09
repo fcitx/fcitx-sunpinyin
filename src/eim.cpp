@@ -292,6 +292,8 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         fac.setPinyinScheme(CSunpinyinSessionFactory::SHUANGPIN);
     else
         fac.setPinyinScheme(CSunpinyinSessionFactory::QUANPIN);
+
+    ConfigSunpinyin(sunpinyin);
     sunpinyin->bShuangpin = fs->bUseShuangpin;
 
     sunpinyin->view = fac.createSession();
@@ -308,7 +310,6 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
 
     sunpinyin->view->attachWinHandler(windowHandler);
     sunpinyin->windowHandler->SetOwner(sunpinyin);
-
     ConfigSunpinyin(sunpinyin);
 
     FcitxRegisterIM(instance,
@@ -386,20 +387,25 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
     FcitxInstance* instance = sunpinyin->owner;
     GenericConfig *fc = &instance->config->gconfig;
     FcitxSunpinyinConfig *fs = &sunpinyin->fs;
-    prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
-    nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");
-    sunpinyin->view->setCandiWindowSize(2048);
-    // page up/down key
-    CHotkeyProfile* prof = sunpinyin->view->getHotkeyProfile();
-    prof->clear();
-
     int i = 0;
-    for (i = 0 ; i < 2; i++)
+
+    if (sunpinyin->view)
     {
-        if (prevpage.hotkey[i].sym)
-            prof->addPageUpKey(CKeyEvent(prevpage.hotkey[i].sym, 0, prevpage.hotkey[i].state));
-        if (nextpage.hotkey[i].sym)
-            prof->addPageDownKey(CKeyEvent(nextpage.hotkey[i].sym, 0, nextpage.hotkey[i].state));
+        prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
+        nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");
+        sunpinyin->view->setCandiWindowSize(2048);
+        // page up/down key
+        CHotkeyProfile* prof = sunpinyin->view->getHotkeyProfile();
+        prof->clear();
+
+        for (i = 0 ; i < 2; i++)
+        {
+            if (prevpage.hotkey[i].sym)
+                prof->addPageUpKey(CKeyEvent(prevpage.hotkey[i].sym, 0, prevpage.hotkey[i].state));
+            if (nextpage.hotkey[i].sym)
+                prof->addPageDownKey(CKeyEvent(nextpage.hotkey[i].sym, 0, nextpage.hotkey[i].state));
+        }
+        sunpinyin->view->setCancelOnBackspace(1);
     }
 
     string_pairs fuzzy, correction;
@@ -430,10 +436,8 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
     else
         AQuanpinSchemePolicy::instance().setAutoCorrecting(false);
 
-    sunpinyin->view->setCancelOnBackspace(1);
-    if (sunpinyin->shuangpin_data)
-        delete sunpinyin->shuangpin_data;
-    sunpinyin->shuangpin_data = new CShuangpinData(fs->SPScheme);
+    if (sunpinyin->shuangpin_data == NULL)
+        sunpinyin->shuangpin_data = new CShuangpinData(fs->SPScheme);
     AShuangpinSchemePolicy::instance().setShuangpinType(fs->SPScheme);
     AQuanpinSchemePolicy::instance().setFuzzySegmentation(fs->bFuzzySegmentation);
     AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs->bFuzzyInnerSegmentation);
