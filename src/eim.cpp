@@ -58,6 +58,7 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
 static void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args);
+static INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, CandidateWord* candWord);
 
 
 static const char* fuzzyPairs[][2] = {
@@ -118,6 +119,14 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
     CandidateWordSetChoose(input->candList, DIGIT_STR_CHOOSE);
+
+    int chooseKey = CheckChooseKey(sym, KEY_NONE, DIGIT_STR_CHOOSE);
+    if (state == KEY_CTRL_ALT_COMP && chooseKey >= 0)
+    {
+        CandidateWord* candidateWord = CandidateWordGetByIndex(input->candList, chooseKey);
+        return FcitxSunpinyinDeleteCandidate(sunpinyin, candidateWord);
+    }
+
     if ( (!IsHotKeySimple(sym, state) || IsHotKey(sym, state, FCITX_SPACE)) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
@@ -350,6 +359,21 @@ void FcitxSunpinyinDestroy (void* arg)
         delete sunpinyin->windowHandler;
 
     free(arg);
+}
+
+INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, CandidateWord* candWord)
+{
+    if (candWord->owner == sunpinyin)
+    {
+        CCandidateList pcl;
+        sunpinyin->view->getCandidateList(pcl, 0, sunpinyin->candNum);
+        int* index = (int*) candWord->priv;
+        CIMIClassicView* classicView = (CIMIClassicView*) sunpinyin->view;
+        unsigned int mask;
+        classicView->deleteCandidate(*index, mask);
+        return IRV_DISPLAY_CANDWORDS;
+    }
+    return IRV_TO_PROCESS;
 }
 
 /**
