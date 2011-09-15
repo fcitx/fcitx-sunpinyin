@@ -33,13 +33,13 @@
 void FcitxWindowHandler::updatePreedit(const IPreeditString* ppd)
 {
     FcitxInstance* instance = owner->owner;
-    FcitxInputState* input = &instance->input;
-    input->bShowCursor = true;
+    FcitxInputState* input = FcitxInstanceGetInputState(instance);
+    FcitxInputStateSetCursorPos(input, true);
     candidate_flag = true;
 
     const wstring& codeinput = this->owner->view->getPySegmentor()->getInputBuffer();
-    WCSTOMBS(input->strCodeInput, codeinput.c_str(), MAX_USER_INPUT);
-    input->iCodeInputCount = strlen(input->strCodeInput);
+    WCSTOMBS(FcitxInputStateGetRawInputBuffer(input), codeinput.c_str(), MAX_USER_INPUT);
+    FcitxInputStateSetRawInputBufferSize(input, strlen(FcitxInputStateGetRawInputBuffer(input)));
 }
 
 /**
@@ -64,11 +64,11 @@ void FcitxWindowHandler::updateCandidates(const ICandidateList* pcl)
 void FcitxWindowHandler::commit(const TWCHAR* str)
 {
     FcitxInstance* instance = owner->owner;
-    FcitxInputState* input = &instance->input;
-    char *buf_ = GetOutputString(&owner->owner->input);
+    FcitxInputState* input = FcitxInstanceGetInputState(instance);
+    char *buf_ = GetOutputString(input);
     memset(buf_, 0, MAX_USER_INPUT);
     WCSTOMBS(buf_, str, MAX_USER_INPUT);
     commit_flag = true;
-    input->bShowCursor = false;
+    FcitxInputStateSetCursorPos(input, false);
 }
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

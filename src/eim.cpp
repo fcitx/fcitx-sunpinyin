@@ -114,16 +114,17 @@ __EXPORT_API
 INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
-    FcitxInputState* input = &sunpinyin->owner->input;
+    FcitxInputState* input = FcitxInstanceGetInputState(sunpinyin->owner);
     CIMIView* view = sunpinyin->view;
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
-    CandidateWordSetChoose(input->candList, DIGIT_STR_CHOOSE);
+    FcitxConfig* config = FcitxInstanceGetConfig(sunpinyin->owner);
+    CandidateWordSetChoose(FcitxInputStateGetCandidateList(input), DIGIT_STR_CHOOSE);
 
     int chooseKey = CheckChooseKey(sym, KEY_NONE, DIGIT_STR_CHOOSE);
     if (state == KEY_CTRL_ALT_COMP && chooseKey >= 0)
     {
-        CandidateWord* candidateWord = CandidateWordGetByIndex(input->candList, chooseKey);
+        CandidateWord* candidateWord = CandidateWordGetByIndex(FcitxInputStateGetCandidateList(input), chooseKey);
         return FcitxSunpinyinDeleteCandidate(sunpinyin, candidateWord);
     }
 
@@ -146,7 +147,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         return IRV_TO_PROCESS;
 
     if (IsHotKey(sym, state, FCITX_SPACE))
-        return CandidateWordChooseByIndex(input->candList, 0);
+        return CandidateWordChooseByIndex(FcitxInputStateGetCandidateList(input), 0);
 
     if (!IsHotKeyUAZ(sym, state)
         && !IsHotKeyLAZ(sym, state)
@@ -162,7 +163,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         )
         return IRV_TO_PROCESS;
 
-    if (IsHotKey(sym, state, sunpinyin->owner->config->hkPrevPage) || IsHotKey(sym, state, sunpinyin->owner->config->hkNextPage))
+    if (IsHotKey(sym, state, config->hkPrevPage) || IsHotKey(sym, state, config->hkNextPage))
         return IRV_TO_PROCESS;
 
     windowHandler->commit_flag = false;
@@ -202,7 +203,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
     FcitxInstance* instance = sunpinyin->owner;
-    FcitxInputState* input = &sunpinyin->owner->input;
+    FcitxInputState* input = FcitxInstanceGetInputState(instance);
 
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
@@ -218,11 +219,11 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     memset(sunpinyin->preedit, 0, MAX_USER_INPUT + 1);
 
     WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
-    input->iCursorPos = strlen(sunpinyin->preedit);
+    FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
     WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
 
     CleanInputWindowUp(instance);
-    AddMessageAtLast(input->msgPreedit, MSG_INPUT, sunpinyin->preedit);
+    AddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, sunpinyin->preedit);
 
     CCandidateList pcl;
     sunpinyin->view->getCandidateList(pcl, 0, sunpinyin->candNum);
@@ -246,7 +247,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 
         candWord.strWord = strdup(sunpinyin->ubuf);
 
-        CandidateWordAppend(sunpinyin->owner->input.candList, &candWord);
+        CandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
     }
     return IRV_DISPLAY_CANDWORDS;
 }
@@ -285,7 +286,7 @@ __EXPORT_API
 void* FcitxSunpinyinCreate (FcitxInstance* instance)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_malloc0(sizeof(FcitxSunpinyin));
-    FcitxAddon* addon = GetAddonByName(&instance->addons, "fcitx-sunpinyin");
+    FcitxAddon* addon = GetAddonByName(FcitxInstanceGetAddons(instance), "fcitx-sunpinyin");
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
     sunpinyin->owner = instance;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
@@ -406,17 +407,13 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs)
 
 void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
 {
-    ConfigValueType prevpage;
-    ConfigValueType nextpage;
     FcitxInstance* instance = sunpinyin->owner;
-    GenericConfig *fc = &instance->config->gconfig;
+    FcitxConfig* config = FcitxInstanceGetConfig(instance);
     FcitxSunpinyinConfig *fs = &sunpinyin->fs;
     int i = 0;
 
     if (sunpinyin->view)
     {
-        prevpage = ConfigGetBindValue(fc, "Hotkey", "PrevPageKey");
-        nextpage = ConfigGetBindValue(fc, "Hotkey", "NextPageKey");
         sunpinyin->view->setCandiWindowSize(2048);
         // page up/down key
         CHotkeyProfile* prof = sunpinyin->view->getHotkeyProfile();
@@ -424,10 +421,10 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
 
         for (i = 0 ; i < 2; i++)
         {
-            if (prevpage.hotkey[i].sym)
-                prof->addPageUpKey(CKeyEvent(prevpage.hotkey[i].sym, 0, prevpage.hotkey[i].state));
-            if (nextpage.hotkey[i].sym)
-                prof->addPageDownKey(CKeyEvent(nextpage.hotkey[i].sym, 0, nextpage.hotkey[i].state));
+            if (config->hkPrevPage[i].sym)
+                prof->addPageUpKey(CKeyEvent(config->hkPrevPage[i].sym, 0, config->hkPrevPage[i].state));
+            if (config->hkNextPage[i].sym)
+                prof->addPageDownKey(CKeyEvent(config->hkNextPage[i].sym, 0, config->hkNextPage[i].state));
         }
         sunpinyin->view->setCancelOnBackspace(1);
     }
