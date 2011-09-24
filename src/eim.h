@@ -90,11 +90,12 @@ typedef struct FcitxSunpinyin
     FcitxWindowHandler* windowHandler;
     CIMIView* view ;
     FcitxInstance* owner;
-    char ubuf[4096];
+    char ubuf[BUF_SIZE];
     TWCHAR front_src[BUF_SIZE];
     TWCHAR end_src[BUF_SIZE];
     TWCHAR input_src[BUF_SIZE];
     char preedit[BUF_SIZE];
+    char clientpreedit[BUF_SIZE];
     int candNum;
     CShuangpinData* shuangpin_data;
     boolean bShuangpin;

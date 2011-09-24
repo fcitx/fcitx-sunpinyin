@@ -40,6 +40,8 @@
 #include "handler.h"
 #include "eim.h"
 
+#define FCITX_SUNPINYIN_MAX(x, y) ((x) > (y)? (x) : (y))
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -211,24 +213,39 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
     TIConvSrcPtr src = (TIConvSrcPtr) (ppd.string());
+    
+    int hzlen = 0;    
+    while (hzlen < ppd.charTypeSize())
+    {
+        if (! (ppd.charTypeAt(hzlen) & IPreeditString::USER_CHOICE))
+            break;
+        hzlen ++ ;
+    }
+    
     CleanInputWindowUp(instance);
 
     memcpy(sunpinyin->front_src, src, ppd.caret() * sizeof(TWCHAR));
     memcpy(sunpinyin->end_src, src + ppd.caret() * sizeof(TWCHAR),
            (ppd.size() - ppd.caret() + 1) * sizeof(TWCHAR));
+    memcpy(sunpinyin->input_src, src, hzlen * sizeof(TWCHAR));
+    
+    FcitxLog(INFO, "%d", ppd.candi_start());
 
     sunpinyin->front_src[ppd.caret()] = 0;
     sunpinyin->end_src[ppd.size() - ppd.caret() + 1] = 0;
+    sunpinyin->input_src[hzlen] = 0;
 
-    memset(sunpinyin->preedit, 0, MAX_USER_INPUT + 1);
-
-    WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
-    AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, sunpinyin->preedit);
-    FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
+    memset(sunpinyin->clientpreedit, 0, FCITX_SUNPINYIN_MAX(hzlen * UTF8_MAX_LENGTH + 1, MAX_USER_INPUT + 1));
+    WCSTOMBS(sunpinyin->clientpreedit, sunpinyin->input_src, MAX_USER_INPUT);
+    AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", sunpinyin->clientpreedit);
     FcitxInputStateSetClientCursorPos(input, 0);
-    WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
 
-    AddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, sunpinyin->preedit);
+    memset(sunpinyin->preedit, 0, FCITX_SUNPINYIN_MAX(ppd.size() * UTF8_MAX_LENGTH + 1, MAX_USER_INPUT + 1));
+    WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
+    FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
+    WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
+    
+    AddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, "%s", sunpinyin->preedit);
 
     CCandidateList pcl;
     sunpinyin->view->getCandidateList(pcl, 0, sunpinyin->candNum);
