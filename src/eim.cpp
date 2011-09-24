@@ -223,6 +223,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 
     WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
     FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
+    FcitxInputStateSetClientCursorPos(input, 0);
     WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
 
     CleanInputWindowUp(instance);
@@ -251,6 +252,10 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         candWord.strWord = strdup(sunpinyin->ubuf);
 
         CandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
+
+        if (i == 0)
+            AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", candWord.strWord);
+
     }
     return IRV_DISPLAY_CANDWORDS;
 }
