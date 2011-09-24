@@ -211,6 +211,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
     TIConvSrcPtr src = (TIConvSrcPtr) (ppd.string());
+    CleanInputWindowUp(instance);
 
     memcpy(sunpinyin->front_src, src, ppd.caret() * sizeof(TWCHAR));
     memcpy(sunpinyin->end_src, src + ppd.caret() * sizeof(TWCHAR),
@@ -222,11 +223,11 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     memset(sunpinyin->preedit, 0, MAX_USER_INPUT + 1);
 
     WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
+    AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, sunpinyin->preedit);
     FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
     FcitxInputStateSetClientCursorPos(input, 0);
     WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
 
-    CleanInputWindowUp(instance);
     AddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, sunpinyin->preedit);
 
     CCandidateList pcl;
@@ -254,7 +255,9 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         CandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
 
         if (i == 0)
+        {
             AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", candWord.strWord);
+        }
 
     }
     return IRV_DISPLAY_CANDWORDS;
