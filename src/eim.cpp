@@ -350,7 +350,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     sunpinyin->windowHandler->SetOwner(sunpinyin);
     ConfigSunpinyin(sunpinyin);
 
-    FcitxRegisterIM(instance,
+    FcitxRegisterIMv2(instance,
                     sunpinyin,
                     _("Sunpinyin"),
                     "sunpinyin",
@@ -362,7 +362,8 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     NULL,
                     ReloadConfigFcitxSunpinyin,
                     NULL,
-                    fs->iSunpinyinPriority
+                    fs->iSunpinyinPriority,
+                    "zh_CN"
                    );
 
     AddFunction(addon, (void*) SunpinyinGetFullPinyin);
