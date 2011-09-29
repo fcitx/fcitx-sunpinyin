@@ -245,6 +245,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
     WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
     
+    FcitxInputStateSetShowCursor(input, true);
+    
     AddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, "%s", sunpinyin->preedit);
 
     CCandidateList pcl;
