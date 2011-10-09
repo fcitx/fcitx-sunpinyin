@@ -474,11 +474,15 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
     {
         AQuanpinSchemePolicy::instance().setFuzzyForwarding(true);
         AQuanpinSchemePolicy::instance().setFuzzyPinyinPairs(fuzzy);
+        AShuangpinSchemePolicy::instance().setFuzzyForwarding(true);
+        AShuangpinSchemePolicy::instance().setFuzzyPinyinPairs(fuzzy);
     }
     else
     {
         AQuanpinSchemePolicy::instance().setFuzzyForwarding(false);
         AQuanpinSchemePolicy::instance().clearFuzzyPinyinPairs();
+        AShuangpinSchemePolicy::instance().setFuzzyForwarding(false);
+        AShuangpinSchemePolicy::instance().clearFuzzyPinyinPairs();
     }
 
     if (correction.size() != 0)
