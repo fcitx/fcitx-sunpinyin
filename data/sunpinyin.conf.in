@@ -1,0 +1,7 @@
+[InputMethod]
+UniqueName=sunpinyin
+_Name=Sunpinyin
+IconName=sunpinyin
+Priority=1
+LangCode=zh_CN
+Parent=fcitx-sunpinyin
