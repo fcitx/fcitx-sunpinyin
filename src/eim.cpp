@@ -209,6 +209,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
     FcitxInstance* instance = sunpinyin->owner;
     FcitxInputState* input = FcitxInstanceGetInputState(instance);
+    FcitxConfig* config = FcitxInstanceGetConfig(sunpinyin->owner);
+    CandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
 
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
@@ -217,7 +219,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     int hzlen = 0;    
     while (hzlen < ppd.charTypeSize())
     {
-        if (! (ppd.charTypeAt(hzlen) & IPreeditString::USER_CHOICE))
+        if ((ppd.charTypeAt(hzlen) & IPreeditString::HANZI_CHAR) != IPreeditString::HANZI_CHAR)
             break;
         hzlen ++ ;
     }
@@ -228,8 +230,6 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     memcpy(sunpinyin->end_src, src + ppd.caret() * sizeof(TWCHAR),
            (ppd.size() - ppd.caret() + 1) * sizeof(TWCHAR));
     memcpy(sunpinyin->input_src, src, hzlen * sizeof(TWCHAR));
-    
-    FcitxLog(INFO, "%d", ppd.candi_start());
 
     sunpinyin->front_src[ppd.caret()] = 0;
     sunpinyin->end_src[ppd.size() - ppd.caret() + 1] = 0;
