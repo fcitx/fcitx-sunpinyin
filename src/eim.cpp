@@ -270,6 +270,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         WCSTOMBS(sunpinyin->ubuf, (const TWCHAR*) src, MAX_CAND_LEN);
 
         candWord.strWord = strdup(sunpinyin->ubuf);
+        candWord.wordType = MSG_OTHER;
 
         CandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
 

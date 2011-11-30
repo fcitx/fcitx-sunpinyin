@@ -1,9 +1,7 @@
 fcitx_add_addon_conf_file(fcitx-sunpinyin.conf)
 fcitx_add_configdesc_file(fcitx-sunpinyin.desc)
 
-if(NOT (${FCITX4_VERSION} STREQUAL "4.1.2"))
-    fcitx_add_inputmethod_conf_file(sunpinyin.conf)
-endif(NOT (${FCITX4_VERSION} STREQUAL "4.1.2"))
+fcitx_add_inputmethod_conf_file(sunpinyin.conf)
 
 foreach(size 16 22 24 32 48 128)
     install(FILES sunpinyin-logo-${size}.png RENAME fcitx-sunpinyin.png DESTINATION share/icons/hicolor/${size}x${size}/apps)
