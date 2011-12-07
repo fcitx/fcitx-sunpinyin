@@ -38,7 +38,7 @@
 class FcitxWindowHandler;
 struct FcitxSunpinyinConfig
 {
-    GenericConfig gconfig;
+    FcitxGenericConfig gconfig;
     boolean bUseShuangpin;
     EShuangpinType SPScheme;
     boolean bFuzzySegmentation;
@@ -80,7 +80,7 @@ __EXPORT_API void* FcitxSunpinyinCreate(FcitxInstance* instance);
 __EXPORT_API void FcitxSunpinyinDestroy(void* arg);
 __EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state);
 __EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords (void *arg);
-__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void *arg, CandidateWord* candWord);
+__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void *arg, FcitxCandidateWord* candWord);
 __EXPORT_API boolean FcitxSunpinyinInit(void*);
 __EXPORT_API void ReloadConfigFcitxSunpinyin(void*);
 

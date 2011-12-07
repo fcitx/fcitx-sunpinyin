@@ -65,7 +65,7 @@ void FcitxWindowHandler::commit(const TWCHAR* str)
 {
     FcitxInstance* instance = owner->owner;
     FcitxInputState* input = FcitxInstanceGetInputState(instance);
-    char *buf_ = GetOutputString(input);
+    char *buf_ = FcitxInputStateGetOutputString(input);
     memset(buf_, 0, MAX_USER_INPUT);
     WCSTOMBS(buf_, str, MAX_USER_INPUT);
     commit_flag = true;

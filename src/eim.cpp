@@ -63,7 +63,7 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
 static void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args);
-static INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, CandidateWord* candWord);
+static INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, FcitxCandidateWord* candWord);
 
 
 static const char* fuzzyPairs[][2] = {
@@ -100,8 +100,8 @@ __EXPORT_API
 void FcitxSunpinyinReset (void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
-    FcitxUIStatus* puncStatus = GetUIStatus(sunpinyin->owner, "punc");
-    FcitxUIStatus* fullwidthStatus = GetUIStatus(sunpinyin->owner, "fullwidth");
+    FcitxUIStatus* puncStatus = FcitxUIGetStatusByName(sunpinyin->owner, "punc");
+    FcitxUIStatus* fullwidthStatus = FcitxUIGetStatusByName(sunpinyin->owner, "fullwidth");
     sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, fullwidthStatus->getCurrentStatus(fullwidthStatus->arg));
     sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, puncStatus->getCurrentStatus(puncStatus->arg));
     sunpinyin->view->clearIC();
@@ -123,52 +123,52 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     CIMIView* view = sunpinyin->view;
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
-    FcitxConfig* config = FcitxInstanceGetConfig(sunpinyin->owner);
-    CandidateWordSetChoose(FcitxInputStateGetCandidateList(input), DIGIT_STR_CHOOSE);
+    FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(sunpinyin->owner);
+    FcitxCandidateWordSetChoose(FcitxInputStateGetCandidateList(input), DIGIT_STR_CHOOSE);
 
-    int chooseKey = CheckChooseKey(sym, KEY_NONE, DIGIT_STR_CHOOSE);
-    if (state == KEY_CTRL_ALT_COMP && chooseKey >= 0)
+    int chooseKey = FcitxHotkeyCheckChooseKey(sym, FcitxKeyState_None, DIGIT_STR_CHOOSE);
+    if (state == FcitxKeyState_Ctrl_Alt && chooseKey >= 0)
     {
-        CandidateWord* candidateWord = CandidateWordGetByIndex(FcitxInputStateGetCandidateList(input), chooseKey);
+        FcitxCandidateWord* candidateWord = FcitxCandidateWordGetByIndex(FcitxInputStateGetCandidateList(input), chooseKey);
         return FcitxSunpinyinDeleteCandidate(sunpinyin, candidateWord);
     }
 
-    if ( (!IsHotKeySimple(sym, state) || IsHotKey(sym, state, FCITX_SPACE)) && view->getIC()->isEmpty())
+    if ( (!FcitxHotkeyIsHotKeySimple(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) && view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
     /* there is some special case that ';' is used */
-    if (IsHotKey(sym, state, FCITX_SEMICOLON) &&
+    if (FcitxHotkeyIsHotKey(sym, state, FCITX_SEMICOLON) &&
         !(!view->getIC()->isEmpty() && fs->bUseShuangpin && (fs->SPScheme == MS2003 || fs->SPScheme == ZIGUANG)))
         return IRV_TO_PROCESS;
 
-    if (IsHotKey(sym, state, FCITX_SEPARATOR) &&
+    if (FcitxHotkeyIsHotKey(sym, state, FCITX_SEPARATOR) &&
         view->getIC()->isEmpty())
         return IRV_TO_PROCESS;
 
-    if (sym == Key_KP_Enter)
-        sym = Key_Return;
+    if (sym == FcitxKey_KP_Enter)
+        sym = FcitxKey_Return;
 
-    if (IsHotKeyDigit(sym, state))
+    if (FcitxHotkeyIsHotKeyDigit(sym, state))
         return IRV_TO_PROCESS;
 
-    if (IsHotKey(sym, state, FCITX_SPACE))
-        return CandidateWordChooseByIndex(FcitxInputStateGetCandidateList(input), 0);
+    if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE))
+        return FcitxCandidateWordChooseByIndex(FcitxInputStateGetCandidateList(input), 0);
 
-    if (!IsHotKeyUAZ(sym, state)
-        && !IsHotKeyLAZ(sym, state)
-        && !IsHotKey(sym, state, FCITX_SEMICOLON)
-        && !IsHotKey(sym, state, FCITX_BACKSPACE)
-        && !IsHotKey(sym, state, FCITX_DELETE)
-        && !IsHotKey(sym, state, FCITX_ENTER)
-        && !IsHotKey(sym, state, FCITX_LEFT)
-        && !IsHotKey(sym, state, FCITX_RIGHT)
-        && !IsHotKey(sym, state, FCITX_HOME)
-        && !IsHotKey(sym, state, FCITX_END)
-        && !IsHotKey(sym, state, FCITX_SEPARATOR)
+    if (!FcitxHotkeyIsHotKeyUAZ(sym, state)
+        && !FcitxHotkeyIsHotKeyLAZ(sym, state)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_SEMICOLON)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_DELETE)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_HOME)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_END)
+        && !FcitxHotkeyIsHotKey(sym, state, FCITX_SEPARATOR)
         )
         return IRV_TO_PROCESS;
 
-    if (IsHotKey(sym, state, config->hkPrevPage) || IsHotKey(sym, state, config->hkNextPage))
+    if (FcitxHotkeyIsHotKey(sym, state, config->hkPrevPage) || FcitxHotkeyIsHotKey(sym, state, config->hkNextPage))
         return IRV_TO_PROCESS;
 
     windowHandler->commit_flag = false;
@@ -209,8 +209,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
     FcitxInstance* instance = sunpinyin->owner;
     FcitxInputState* input = FcitxInstanceGetInputState(instance);
-    FcitxConfig* config = FcitxInstanceGetConfig(sunpinyin->owner);
-    CandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
+    FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(sunpinyin->owner);
+    FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
 
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
@@ -224,7 +224,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         hzlen ++ ;
     }
     
-    CleanInputWindowUp(instance);
+    FcitxInstanceCleanInputWindowUp(instance);
 
     memcpy(sunpinyin->front_src, src, ppd.caret() * sizeof(TWCHAR));
     memcpy(sunpinyin->end_src, src + ppd.caret() * sizeof(TWCHAR),
@@ -237,7 +237,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 
     memset(sunpinyin->clientpreedit, 0, FCITX_SUNPINYIN_MAX(hzlen * UTF8_MAX_LENGTH + 1, MAX_USER_INPUT + 1));
     WCSTOMBS(sunpinyin->clientpreedit, sunpinyin->input_src, MAX_USER_INPUT);
-    AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", sunpinyin->clientpreedit);
+    FcitxMessagesAddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", sunpinyin->clientpreedit);
     FcitxInputStateSetClientCursorPos(input, 0);
 
     memset(sunpinyin->preedit, 0, FCITX_SUNPINYIN_MAX(ppd.size() * UTF8_MAX_LENGTH + 1, MAX_USER_INPUT + 1));
@@ -247,7 +247,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     
     FcitxInputStateSetShowCursor(input, true);
     
-    AddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, "%s", sunpinyin->preedit);
+    FcitxMessagesAddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, "%s", sunpinyin->preedit);
 
     CCandidateList pcl;
     sunpinyin->view->getCandidateList(pcl, 0, sunpinyin->candNum);
@@ -257,9 +257,9 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         if (pcand == NULL)
             continue;
 
-        int *index = (int*) fcitx_malloc0(sizeof(int));
+        int *index = (int*) fcitx_utils_malloc0(sizeof(int));
         *index = i;
-        CandidateWord candWord;
+        FcitxCandidateWord candWord;
         candWord.callback = FcitxSunpinyinGetCandWord;
         candWord.owner = sunpinyin;
         candWord.priv = index;
@@ -272,11 +272,11 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         candWord.strWord = strdup(sunpinyin->ubuf);
         candWord.wordType = MSG_OTHER;
 
-        CandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
+        FcitxCandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
 
         if (i == 0)
         {
-            AddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", candWord.strWord);
+            FcitxMessagesAddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", candWord.strWord);
         }
 
     }
@@ -290,7 +290,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
  * @return the string of canidate word
  **/
 __EXPORT_API
-INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void* arg, CandidateWord* candWord)
+INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void* arg, FcitxCandidateWord* candWord)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
     sunpinyin->windowHandler->commit_flag = false;
@@ -316,8 +316,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void* arg, CandidateWord* candWord
 __EXPORT_API
 void* FcitxSunpinyinCreate (FcitxInstance* instance)
 {
-    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_malloc0(sizeof(FcitxSunpinyin));
-    FcitxAddon* addon = GetAddonByName(FcitxInstanceGetAddons(instance), "fcitx-sunpinyin");
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_utils_malloc0(sizeof(FcitxSunpinyin));
+    FcitxAddon* addon = FcitxAddonsGetAddonByName(FcitxInstanceGetAddons(instance), "fcitx-sunpinyin");
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
     sunpinyin->owner = instance;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
@@ -353,7 +353,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     sunpinyin->windowHandler->SetOwner(sunpinyin);
     ConfigSunpinyin(sunpinyin);
 
-    FcitxRegisterIMv2(instance,
+    FcitxInstanceRegisterIM(instance,
                     sunpinyin,
                     "sunpinyin",
                     _("Sunpinyin"),
@@ -365,6 +365,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     NULL,
                     NULL,
                     ReloadConfigFcitxSunpinyin,
+                    NULL,
                     NULL,
                     fs->iSunpinyinPriority,
                     "zh_CN"
@@ -395,7 +396,7 @@ void FcitxSunpinyinDestroy (void* arg)
     free(arg);
 }
 
-INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, CandidateWord* candWord)
+INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, FcitxCandidateWord* candWord)
 {
     if (candWord->owner == sunpinyin)
     {
@@ -417,21 +418,21 @@ INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, Can
  **/
 boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs)
 {
-    ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
+    FcitxConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
     if (!configDesc)
         return false;
 
-    FILE *fp = GetXDGFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "rt", NULL);
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "rt", NULL);
 
     if (!fp)
     {
         if (errno == ENOENT)
             SaveSunpinyinConfig(fs);
     }
-    ConfigFile *cfile = ParseConfigFileFp(fp, configDesc);
+    FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
     FcitxSunpinyinConfigConfigBind(fs, cfile, configDesc);
-    ConfigBindSync(&fs->gconfig);
+    FcitxConfigBindSync(&fs->gconfig);
 
     if (fp)
         fclose(fp);
@@ -441,7 +442,7 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs)
 void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
 {
     FcitxInstance* instance = sunpinyin->owner;
-    FcitxConfig* config = FcitxInstanceGetConfig(instance);
+    FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(instance);
     FcitxSunpinyinConfig *fs = &sunpinyin->fs;
     int i = 0;
 
@@ -515,9 +516,9 @@ __EXPORT_API void ReloadConfigFcitxSunpinyin(void* arg)
  **/
 void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
 {
-    ConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
-    FILE *fp = GetXDGFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "wt", NULL);
-    SaveConfigFileFp(fp, &fs->gconfig, configDesc);
+    FcitxConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "wt", NULL);
+    FcitxConfigSaveConfigFileFp(fp, &fs->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }
