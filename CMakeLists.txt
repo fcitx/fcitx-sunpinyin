@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 
 project(fcitx-sunpinyin)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 option(ENABLE_TEST "enable function test" Off)
 
