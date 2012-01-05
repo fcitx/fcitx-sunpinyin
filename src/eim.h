@@ -33,7 +33,7 @@
 #define __EXPORT_API
 #endif
 
-#define _(x) gettext(x)
+#define _(x) dgettext("fcitx-sunpinyin", (x))
 
 class FcitxWindowHandler;
 struct FcitxSunpinyinConfig
