@@ -34,6 +34,7 @@
 #include <fcitx/instance.h>
 #include <fcitx/keys.h>
 #include <fcitx/module.h>
+#include <fcitx/context.h>
 #include <string>
 #include <libintl.h>
 
@@ -193,6 +194,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
 
 boolean FcitxSunpinyinInit(void* arg)
 {
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
+    FcitxInstanceSetContext(sunpinyin->owner, CONTEXT_IM_KEYBOARD_LAYOUT, "us");
     return true;
 }
 
