@@ -28,7 +28,7 @@ class FcitxWindowHandler : public CIMIWinHandler
 public:
     virtual void updatePreedit(const IPreeditString* ppd);
     virtual void updateCandidates(const ICandidateList* pcl);
-    //virtual void updateStatus(int key, int value);
+    virtual void updateStatus(int key, int value);
     virtual void commit(const TWCHAR* str);
 
     void SetOwner(FcitxSunpinyin* owner_) {

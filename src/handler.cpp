@@ -71,4 +71,9 @@ void FcitxWindowHandler::commit(const TWCHAR* str)
     commit_flag = true;
     FcitxInputStateSetCursorPos(input, false);
 }
+
+void FcitxWindowHandler::updateStatus(int key, int value)
+{
+    return;
+}
 // kate: indent-mode cstyle; space-indent on; indent-width 0;
