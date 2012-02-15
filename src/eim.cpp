@@ -38,6 +38,7 @@
 #include <string>
 #include <libintl.h>
 
+#include "config.h"
 #include "handler.h"
 #include "eim.h"
 
@@ -330,6 +331,17 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         free(sunpinyin);
         return NULL;
     }
+    
+#if FCITX_CHECK_VERSION(4,2,1)
+    /* portable detect here */
+    if (getenv("FCITXDIR")) {
+        char* path = fcitx_utils_get_fcitx_path_with_filename("libdir", "sunpinyin/data");
+        std::string spath(path);
+        ASimplifiedChinesePolicy::instance().setDataDir(spath);
+        free(path);
+    }
+#endif
+    
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
 
     if (fs->bUseShuangpin)
