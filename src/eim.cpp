@@ -102,10 +102,6 @@ __EXPORT_API
 void FcitxSunpinyinReset (void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
-    FcitxUIStatus* puncStatus = FcitxUIGetStatusByName(sunpinyin->owner, "punc");
-    FcitxUIStatus* fullwidthStatus = FcitxUIGetStatusByName(sunpinyin->owner, "fullwidth");
-    sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, fullwidthStatus->getCurrentStatus(fullwidthStatus->arg));
-    sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, puncStatus->getCurrentStatus(puncStatus->arg));
     sunpinyin->view->clearIC();
 }
 
@@ -366,6 +362,8 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
 
     sunpinyin->view->attachWinHandler(windowHandler);
     sunpinyin->windowHandler->SetOwner(sunpinyin);
+    sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, false);
+    sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, false);
     ConfigSunpinyin(sunpinyin);
 
     FcitxInstanceRegisterIM(instance,
