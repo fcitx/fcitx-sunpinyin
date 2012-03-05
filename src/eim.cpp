@@ -434,7 +434,7 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs)
     if (!configDesc)
         return false;
 
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "rt", NULL);
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "r", NULL);
 
     if (!fp)
     {
@@ -529,7 +529,7 @@ __EXPORT_API void ReloadConfigFcitxSunpinyin(void* arg)
 void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs)
 {
     FcitxConfigFileDesc *configDesc = GetSunpinyinConfigDesc();
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "wt", NULL);
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-sunpinyin.config", "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &fs->gconfig, configDesc);
     if (fp)
         fclose(fp);
