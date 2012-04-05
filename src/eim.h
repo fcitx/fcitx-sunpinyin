@@ -27,12 +27,6 @@
 #include <fcitx/instance.h>
 #include <fcitx/candidate.h>
 
-#ifdef __cplusplus
-#define __EXPORT_API extern "C"
-#else
-#define __EXPORT_API
-#endif
-
 #define _(x) dgettext("fcitx-sunpinyin", (x))
 
 class FcitxWindowHandler;
@@ -76,13 +70,14 @@ struct FcitxSunpinyinConfig
 #define BUF_SIZE 4096
 
 CONFIG_BINDING_DECLARE(FcitxSunpinyinConfig);
-__EXPORT_API void* FcitxSunpinyinCreate(FcitxInstance* instance);
-__EXPORT_API void FcitxSunpinyinDestroy(void* arg);
-__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state);
-__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords (void *arg);
-__EXPORT_API INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void *arg, FcitxCandidateWord* candWord);
-__EXPORT_API boolean FcitxSunpinyinInit(void*);
-__EXPORT_API void ReloadConfigFcitxSunpinyin(void*);
+void* FcitxSunpinyinCreate(FcitxInstance* instance);
+void FcitxSunpinyinDestroy(void* arg);
+INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state);
+INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords (void *arg);
+INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void *arg, FcitxCandidateWord* candWord);
+boolean FcitxSunpinyinInit(void*);
+void ReloadConfigFcitxSunpinyin(void*);
+void FcitxSunpinyinSave(void*);
 
 typedef struct FcitxSunpinyin
 {

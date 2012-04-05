@@ -98,7 +98,6 @@ static const char *correctionPairs[][2] = {
  * @brief Reset the status.
  *
  **/
-__EXPORT_API
 void FcitxSunpinyinReset (void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
@@ -113,7 +112,6 @@ void FcitxSunpinyinReset (void* arg)
  * @param count count from XKeyEvent
  * @return INPUT_RETURN_VALUE
  **/
-__EXPORT_API
 INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned int state)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
@@ -203,7 +201,6 @@ boolean FcitxSunpinyinInit(void* arg)
  * @param searchMode
  * @return INPUT_RETURN_VALUE
  **/
-__EXPORT_API
 INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
@@ -215,15 +212,15 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
     TIConvSrcPtr src = (TIConvSrcPtr) (ppd.string());
-    
-    int hzlen = 0;    
+
+    int hzlen = 0;
     while (hzlen < ppd.charTypeSize())
     {
         if ((ppd.charTypeAt(hzlen) & IPreeditString::HANZI_CHAR) != IPreeditString::HANZI_CHAR)
             break;
         hzlen ++ ;
     }
-    
+
     FcitxInstanceCleanInputWindowUp(instance);
 
     memcpy(sunpinyin->front_src, src, ppd.caret() * sizeof(TWCHAR));
@@ -244,9 +241,9 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     WCSTOMBS(sunpinyin->preedit, sunpinyin->front_src, MAX_USER_INPUT);
     FcitxInputStateSetCursorPos(input, strlen(sunpinyin->preedit));
     WCSTOMBS(&sunpinyin->preedit[strlen(sunpinyin->preedit)], sunpinyin->end_src, MAX_USER_INPUT);
-    
+
     FcitxInputStateSetShowCursor(input, true);
-    
+
     FcitxMessagesAddMessageAtLast(FcitxInputStateGetPreedit(input), MSG_INPUT, "%s", sunpinyin->preedit);
 
     CCandidateList pcl;
@@ -289,7 +286,6 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
  * @param iIndex index of candidate word
  * @return the string of canidate word
  **/
-__EXPORT_API
 INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void* arg, FcitxCandidateWord* candWord)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
@@ -313,7 +309,6 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWord (void* arg, FcitxCandidateWord* can
  * @param arg
  * @return successful or not
  **/
-__EXPORT_API
 void* FcitxSunpinyinCreate (FcitxInstance* instance)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_utils_malloc0(sizeof(FcitxSunpinyin));
@@ -327,7 +322,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         free(sunpinyin);
         return NULL;
     }
-    
+
 #if FCITX_CHECK_VERSION(4,2,1)
     /* portable detect here */
     if (getenv("FCITXDIR")) {
@@ -337,7 +332,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         free(path);
     }
 #endif
-    
+
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
 
     if (fs->bUseShuangpin)
@@ -376,7 +371,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     FcitxSunpinyinDoInput,
                     FcitxSunpinyinGetCandWords,
                     NULL,
-                    NULL,
+                    FcitxSunpinyinSave,
                     ReloadConfigFcitxSunpinyin,
                     NULL,
                     fs->iSunpinyinPriority,
@@ -393,7 +388,6 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
  *
  * @return int
  **/
-__EXPORT_API
 void FcitxSunpinyinDestroy (void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
@@ -422,6 +416,13 @@ INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, Fci
     }
     return IRV_TO_PROCESS;
 }
+
+void FcitxSunpinyinSave(void* arg)
+{
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+    sunpinyin->view->getIC()->memorize();
+}
+
 
 /**
  * @brief Load the config file for fcitx-sunpinyin
@@ -514,7 +515,7 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
     AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs->bFuzzyInnerSegmentation);
 }
 
-__EXPORT_API void ReloadConfigFcitxSunpinyin(void* arg)
+void ReloadConfigFcitxSunpinyin(void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
     LoadSunpinyinConfig(&sunpinyin->fs);
