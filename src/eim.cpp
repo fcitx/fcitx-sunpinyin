@@ -374,7 +374,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     FcitxSunpinyinSave,
                     ReloadConfigFcitxSunpinyin,
                     NULL,
-                    fs->iSunpinyinPriority,
+                    1,
                     "zh_CN"
                    );
 

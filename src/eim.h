@@ -40,7 +40,6 @@ struct FcitxSunpinyinConfig
 
     boolean bFuzzy[14];
     boolean bAutoCorrecting[6];
-    int iSunpinyinPriority;
 };
 
 #define FUZZY_INDEX_ShiSi 0

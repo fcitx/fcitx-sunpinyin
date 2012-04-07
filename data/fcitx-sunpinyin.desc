@@ -25,11 +25,6 @@ Type=Boolean
 DefaultValue=False
 Description=Fuzzy Inner Segmentation
 
-[Sunpinyin/Priority]
-Type=Integer
-DefaultValue=1
-Description=Priority of Sunpinyin
-
 [QuanPin/FuzzyZhiZi]
 Type=Boolean
 DefaultValue=False
