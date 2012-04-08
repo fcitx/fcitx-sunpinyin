@@ -25,6 +25,11 @@ Type=Boolean
 DefaultValue=False
 Description=Fuzzy Inner Segmentation
 
+[Sunpinyin/MemoryStrength]
+Type=Integer
+DefaultValue=3
+Description=Memory Strength
+
 [QuanPin/FuzzyZhiZi]
 Type=Boolean
 DefaultValue=False

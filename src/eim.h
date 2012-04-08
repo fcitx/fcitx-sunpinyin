@@ -37,6 +37,7 @@ struct FcitxSunpinyinConfig
     EShuangpinType SPScheme;
     boolean bFuzzySegmentation;
     boolean bFuzzyInnerSegmentation;
+    int iMemoryStrength;
 
     boolean bFuzzy[14];
     boolean bAutoCorrecting[6];

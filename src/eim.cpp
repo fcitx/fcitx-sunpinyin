@@ -474,6 +474,7 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
                 prof->addPageDownKey(CKeyEvent(config->hkNextPage[i].sym, 0, config->hkNextPage[i].state));
         }
         sunpinyin->view->setCancelOnBackspace(1);
+        sunpinyin->view->getIC()->setHistoryPower(fs->iMemoryStrength);
     }
 
     string_pairs fuzzy, correction;
