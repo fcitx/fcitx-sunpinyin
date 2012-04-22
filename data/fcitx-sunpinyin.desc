@@ -17,12 +17,12 @@ Description=Shuangpin Scheme in Sunpinyin
 
 [Sunpinyin/FuzzySegmentation]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Fuzzy Segmentation
 
 [Sunpinyin/FuzzyInnerSegmentation]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Fuzzy Inner Segmentation
 
 [Sunpinyin/MemoryStrength]
