@@ -35,6 +35,7 @@
 #include <fcitx/keys.h>
 #include <fcitx/module.h>
 #include <fcitx/context.h>
+#include <fcitx/module/punc/punc.h>
 #include <string>
 #include <libintl.h>
 
@@ -66,6 +67,7 @@ static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
 static void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args);
 static INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, FcitxCandidateWord* candWord);
+static void UpdatePunc(FcitxSunpinyin* sunpinyin);
 
 
 static const char* fuzzyPairs[][2] = {
@@ -102,6 +104,11 @@ void FcitxSunpinyinReset (void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
     sunpinyin->view->clearIC();
+    FcitxUIStatus* puncStatus = FcitxUIGetStatusByName(sunpinyin->owner, "punc");
+    if (puncStatus)
+        sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, puncStatus->getCurrentStatus(puncStatus->arg));
+    else
+        sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, false);
 }
 
 /**
@@ -150,7 +157,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE))
         return FcitxCandidateWordChooseByIndex(FcitxInputStateGetCandidateList(input), 0);
 
-    if (!FcitxHotkeyIsHotKeyUAZ(sym, state)
+    if ((view->getIC()->isEmpty() || !sunpinyin->fs.bProcessPunc)
+        && !FcitxHotkeyIsHotKeyUAZ(sym, state)
         && !FcitxHotkeyIsHotKeyLAZ(sym, state)
         && !FcitxHotkeyIsHotKey(sym, state, FCITX_SEMICOLON)
         && !FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)
@@ -191,6 +199,7 @@ boolean FcitxSunpinyinInit(void* arg)
 {
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin* )arg;
     FcitxInstanceSetContext(sunpinyin->owner, CONTEXT_IM_KEYBOARD_LAYOUT, "us");
+    UpdatePunc(sunpinyin);
     return true;
 }
 
@@ -359,6 +368,8 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     sunpinyin->windowHandler->SetOwner(sunpinyin);
     sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLSYMBOL, false);
     sunpinyin->view->setStatusAttrValue(CIMIWinHandler::STATUS_ID_FULLPUNC, false);
+    sunpinyin->puncOp = new CGetFullPunctOp;
+    sunpinyin->view->getIC()->setGetFullPunctOp(sunpinyin->puncOp);
     ConfigSunpinyin(sunpinyin);
 
     FcitxInstanceRegisterIM(instance,
@@ -514,6 +525,7 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
     AShuangpinSchemePolicy::instance().setShuangpinType(fs->SPScheme);
     AQuanpinSchemePolicy::instance().setFuzzySegmentation(fs->bFuzzySegmentation);
     AQuanpinSchemePolicy::instance().setInnerFuzzySegmentation(fs->bFuzzyInnerSegmentation);
+    UpdatePunc(sunpinyin);
 }
 
 void ReloadConfigFcitxSunpinyin(void* arg)
@@ -554,6 +566,35 @@ void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args)
     }
     else
         return NULL;
+}
+
+void UpdatePunc(FcitxSunpinyin* sunpinyin)
+{
+    if (!sunpinyin->puncOp)
+        return;
+    const char symbol[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+    string_pairs puncPairs;
+    for( int i = 0; i < sizeof(symbol)/sizeof(char) -1; i++) {
+        int c = symbol[i];
+        char s[2] = {symbol[i], '\0'};
+        char* p1 = NULL, *p2 = NULL;
+        FcitxModuleFunctionArg args;
+        args.args[0] = &c;
+        args.args[1] = &p1;
+        args.args[2] = &p2;
+        InvokeFunction(sunpinyin->owner, FCITX_PUNC, GETPUNC2, args);
+        string_pair p;
+        p.first = s;
+        if (p1) {
+            p.second = p1;
+            puncPairs.push_back(p);
+        }
+        if (p2) {
+            p.second = p2;
+            puncPairs.push_back(p);
+        }
+    }
+    sunpinyin->puncOp->initPunctMap(puncPairs);
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

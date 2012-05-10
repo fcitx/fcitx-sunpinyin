@@ -30,6 +30,11 @@ Type=Integer
 DefaultValue=3
 Description=Memory Strength
 
+[Sunpinyin/ProcessPunc]
+Type=Boolean
+DefaultValue=True
+Description=Let sunpinyin process punctuation
+
 [QuanPin/FuzzyZhiZi]
 Type=Boolean
 DefaultValue=False

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-08 23:47+0800\n"
+"POT-Creation-Date: 2012-05-10 21:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,82 +38,86 @@ msgid "Memory Strength"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:36
-msgid "Fuzzy Zhi Zi"
+msgid "Let sunpinyin process punctuation"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:41
-msgid "Fuzzy Chi Ci"
+msgid "Fuzzy Zhi Zi"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:46
-msgid "Fuzzy Shi Si"
+msgid "Fuzzy Chi Ci"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:51
-msgid "Fuzzy An Ang"
+msgid "Fuzzy Shi Si"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:56
-msgid "Fuzzy On Ong"
+msgid "Fuzzy An Ang"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:61
-msgid "Fuzzy En Eng"
+msgid "Fuzzy On Ong"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:66
-msgid "Fuzzy In Ing"
+msgid "Fuzzy En Eng"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:71
-msgid "Fuzzy Eng Ong"
+msgid "Fuzzy In Ing"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:76
-msgid "Fuzzy Ian Iang"
+msgid "Fuzzy Eng Ong"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:81
-msgid "Fuzzy Uan Uang"
+msgid "Fuzzy Ian Iang"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:86
-msgid "Fuzzy Ne Le"
+msgid "Fuzzy Uan Uang"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:91
-msgid "Fuzzy Fo He"
+msgid "Fuzzy Ne Le"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:96
-msgid "Fuzzy Le Ri"
+msgid "Fuzzy Fo He"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:101
-msgid "Fuzzy Ke Ge"
+msgid "Fuzzy Le Ri"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:106
-msgid "AutoCorrect Ign Ing"
+msgid "Fuzzy Ke Ge"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:111
-msgid "AutoCorrect Ogn Ong"
+msgid "AutoCorrect Ign Ing"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:116
-msgid "AutoCorrect Uen Un"
+msgid "AutoCorrect Ogn Ong"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:121
-msgid "AutoCorrect Img Ing"
+msgid "AutoCorrect Uen Un"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:126
-msgid "AutoCorrect Iou Iu"
+msgid "AutoCorrect Img Ing"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:131
+msgid "AutoCorrect Iou Iu"
+msgstr ""
+
+#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:136
 msgid "AutoCorrect Uei Ui"
 msgstr ""
 
@@ -123,7 +127,7 @@ msgstr ""
 
 # unknown
 #: /home/saber/Develop/fcitx-sunpinyin/build/po/tmp/fcitx-sunpinyin.conf.in.h:1
-#: /home/saber/Develop/fcitx-sunpinyin/build/po/../..//src/eim.cpp:367
+#: /home/saber/Develop/fcitx-sunpinyin/build/po/../..//src/eim.cpp:375
 msgid "Sunpinyin"
 msgstr ""
 

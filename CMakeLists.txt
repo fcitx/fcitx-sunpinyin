@@ -8,7 +8,7 @@ option(ENABLE_TEST "enable function test" Off)
 
 FIND_PACKAGE(Libintl REQUIRED)
 FIND_PACKAGE(Gettext REQUIRED)
-FIND_PACKAGE(Fcitx 4.2.0 REQUIRED)
+FIND_PACKAGE(Fcitx 4.2.4 REQUIRED)
 find_package(Sunpinyin REQUIRED)
 
 string(REGEX REPLACE "^([0-9]+)\\.[0-9]+\\.[0-9]+.*" "\\1" FCITX4_MAJOR_VERSION "${FCITX4_VERSION}")

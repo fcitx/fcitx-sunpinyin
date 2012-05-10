@@ -37,6 +37,7 @@ struct FcitxSunpinyinConfig
     EShuangpinType SPScheme;
     boolean bFuzzySegmentation;
     boolean bFuzzyInnerSegmentation;
+    boolean bProcessPunc;
     int iMemoryStrength;
 
     boolean bFuzzy[14];
@@ -94,6 +95,7 @@ typedef struct FcitxSunpinyin
     int candNum;
     CShuangpinData* shuangpin_data;
     boolean bShuangpin;
+    CGetFullPunctOp* puncOp;
 } FcitxSunpinyin;
 
 #endif
