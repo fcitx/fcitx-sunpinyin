@@ -29,7 +29,7 @@ find_library(SUNPINYIN_LIBRARIES
 set(SUNPINYIN_INCLUDE_DIR "${SUNPINYIN_MAIN_INCLUDE_DIR}")
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(SUNPINYIN  DEFAULT_MSG 
+find_package_handle_standard_args(Sunpinyin  DEFAULT_MSG 
                                   SUNPINYIN_LIBRARIES
                                   SUNPINYIN_MAIN_INCLUDE_DIR
                                   )
