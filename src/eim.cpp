@@ -66,6 +66,7 @@ boolean LoadSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void SaveSunpinyinConfig(FcitxSunpinyinConfig* fs);
 static void ConfigSunpinyin(FcitxSunpinyin* sunpinyin);
 static void* SunpinyinGetFullPinyin(void* arg, FcitxModuleFunctionArg args);
+static void* SunpinyinAddWord(void* arg, FcitxModuleFunctionArg args);
 static INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, FcitxCandidateWord* candWord);
 static void UpdatePunc(FcitxSunpinyin* sunpinyin);
 
@@ -390,6 +391,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                    );
 
     AddFunction(addon, (void*) SunpinyinGetFullPinyin);
+    AddFunction(addon, (void*) SunpinyinAddWord);
 
     return sunpinyin;
 }
@@ -595,6 +597,45 @@ void UpdatePunc(FcitxSunpinyin* sunpinyin)
         }
     }
     sunpinyin->puncOp->initPunctMap(puncPairs);
+}
+
+void* SunpinyinAddWord(void* arg, FcitxModuleFunctionArg args)
+{
+    FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) arg;
+
+    char* word = (char*) args.args[0];
+
+    CUserDict* dict = sunpinyin->view->getIC()->getUserDict();
+
+    if (!dict)
+        return NULL;
+
+    IPySegmentor::TSegmentVec& segments = sunpinyin->view->getPySegmentor()->getSegments();
+    if (segments.size() == 0)
+        return NULL;
+    CSyllables syls;
+    size_t len = fcitx_utf8_strlen(word);
+    if (len > MAX_USRDEF_WORD_LEN || len < 2)
+        return NULL;
+
+    for (int i = 0; i < segments.size(); i ++) {
+        const IPySegmentor::TSegment& segment = segments[i];
+        for (int j = 0; j < segment.m_syllables.size(); j ++) {
+            TSyllable syl = segment.m_syllables[j];
+            if (!syl.isFullSyllable())
+                return NULL;
+            syls.push_back(syl);
+        }
+    }
+    if (syls.size() != fcitx_utf8_strlen(word))
+        return NULL;
+
+    TWCHAR* wword = (TWCHAR*) fcitx_utils_malloc0(sizeof(TWCHAR) * (len + 1));
+    MBSTOWCS(wword, word, len);
+    dict->addWord(syls, wword);
+    free(wword);
+
+    return NULL;
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;
