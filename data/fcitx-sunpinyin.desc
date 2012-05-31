@@ -32,7 +32,7 @@ Description=Memory Strength
 
 [Sunpinyin/ProcessPunc]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Let sunpinyin process punctuation
 
 [QuanPin/FuzzyZhiZi]
