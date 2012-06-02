@@ -610,14 +610,17 @@ void* SunpinyinAddWord(void* arg, FcitxModuleFunctionArg args)
     if (!dict)
         return NULL;
 
-    IPySegmentor::TSegmentVec& segments = sunpinyin->view->getPySegmentor()->getSegments();
+    IPySegmentor::TSegmentVec& segments = sunpinyin->view->getPySegmentor()->getSegments(false);
     if (segments.size() == 0)
         return NULL;
     CSyllables syls;
     size_t len = fcitx_utf8_strlen(word);
+
+    /* sunpinyin have assert inside add word, this is must be checked first */
     if (len > MAX_USRDEF_WORD_LEN || len < 2)
         return NULL;
 
+    /* no way to check real single character pronouce, but let it be here */
     for (int i = 0; i < segments.size(); i ++) {
         const IPySegmentor::TSegment& segment = segments[i];
         for (int j = 0; j < segment.m_syllables.size(); j ++) {
@@ -627,6 +630,8 @@ void* SunpinyinAddWord(void* arg, FcitxModuleFunctionArg args)
             syls.push_back(syl);
         }
     }
+
+    /* check the size */
     if (syls.size() != fcitx_utf8_strlen(word))
         return NULL;
 
