@@ -128,12 +128,13 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     FcitxWindowHandler* windowHandler = sunpinyin->windowHandler;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(sunpinyin->owner);
-    FcitxCandidateWordSetChoose(FcitxInputStateGetCandidateList(input), DIGIT_STR_CHOOSE);
+    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+    FcitxCandidateWordSetChoose(candList, DIGIT_STR_CHOOSE);
 
     int chooseKey = FcitxHotkeyCheckChooseKey(sym, FcitxKeyState_None, DIGIT_STR_CHOOSE);
     if (state == FcitxKeyState_Ctrl_Alt && chooseKey >= 0)
     {
-        FcitxCandidateWord* candidateWord = FcitxCandidateWordGetByIndex(FcitxInputStateGetCandidateList(input), chooseKey);
+        FcitxCandidateWord* candidateWord = FcitxCandidateWordGetByIndex(candList, chooseKey);
         return FcitxSunpinyinDeleteCandidate(sunpinyin, candidateWord);
     }
 
@@ -156,7 +157,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         return IRV_TO_PROCESS;
 
     if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE))
-        return FcitxCandidateWordChooseByIndex(FcitxInputStateGetCandidateList(input), 0);
+        return FcitxCandidateWordChooseByIndex(candList, 0);
 
     if ((view->getIC()->isEmpty() || !sunpinyin->fs.bProcessPunc)
         && !FcitxHotkeyIsHotKeyUAZ(sym, state)
@@ -217,7 +218,8 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     FcitxInstance* instance = sunpinyin->owner;
     FcitxInputState* input = FcitxInstanceGetInputState(instance);
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(sunpinyin->owner);
-    FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
+    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+    FcitxCandidateWordSetPageSize(candList, config->iMaxCandWord);
 
     CPreEditString ppd;
     sunpinyin->view->getPreeditString(ppd);
@@ -279,13 +281,10 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
         candWord.strWord = strdup(sunpinyin->ubuf);
         candWord.wordType = MSG_OTHER;
 
-        FcitxCandidateWordAppend(FcitxInputStateGetCandidateList(input), &candWord);
+        FcitxCandidateWordAppend(candList, &candWord);
 
         if (i == 0)
-        {
             FcitxMessagesAddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", candWord.strWord);
-        }
-
     }
     return IRV_DISPLAY_CANDWORDS;
 }
@@ -425,6 +424,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinDeleteCandidate (FcitxSunpinyin* sunpinyin, Fci
         CIMIClassicView* classicView = (CIMIClassicView*) sunpinyin->view;
         unsigned int mask;
         classicView->deleteCandidate(*index, mask);
+        classicView->updateWindows(mask);
         return IRV_DISPLAY_CANDWORDS;
     }
     return IRV_TO_PROCESS;
