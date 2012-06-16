@@ -27,6 +27,8 @@ CONFIG_BINDING_REGISTER("Sunpinyin", "ShuangpinScheme", SPScheme);
 CONFIG_BINDING_REGISTER("Sunpinyin", "FuzzySegmentation", bFuzzySegmentation);
 CONFIG_BINDING_REGISTER("Sunpinyin", "FuzzyInnerSegmentation", bFuzzyInnerSegmentation);
 CONFIG_BINDING_REGISTER("Sunpinyin", "MemoryStrength", iMemoryStrength);
+CONFIG_BINDING_REGISTER("Sunpinyin", "MaxBest", maxBest);
+CONFIG_BINDING_REGISTER("Sunpinyin", "MaxTail", maxTail);
 CONFIG_BINDING_REGISTER("Sunpinyin", "ProcessPunc", bProcessPunc);
 CONFIG_BINDING_REGISTER("QuanPin", "FuzzyZhiZi", bFuzzy[FUZZY_INDEX_ZhiZi]);
 CONFIG_BINDING_REGISTER("QuanPin", "FuzzyChiCi", bFuzzy[FUZZY_INDEX_ChiCi]);

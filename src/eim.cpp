@@ -488,6 +488,8 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
         }
         sunpinyin->view->setCancelOnBackspace(1);
         sunpinyin->view->getIC()->setHistoryPower(fs->iMemoryStrength);
+        sunpinyin->view->getIC()->setMaxBest(fs->maxBest + 1);
+        sunpinyin->view->getIC()->setMaxTailCandidateNum(fs->maxTail);
     }
 
     string_pairs fuzzy, correction;

@@ -25,6 +25,24 @@ Type=Boolean
 DefaultValue=True
 Description=Fuzzy Inner Segmentation
 
+[Sunpinyin/MaxBest]
+Type=Enum
+DefaultValue=1
+EnumCount=3
+Enum0=1
+Enum1=2
+Enum2=3
+Description=Number of sentence that sunpinyin guess
+
+[Sunpinyin/MaxTail]
+Type=Enum
+DefaultValue=0
+EnumCount=3
+Enum0=0
+Enum1=1
+Enum2=2
+Description=Number of Best Tail Candidate
+
 [Sunpinyin/MemoryStrength]
 Type=Integer
 DefaultValue=3

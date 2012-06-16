@@ -39,6 +39,8 @@ struct FcitxSunpinyinConfig
     boolean bFuzzyInnerSegmentation;
     boolean bProcessPunc;
     int iMemoryStrength;
+    int maxBest;
+    int maxTail;
 
     boolean bFuzzy[14];
     boolean bAutoCorrecting[6];
