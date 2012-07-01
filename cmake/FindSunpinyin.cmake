@@ -16,7 +16,7 @@ if(SUNPINYIN_INCLUDE_DIR AND SUNPINYIN_LIBRARIES)
 endif(SUNPINYIN_INCLUDE_DIR AND SUNPINYIN_LIBRARIES)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(PC_LIBSUNPINYIN "sunpinyin-2.0 >= 2.0.4")
+pkg_check_modules(PC_LIBSUNPINYIN "sunpinyin-2.0>=2.0.4")
 
 find_path(SUNPINYIN_MAIN_INCLUDE_DIR
           NAMES sunpinyin.h
