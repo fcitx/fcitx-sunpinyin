@@ -1,3 +1,4 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -8,31 +9,30 @@ msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-16 11:44+0800\n"
-"PO-Revision-Date: 2012-06-16 11:45+0800\n"
-"Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
-"Language-Team: Chinese Traditional <fcitx-dev@googlegroups.com>\n"
+"PO-Revision-Date: 2012-07-14 08:40+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
+"Language-Team: Chinese (China) <fcitx-dev@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Lokalize 1.5\n"
 
 #: unknown
 msgid "0"
-msgstr "0"
+msgstr ""
 
 #: unknown
 msgid "1"
-msgstr "1"
+msgstr ""
 
 #: unknown
 msgid "2"
-msgstr "2"
+msgstr ""
 
 #: unknown
 msgid "3"
-msgstr "3"
+msgstr ""
 
 #: unknown
 msgid "ABC"
@@ -140,11 +140,11 @@ msgstr "记忆强度"
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:44
 msgid "Number of Best Tail Candidate"
-msgstr "最佳尾候选的数量"
+msgstr ""
 
 #: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:35
 msgid "Number of sentence that sunpinyin guess"
-msgstr "Sunpinyin 猜测的句子数量"
+msgstr ""
 
 #: unknown
 msgid "PINYINJIAJIA"
@@ -183,9 +183,3 @@ msgstr "紫光"
 #: unknown
 msgid "ZIRANMA"
 msgstr "自然码"
-
-#~ msgid "Priority of Sunpinyin"
-#~ msgstr "Sunpinyin 的优先级"
-
-#~ msgid "USERDEFINE"
-#~ msgstr "用户定义"
