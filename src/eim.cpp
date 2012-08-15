@@ -160,7 +160,6 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
         return FcitxCandidateWordChooseByIndex(candList, 0);
 
     if ((view->getIC()->isEmpty() || !sunpinyin->fs.bProcessPunc)
-        && !FcitxHotkeyIsHotKeyUAZ(sym, state)
         && !FcitxHotkeyIsHotKeyLAZ(sym, state)
         && !FcitxHotkeyIsHotKey(sym, state, FCITX_SEMICOLON)
         && !FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)
