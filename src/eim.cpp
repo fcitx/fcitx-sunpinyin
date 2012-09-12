@@ -48,14 +48,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    FCITX_EXPORT_API
-    FcitxIMClass ime = {
-        FcitxSunpinyinCreate,
-        FcitxSunpinyinDestroy
+    FCITX_DEFINE_PLUGIN(fcitx_sunpinyin, ime, FcitxIMClass) = {
+        .Create = FcitxSunpinyinCreate,
+        .Destroy = FcitxSunpinyinDestroy
     };
-
-    FCITX_EXPORT_API
-    int ABI_VERSION = FCITX_ABI_VERSION;
 #ifdef __cplusplus
 }
 #endif
@@ -581,11 +577,7 @@ void UpdatePunc(FcitxSunpinyin* sunpinyin)
         int c = symbol[i];
         char s[2] = {symbol[i], '\0'};
         char* p1 = NULL, *p2 = NULL;
-        FcitxModuleFunctionArg args;
-        args.args[0] = &c;
-        args.args[1] = &p1;
-        args.args[2] = &p2;
-        InvokeFunction(sunpinyin->owner, FCITX_PUNC, GETPUNC2, args);
+        InvokeVaArgs(sunpinyin->owner, FCITX_PUNC, GETPUNC2, &c, &p1, &p2);
         string_pair p;
         p.first = s;
         if (p1) {

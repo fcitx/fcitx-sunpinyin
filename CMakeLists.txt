@@ -1,14 +1,13 @@
 cmake_minimum_required (VERSION 2.6)
-
 project(fcitx-sunpinyin)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 option(ENABLE_TEST "enable function test" Off)
 
-FIND_PACKAGE(Libintl REQUIRED)
-FIND_PACKAGE(Gettext REQUIRED)
-FIND_PACKAGE(Fcitx 4.2.4 REQUIRED)
+find_package(Libintl REQUIRED)
+find_package(Gettext REQUIRED)
+find_package(Fcitx 4.2.6 REQUIRED)
 find_package(Sunpinyin REQUIRED)
 
 string(REGEX REPLACE "^([0-9]+)\\.[0-9]+\\.[0-9]+.*" "\\1" FCITX4_MAJOR_VERSION "${FCITX4_VERSION}")
@@ -34,7 +33,6 @@ if(NOT DEFINED LIB_INSTALL_DIR)
 endif()
 
 set(libdir ${LIB_INSTALL_DIR})
-
 
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
