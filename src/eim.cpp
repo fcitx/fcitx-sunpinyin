@@ -35,7 +35,7 @@
 #include <fcitx/keys.h>
 #include <fcitx/module.h>
 #include <fcitx/context.h>
-#include <fcitx/module/punc/punc.h>
+#include <fcitx/module/punc/fcitx-punc.h>
 #include <string>
 #include <libintl.h>
 
@@ -381,11 +381,10 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     ReloadConfigFcitxSunpinyin,
                     NULL,
                     1,
-                    "zh_CN"
-                   );
+                    "zh_CN");
 
-    AddFunction(addon, (void*) SunpinyinGetFullPinyin);
-    AddFunction(addon, (void*) SunpinyinAddWord);
+    FcitxModuleAddFunction(addon, SunpinyinGetFullPinyin);
+    FcitxModuleAddFunction(addon, SunpinyinAddWord);
 
     return sunpinyin;
 }
@@ -577,7 +576,7 @@ void UpdatePunc(FcitxSunpinyin* sunpinyin)
         int c = symbol[i];
         char s[2] = {symbol[i], '\0'};
         char* p1 = NULL, *p2 = NULL;
-        InvokeVaArgs(sunpinyin->owner, FCITX_PUNC, GETPUNC2, &c, &p1, &p2);
+        FcitxPuncGetPunc2(sunpinyin->owner, &c, &p1, &p2);
         string_pair p;
         p.first = s;
         if (p1) {
