@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-10 11:15-0500\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2012-12-01 19:03-0500\n"
 "PO-Revision-Date: 2012-07-14 08:40+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/fcitx/"
@@ -171,7 +171,11 @@ msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin 的雙拼機制"
 
 # unknown
-#: src/eim.cpp:373
+#: src/eim.cpp:373 data/fcitx-sunpinyin.conf.in:3 data/sunpinyin.conf.in:3
+#: data/fcitx-sunpinyin.desc:1 data/fcitx-sunpinyin.desc:6
+#: data/fcitx-sunpinyin.desc:18 data/fcitx-sunpinyin.desc:23
+#: data/fcitx-sunpinyin.desc:28 data/fcitx-sunpinyin.desc:37
+#: data/fcitx-sunpinyin.desc:46 data/fcitx-sunpinyin.desc:51
 msgid "Sunpinyin"
 msgstr "Sunpinyin"
 
