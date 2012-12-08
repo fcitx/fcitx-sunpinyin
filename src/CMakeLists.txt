@@ -17,8 +17,9 @@ set( fcitx_sunpinyin_sources
 
 add_definitions( -DLOCALEDIR=\"${CMAKE_INSTALL_PREFIX}/share/locale\" )
 
-fcitx_add_addon(fcitx-sunpinyin ${fcitx_sunpinyin_sources} )
-target_link_libraries (fcitx-sunpinyin
-                       ${SUNPINYIN_LIBRARIES}
-                       ${LIBINTL_LIBRARIES}
-                       )
+fcitx_add_addon_full(sunpinyin
+DESC
+SOURCES ${fcitx_sunpinyin_sources}
+IM_CONFIG sunpinyin.conf
+LINK_LIBS ${SUNPINYIN_LIBRARIES} ${LIBINTL_LIBRARIES}
+)
