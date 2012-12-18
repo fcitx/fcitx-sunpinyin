@@ -572,10 +572,10 @@ void UpdatePunc(FcitxSunpinyin* sunpinyin)
         return;
     const char symbol[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
     string_pairs puncPairs;
-    for( int i = 0; i < sizeof(symbol)/sizeof(char) -1; i++) {
+    for (unsigned int i = 0;i < sizeof(symbol) / sizeof(char) - 1;i++) {
         int c = symbol[i];
         char s[2] = {symbol[i], '\0'};
-        char* p1 = NULL, *p2 = NULL;
+        char *p1 = NULL, *p2 = NULL;
         FcitxPuncGetPunc2(sunpinyin->owner, &c, &p1, &p2);
         string_pair p;
         p.first = s;
@@ -613,9 +613,9 @@ void* SunpinyinAddWord(void* arg, FcitxModuleFunctionArg args)
         return NULL;
 
     /* no way to check real single character pronouce, but let it be here */
-    for (int i = 0; i < segments.size(); i ++) {
+    for (unsigned int i = 0;i < segments.size();i++) {
         const IPySegmentor::TSegment& segment = segments[i];
-        for (int j = 0; j < segment.m_syllables.size(); j ++) {
+        for (unsigned int j = 0;j < segment.m_syllables.size();j++) {
             TSyllable syl = segment.m_syllables[j];
             if (!syl.isFullSyllable())
                 return NULL;
