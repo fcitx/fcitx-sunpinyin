@@ -7,178 +7,189 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-16 11:44+0800\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2012-12-01 19:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: LANG\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:4
-msgid "Use Shuangpin Instead of Quanpin"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:16
-msgid "Shuangpin Scheme in Sunpinyin"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:21
-msgid "Fuzzy Segmentation"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:26
-msgid "Fuzzy Inner Segmentation"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:35
-msgid "Number of sentence that sunpinyin guess"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:44
-msgid "Number of Best Tail Candidate"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:49
-msgid "Memory Strength"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:54
-msgid "Let sunpinyin process punctuation"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:59
-msgid "Fuzzy Zhi Zi"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:64
-msgid "Fuzzy Chi Ci"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:69
-msgid "Fuzzy Shi Si"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:74
-msgid "Fuzzy An Ang"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:79
-msgid "Fuzzy On Ong"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:84
-msgid "Fuzzy En Eng"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:89
-msgid "Fuzzy In Ing"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:94
-msgid "Fuzzy Eng Ong"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:99
-msgid "Fuzzy Ian Iang"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:104
-msgid "Fuzzy Uan Uang"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:109
-msgid "Fuzzy Ne Le"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:114
-msgid "Fuzzy Fo He"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:119
-msgid "Fuzzy Le Ri"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:124
-msgid "Fuzzy Ke Ge"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:129
-msgid "AutoCorrect Ign Ing"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:134
-msgid "AutoCorrect Ogn Ong"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:139
-msgid "AutoCorrect Uen Un"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:144
-msgid "AutoCorrect Img Ing"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:149
-msgid "AutoCorrect Iou Iu"
-msgstr ""
-
-#: /home/saber/Develop/fcitx-sunpinyin/data/fcitx-sunpinyin.desc:154
-msgid "AutoCorrect Uei Ui"
-msgstr ""
-
-# unknown
-msgid "QuanPin"
-msgstr ""
-
-# unknown
-#: /home/saber/Develop/fcitx-sunpinyin/build/po/tmp/fcitx-sunpinyin.conf.in.h:1
-#: /home/saber/Develop/fcitx-sunpinyin/build/po/../..//src/eim.cpp:378
+#: src/eim.cpp:373 data/fcitx-sunpinyin.conf.in:3 data/sunpinyin.conf.in:3
+#: data/fcitx-sunpinyin.desc:1 data/fcitx-sunpinyin.desc:6
+#: data/fcitx-sunpinyin.desc:18 data/fcitx-sunpinyin.desc:23
+#: data/fcitx-sunpinyin.desc:28 data/fcitx-sunpinyin.desc:37
+#: data/fcitx-sunpinyin.desc:46 data/fcitx-sunpinyin.desc:51
 msgid "Sunpinyin"
 msgstr ""
 
-#: unknown
-msgid "0"
+#: data/fcitx-sunpinyin.conf.in:4
+msgid "Sunpinyin Wrapper For Fcitx"
 msgstr ""
 
-#: unknown
-msgid "1"
+#: data/fcitx-sunpinyin.desc:4
+msgid "Use Shuangpin Instead of Quanpin"
 msgstr ""
 
-#: unknown
-msgid "2"
-msgstr ""
-
-#: unknown
-msgid "3"
-msgstr ""
-
-#: unknown
-msgid "ABC"
-msgstr ""
-
-#: unknown
+#: data/fcitx-sunpinyin.desc:10
 msgid "MS2003"
 msgstr ""
 
-#: unknown
-msgid "PINYINJIAJIA"
+#: data/fcitx-sunpinyin.desc:11
+msgid "ABC"
 msgstr ""
 
-#: unknown
-msgid "XIAOHE"
-msgstr ""
-
-#: unknown
-msgid "ZIGUANG"
-msgstr ""
-
-#: unknown
+#: data/fcitx-sunpinyin.desc:12
 msgid "ZIRANMA"
 msgstr ""
 
-#: /home/saber/Develop/fcitx-sunpinyin/build/po/tmp/fcitx-sunpinyin.conf.in.h:2
-msgid "Sunpinyin Wrapper For Fcitx"
+#: data/fcitx-sunpinyin.desc:13
+msgid "PINYINJIAJIA"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:14
+msgid "ZIGUANG"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:15
+msgid "XIAOHE"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:16
+msgid "Shuangpin Scheme in Sunpinyin"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:21
+msgid "Fuzzy Segmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:26
+msgid "Fuzzy Inner Segmentation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:32 data/fcitx-sunpinyin.desc:42
+msgid "1"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:33 data/fcitx-sunpinyin.desc:43
+msgid "2"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:34
+msgid "3"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:35
+msgid "Number of sentence that sunpinyin guess"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:41
+msgid "0"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:44
+msgid "Number of Best Tail Candidate"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:49
+msgid "Memory Strength"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:54
+msgid "Let sunpinyin process punctuation"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:56 data/fcitx-sunpinyin.desc:61
+#: data/fcitx-sunpinyin.desc:66 data/fcitx-sunpinyin.desc:71
+#: data/fcitx-sunpinyin.desc:76 data/fcitx-sunpinyin.desc:81
+#: data/fcitx-sunpinyin.desc:86 data/fcitx-sunpinyin.desc:91
+#: data/fcitx-sunpinyin.desc:96 data/fcitx-sunpinyin.desc:101
+#: data/fcitx-sunpinyin.desc:106 data/fcitx-sunpinyin.desc:111
+#: data/fcitx-sunpinyin.desc:116 data/fcitx-sunpinyin.desc:121
+#: data/fcitx-sunpinyin.desc:126 data/fcitx-sunpinyin.desc:131
+#: data/fcitx-sunpinyin.desc:136 data/fcitx-sunpinyin.desc:141
+#: data/fcitx-sunpinyin.desc:146 data/fcitx-sunpinyin.desc:151
+msgid "QuanPin"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:59
+msgid "Fuzzy Zhi Zi"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:64
+msgid "Fuzzy Chi Ci"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:69
+msgid "Fuzzy Shi Si"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:74
+msgid "Fuzzy An Ang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:79
+msgid "Fuzzy On Ong"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:84
+msgid "Fuzzy En Eng"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:89
+msgid "Fuzzy In Ing"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:94
+msgid "Fuzzy Eng Ong"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:99
+msgid "Fuzzy Ian Iang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:104
+msgid "Fuzzy Uan Uang"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:109
+msgid "Fuzzy Ne Le"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:114
+msgid "Fuzzy Fo He"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:119
+msgid "Fuzzy Le Ri"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:124
+msgid "Fuzzy Ke Ge"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:129
+msgid "AutoCorrect Ign Ing"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:134
+msgid "AutoCorrect Ogn Ong"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:139
+msgid "AutoCorrect Uen Un"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:144
+msgid "AutoCorrect Img Ing"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:149
+msgid "AutoCorrect Iou Iu"
+msgstr ""
+
+#: data/fcitx-sunpinyin.desc:154
+msgid "AutoCorrect Uei Ui"
 msgstr ""
