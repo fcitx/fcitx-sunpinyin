@@ -1,5 +1,5 @@
 *~
-build/*
+/build*/
 data/pinyin.tar.gz
 data/pinyin.tar.gz.md5
 data/table/table.tar.gz
@@ -12,3 +12,4 @@ data/desc.po
 .kdev4
 .directory
 *.kate-swp
+cscope.*

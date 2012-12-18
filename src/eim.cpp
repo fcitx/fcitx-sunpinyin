@@ -35,7 +35,7 @@
 #include <fcitx/keys.h>
 #include <fcitx/module.h>
 #include <fcitx/context.h>
-#include <fcitx/module/punc/punc.h>
+#include <fcitx/module/punc/fcitx-punc.h>
 #include <string>
 #include <libintl.h>
 
@@ -48,14 +48,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    FCITX_EXPORT_API
-    FcitxIMClass ime = {
-        FcitxSunpinyinCreate,
-        FcitxSunpinyinDestroy
+    FCITX_DEFINE_PLUGIN(fcitx_sunpinyin, ime, FcitxIMClass) = {
+        .Create = FcitxSunpinyinCreate,
+        .Destroy = FcitxSunpinyinDestroy
     };
-
-    FCITX_EXPORT_API
-    int ABI_VERSION = FCITX_ABI_VERSION;
 #ifdef __cplusplus
 }
 #endif
@@ -385,11 +381,10 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
                     ReloadConfigFcitxSunpinyin,
                     NULL,
                     1,
-                    "zh_CN"
-                   );
+                    "zh_CN");
 
-    AddFunction(addon, (void*) SunpinyinGetFullPinyin);
-    AddFunction(addon, (void*) SunpinyinAddWord);
+    FcitxModuleAddFunction(addon, SunpinyinGetFullPinyin);
+    FcitxModuleAddFunction(addon, SunpinyinAddWord);
 
     return sunpinyin;
 }
@@ -577,15 +572,11 @@ void UpdatePunc(FcitxSunpinyin* sunpinyin)
         return;
     const char symbol[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
     string_pairs puncPairs;
-    for( int i = 0; i < sizeof(symbol)/sizeof(char) -1; i++) {
+    for (unsigned int i = 0;i < sizeof(symbol) / sizeof(char) - 1;i++) {
         int c = symbol[i];
         char s[2] = {symbol[i], '\0'};
-        char* p1 = NULL, *p2 = NULL;
-        FcitxModuleFunctionArg args;
-        args.args[0] = &c;
-        args.args[1] = &p1;
-        args.args[2] = &p2;
-        InvokeFunction(sunpinyin->owner, FCITX_PUNC, GETPUNC2, args);
+        char *p1 = NULL, *p2 = NULL;
+        FcitxPuncGetPunc2(sunpinyin->owner, &c, &p1, &p2);
         string_pair p;
         p.first = s;
         if (p1) {
@@ -622,9 +613,9 @@ void* SunpinyinAddWord(void* arg, FcitxModuleFunctionArg args)
         return NULL;
 
     /* no way to check real single character pronouce, but let it be here */
-    for (int i = 0; i < segments.size(); i ++) {
+    for (unsigned int i = 0;i < segments.size();i++) {
         const IPySegmentor::TSegment& segment = segments[i];
-        for (int j = 0; j < segment.m_syllables.size(); j ++) {
+        for (unsigned int j = 0;j < segment.m_syllables.size();j++) {
             TSyllable syl = segment.m_syllables[j];
             if (!syl.isFullSyllable())
                 return NULL;

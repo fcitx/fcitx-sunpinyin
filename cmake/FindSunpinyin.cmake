@@ -11,27 +11,27 @@
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 if(SUNPINYIN_INCLUDE_DIR AND SUNPINYIN_LIBRARIES)
-    # Already in cache, be silent
-    set(SUNPINYIN_FIND_QUIETLY TRUE)
+  # Already in cache, be silent
+  set(SUNPINYIN_FIND_QUIETLY TRUE)
 endif(SUNPINYIN_INCLUDE_DIR AND SUNPINYIN_LIBRARIES)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PC_LIBSUNPINYIN "sunpinyin-2.0>=2.0.4")
 
 find_path(SUNPINYIN_MAIN_INCLUDE_DIR
-          NAMES sunpinyin.h
-          HINTS ${PC_LIBSUNPINYIN_INCLUDEDIR})
+  NAMES sunpinyin.h
+  HINTS ${PC_LIBSUNPINYIN_INCLUDEDIR})
 
 find_library(SUNPINYIN_LIBRARIES
-             NAMES sunpinyin
-             HINTS ${PC_LIBSUNPINYIN_LIBDIR})
+  NAMES sunpinyin
+  HINTS ${PC_LIBSUNPINYIN_LIBDIR})
 
 set(SUNPINYIN_INCLUDE_DIR "${SUNPINYIN_MAIN_INCLUDE_DIR}")
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Sunpinyin  DEFAULT_MSG 
-                                  SUNPINYIN_LIBRARIES
-                                  SUNPINYIN_MAIN_INCLUDE_DIR
-                                  )
+find_package_handle_standard_args(Sunpinyin  DEFAULT_MSG
+  SUNPINYIN_LIBRARIES
+  SUNPINYIN_MAIN_INCLUDE_DIR)
 
-mark_as_advanced(SUNPINYIN_MAIN_INCLUDE_DIR SUNPINYIN_INCLUDE_DIR SUNPINYIN_LIBRARIES)
+mark_as_advanced(SUNPINYIN_MAIN_INCLUDE_DIR SUNPINYIN_INCLUDE_DIR
+  SUNPINYIN_LIBRARIES)
