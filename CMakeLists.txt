@@ -6,7 +6,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 option(ENABLE_TEST "enable function test" Off)
 
 find_package(Libintl REQUIRED)
-find_package(Gettext REQUIRED)
 find_package(Fcitx 4.2.7 REQUIRED)
 find_package(Sunpinyin REQUIRED)
 
