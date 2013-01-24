@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Weng Xuetian <wengxt@gmail.com>, 2010, 2011, 2012.
+# Weng Xuetian <wengxt@gmail.com>, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2012-12-18 10:39-0500\n"
-"PO-Revision-Date: 2012-12-08 09:23-0500\n"
+"POT-Creation-Date: 2013-01-23 20:34-0500\n"
+"PO-Revision-Date: 2013-01-23 20:35-0500\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
-"Language-Team: Chinese Simplified <kde-china@kde.org>\n"
+"Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,29 +38,25 @@ msgstr "3"
 msgid "ABC"
 msgstr "智能 ABC"
 
-#: src/fcitx-sunpinyin.desc:129
-msgid "AutoCorrect Ign Ing"
-msgstr "自动更正 ign/ing"
-
-#: src/fcitx-sunpinyin.desc:144
+#: src/fcitx-sunpinyin.desc:139
 msgid "AutoCorrect Img Ing"
 msgstr "自动更正 img/ing"
 
-#: src/fcitx-sunpinyin.desc:149
+#: src/fcitx-sunpinyin.desc:144
 msgid "AutoCorrect Iou Iu"
 msgstr "自动更正 iou/iu"
 
-#: src/fcitx-sunpinyin.desc:134
-msgid "AutoCorrect Ogn Ong"
-msgstr "自动更正 ogn/ong"
-
-#: src/fcitx-sunpinyin.desc:154
+#: src/fcitx-sunpinyin.desc:149
 msgid "AutoCorrect Uei Ui"
 msgstr "自动更正 uei/ui"
 
-#: src/fcitx-sunpinyin.desc:139
+#: src/fcitx-sunpinyin.desc:134
 msgid "AutoCorrect Uen Un"
 msgstr "自动更正 uen/un"
+
+#: src/fcitx-sunpinyin.desc:129
+msgid "AutoCorrect gn ng"
+msgstr "自动更正 gn/ng"
 
 #: src/fcitx-sunpinyin.desc:74
 msgid "Fuzzy An Ang"
@@ -160,7 +156,7 @@ msgstr "拼音加加"
 #: src/fcitx-sunpinyin.desc:116 src/fcitx-sunpinyin.desc:121
 #: src/fcitx-sunpinyin.desc:126 src/fcitx-sunpinyin.desc:131
 #: src/fcitx-sunpinyin.desc:136 src/fcitx-sunpinyin.desc:141
-#: src/fcitx-sunpinyin.desc:146 src/fcitx-sunpinyin.desc:151
+#: src/fcitx-sunpinyin.desc:146
 msgid "QuanPin"
 msgstr "全拼"
 
@@ -169,7 +165,7 @@ msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Sunpinyin 的双拼方案"
 
 # unknown
-#: src/eim.cpp:373 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
+#: src/eim.cpp:407 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
 #: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
 #: src/fcitx-sunpinyin.desc:18 src/fcitx-sunpinyin.desc:23
 #: src/fcitx-sunpinyin.desc:28 src/fcitx-sunpinyin.desc:37
@@ -196,3 +192,6 @@ msgstr "紫光"
 #: src/fcitx-sunpinyin.desc:12
 msgid "ZIRANMA"
 msgstr "自然码"
+
+#~ msgid "AutoCorrect Ogn Ong"
+#~ msgstr "自动更正 ogn/ong"

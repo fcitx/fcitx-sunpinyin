@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2012-12-18 10:39-0500\n"
+"POT-Creation-Date: 2013-01-23 20:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/eim.cpp:373 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
+#: src/eim.cpp:407 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
 #: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
 #: src/fcitx-sunpinyin.desc:18 src/fcitx-sunpinyin.desc:23
 #: src/fcitx-sunpinyin.desc:28 src/fcitx-sunpinyin.desc:37
@@ -110,7 +110,7 @@ msgstr ""
 #: src/fcitx-sunpinyin.desc:116 src/fcitx-sunpinyin.desc:121
 #: src/fcitx-sunpinyin.desc:126 src/fcitx-sunpinyin.desc:131
 #: src/fcitx-sunpinyin.desc:136 src/fcitx-sunpinyin.desc:141
-#: src/fcitx-sunpinyin.desc:146 src/fcitx-sunpinyin.desc:151
+#: src/fcitx-sunpinyin.desc:146
 msgid "QuanPin"
 msgstr ""
 
@@ -171,25 +171,21 @@ msgid "Fuzzy Ke Ge"
 msgstr ""
 
 #: src/fcitx-sunpinyin.desc:129
-msgid "AutoCorrect Ign Ing"
+msgid "AutoCorrect gn ng"
 msgstr ""
 
 #: src/fcitx-sunpinyin.desc:134
-msgid "AutoCorrect Ogn Ong"
-msgstr ""
-
-#: src/fcitx-sunpinyin.desc:139
 msgid "AutoCorrect Uen Un"
 msgstr ""
 
-#: src/fcitx-sunpinyin.desc:144
+#: src/fcitx-sunpinyin.desc:139
 msgid "AutoCorrect Img Ing"
 msgstr ""
 
-#: src/fcitx-sunpinyin.desc:149
+#: src/fcitx-sunpinyin.desc:144
 msgid "AutoCorrect Iou Iu"
 msgstr ""
 
-#: src/fcitx-sunpinyin.desc:154
+#: src/fcitx-sunpinyin.desc:149
 msgid "AutoCorrect Uei Ui"
 msgstr ""
