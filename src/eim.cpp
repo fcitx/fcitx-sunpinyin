@@ -84,13 +84,47 @@ static const char* fuzzyPairs[][2] = {
     {"k", "g"}
 };
 
-static const char *correctionPairs[][2] = {
+struct CorrectionPair {
+    const char* first;
+    const char* second;
+};
+
+static const CorrectionPair uenunPairs[] = {
+    {"uen", "un"},
+};
+
+static const CorrectionPair imgingPairs[] = {
+    {"img", "ing"},
+};
+
+static const CorrectionPair iouiuPairs[] = {
+    {"iou", "iu"},
+};
+
+static const CorrectionPair ueiuiPairs[] = {
+    {"uei", "ui"},
+};
+
+static const CorrectionPair gnngPairs[] = {
     {"ign", "ing"},
     {"ogn", "ong"},
-    {"uen", "un"},
-    {"img", "ing"},
-    {"iou", "iu"},
-    {"uei", "ui"}
+    {"agn", "ang"},
+    {"egn", "eng"},
+};
+
+struct CorrectionPairs {
+    const CorrectionPair* correctionPair;
+    size_t size;
+};
+
+#define _DEF_PAIR(NAME) {NAME, sizeof(NAME) / sizeof(NAME[0]) }
+
+static const CorrectionPairs correctionPairs[] = {
+    _DEF_PAIR(uenunPairs),
+    _DEF_PAIR(imgingPairs),
+    _DEF_PAIR(iouiuPairs),
+    _DEF_PAIR(ueiuiPairs),
+    _DEF_PAIR(gnngPairs),
 };
 
 /**
@@ -492,8 +526,12 @@ void ConfigSunpinyin(FcitxSunpinyin* sunpinyin)
             fuzzy.push_back(std::make_pair<std::string, std::string>(fuzzyPairs[i][0], fuzzyPairs[i][1]));
 
     for (i = 0; i < CORRECT_SIZE; i++)
-        if (fs->bAutoCorrecting[i])
-            correction.push_back(std::make_pair<std::string, std::string>(correctionPairs[i][0], correctionPairs[i][1]));
+        if (fs->bAutoCorrecting[i]) {
+            for (int j = 0; j < correctionPairs[i].size; j ++ ) {
+                correction.push_back(std::make_pair<std::string, std::string>(correctionPairs[i].correctionPair[j].first,
+                                                                              correctionPairs[i].correctionPair[j].second));
+            }
+        }
 
     if (fuzzy.size() != 0)
     {

@@ -123,15 +123,10 @@ Type=Boolean
 DefaultValue=False
 Description=Fuzzy Ke Ge
 
-[QuanPin/AutoCorrectingIgnIng]
+[QuanPin/AutoCorrectinggnng]
 Type=Boolean
-DefaultValue=False
-Description=AutoCorrect Ign Ing
-
-[QuanPin/AutoCorrectingOgnOng]
-Type=Boolean
-DefaultValue=False
-Description=AutoCorrect Ogn Ong
+DefaultValue=True
+Description=AutoCorrect gn ng
 
 [QuanPin/AutoCorrectingUenUn]
 Type=Boolean

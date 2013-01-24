@@ -29,22 +29,6 @@
 
 #define _(x) dgettext("fcitx-sunpinyin", (x))
 
-class FcitxWindowHandler;
-struct FcitxSunpinyinConfig
-{
-    FcitxGenericConfig gconfig;
-    boolean bUseShuangpin;
-    EShuangpinType SPScheme;
-    boolean bFuzzySegmentation;
-    boolean bFuzzyInnerSegmentation;
-    boolean bProcessPunc;
-    int iMemoryStrength;
-    int maxBest;
-    int maxTail;
-
-    boolean bFuzzy[14];
-    boolean bAutoCorrecting[6];
-};
 
 #define FUZZY_INDEX_ShiSi 0
 #define FUZZY_INDEX_ZhiZi 1
@@ -62,13 +46,29 @@ struct FcitxSunpinyinConfig
 #define FUZZY_INDEX_KeGe 13
 #define FUZZY_SIZE 14
 
-#define CORRECT_INDEX_IgnIng 0
-#define CORRECT_INDEX_OgnOng 1
-#define CORRECT_INDEX_UenUn 2
-#define CORRECT_INDEX_ImgIng 3
-#define CORRECT_INDEX_IouIu 4
-#define CORRECT_INDEX_UeiUi 5
-#define CORRECT_SIZE 6
+#define CORRECT_INDEX_UenUn 0
+#define CORRECT_INDEX_ImgIng 1
+#define CORRECT_INDEX_IouIu 2
+#define CORRECT_INDEX_UeiUi 3
+#define CORRECT_INDEX_gnng 4
+#define CORRECT_SIZE 5
+
+class FcitxWindowHandler;
+struct FcitxSunpinyinConfig
+{
+    FcitxGenericConfig gconfig;
+    boolean bUseShuangpin;
+    EShuangpinType SPScheme;
+    boolean bFuzzySegmentation;
+    boolean bFuzzyInnerSegmentation;
+    boolean bProcessPunc;
+    int iMemoryStrength;
+    int maxBest;
+    int maxTail;
+
+    boolean bFuzzy[FUZZY_SIZE];
+    boolean bAutoCorrecting[CORRECT_SIZE];
+};
 
 #define BUF_SIZE 4096
 
