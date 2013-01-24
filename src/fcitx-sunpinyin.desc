@@ -22,7 +22,7 @@ Description=Fuzzy Segmentation
 
 [Sunpinyin/FuzzyInnerSegmentation]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Fuzzy Inner Segmentation
 
 [Sunpinyin/MaxBest]
