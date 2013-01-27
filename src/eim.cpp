@@ -49,8 +49,8 @@
 extern "C" {
 #endif
     FCITX_DEFINE_PLUGIN(fcitx_sunpinyin, ime, FcitxIMClass) = {
-        .Create = FcitxSunpinyinCreate,
-        .Destroy = FcitxSunpinyinDestroy
+        FcitxSunpinyinCreate,
+        FcitxSunpinyinDestroy
     };
 #ifdef __cplusplus
 }
