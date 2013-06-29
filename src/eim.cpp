@@ -189,6 +189,33 @@ INPUT_RETURN_VALUE FcitxSunpinyinDoInput(void* arg, FcitxKeySym sym, unsigned in
     if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE))
         return FcitxCandidateWordChooseByIndex(candList, 0);
 
+    if (FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)) {
+        if (FcitxInputStateGetRawInputBufferSize(input)) {
+            /* remove space from preedit */
+            char* p = sunpinyin->preedit;
+            char* pp = sunpinyin->preedit;
+
+            while (*p) {
+                uint32_t chr;
+
+                char* next = fcitx_utf8_get_char(p, &chr);
+                // space
+                if (chr != 0x20) {
+                    if (p != pp) {
+                        memmove(pp, p, next - p);
+                    }
+                    pp += next - p;
+                }
+                p = next;
+            }
+            *pp = 0;
+            FcitxInstanceCommitString(sunpinyin->owner, FcitxInstanceGetCurrentIC(sunpinyin->owner), sunpinyin->preedit);
+            return IRV_CLEAN;
+        } else {
+            return IRV_TO_PROCESS;
+        }
+    }
+
     if ((view->getIC()->isEmpty() || !sunpinyin->fs.bProcessPunc)
         && !FcitxHotkeyIsHotKeyLAZ(sym, state)
         && !FcitxHotkeyIsHotKey(sym, state, FCITX_SEMICOLON)
@@ -248,6 +275,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
     FcitxInputState* input = FcitxInstanceGetInputState(instance);
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(sunpinyin->owner);
     FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+    FcitxMessages* clientPreedit = FcitxInputStateGetClientPreedit(input);
     FcitxCandidateWordSetPageSize(candList, config->iMaxCandWord);
 
     CPreEditString ppd;
@@ -275,7 +303,7 @@ INPUT_RETURN_VALUE FcitxSunpinyinGetCandWords(void* arg)
 
     memset(sunpinyin->clientpreedit, 0, FCITX_SUNPINYIN_MAX(hzlen * UTF8_MAX_LENGTH + 1, MAX_USER_INPUT + 1));
     WCSTOMBS(sunpinyin->clientpreedit, sunpinyin->input_src, MAX_USER_INPUT);
-    FcitxMessagesAddMessageAtLast(FcitxInputStateGetClientPreedit(input), MSG_INPUT, "%s", sunpinyin->clientpreedit);
+    FcitxMessagesAddMessageAtLast(clientPreedit, MSG_INPUT, "%s", sunpinyin->clientpreedit);
     FcitxInputStateSetClientCursorPos(input, 0);
 
     memset(sunpinyin->preedit, 0, FCITX_SUNPINYIN_MAX(ppd.size() * UTF8_MAX_LENGTH + 1, MAX_USER_INPUT + 1));
@@ -361,7 +389,6 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         return NULL;
     }
 
-#if FCITX_CHECK_VERSION(4,2,1)
     /* portable detect here */
     if (getenv("FCITXDIR")) {
         char* path = fcitx_utils_get_fcitx_path_with_filename("libdir", "sunpinyin/data");
@@ -369,7 +396,6 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
         ASimplifiedChinesePolicy::instance().setDataDir(spath);
         free(path);
     }
-#endif
 
     CSunpinyinSessionFactory& fac = CSunpinyinSessionFactory::getFactory();
 
