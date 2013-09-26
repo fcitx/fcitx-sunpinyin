@@ -380,6 +380,7 @@ void* FcitxSunpinyinCreate (FcitxInstance* instance)
     FcitxSunpinyin* sunpinyin = (FcitxSunpinyin*) fcitx_utils_malloc0(sizeof(FcitxSunpinyin));
     FcitxAddon* addon = FcitxAddonsGetAddonByName(FcitxInstanceGetAddons(instance), "fcitx-sunpinyin");
     bindtextdomain("fcitx-sunpinyin", LOCALEDIR);
+    bind_textdomain_codeset("fcitx-sunpinyin", "UTF-8");
     sunpinyin->owner = instance;
     FcitxSunpinyinConfig* fs = &sunpinyin->fs;
 
