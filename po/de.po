@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-06-03 14:03-0400\n"
-"PO-Revision-Date: 2013-06-01 10:23+0000\n"
+"POT-Creation-Date: 2013-10-31 06:03-0400\n"
+"PO-Revision-Date: 2013-10-31 04:46+0000\n"
 "Last-Translator: mar well <marwell.1980@freenet.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/fcitx/language/"
 "de/)\n"
@@ -133,11 +133,11 @@ msgstr "MS2003"
 
 #: src/fcitx-sunpinyin.desc:49
 msgid "Memory Strength"
-msgstr ""
+msgstr "Erinnerungsfaktor"
 
 #: src/fcitx-sunpinyin.desc:44
 msgid "Number of Best Tail Candidate"
-msgstr ""
+msgstr "Anzahl der besten Endkandidaten"
 
 #: src/fcitx-sunpinyin.desc:35
 msgid "Number of sentence that sunpinyin guess"
@@ -164,7 +164,7 @@ msgstr "Quanpin"
 msgid "Shuangpin Scheme in Sunpinyin"
 msgstr "Shuangpin Schema in Sunpinyin"
 
-#: src/eim.cpp:407 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
+#: src/eim.cpp:434 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
 #: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
 #: src/fcitx-sunpinyin.desc:18 src/fcitx-sunpinyin.desc:23
 #: src/fcitx-sunpinyin.desc:28 src/fcitx-sunpinyin.desc:37
