@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: fcitx\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2013-04-25 00:02-0400\n"
+"PO-Revision-Date: 2011-11-16 01:57+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Danish (http://www.transifex.com/fcitx/fcitx/language/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/eim.cpp:407 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
+#: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
+#: src/fcitx-sunpinyin.desc:18 src/fcitx-sunpinyin.desc:23
+#: src/fcitx-sunpinyin.desc:28 src/fcitx-sunpinyin.desc:37
+#: src/fcitx-sunpinyin.desc:46 src/fcitx-sunpinyin.desc:51
+msgid "Sunpinyin"
+msgstr ""
+
+#: src/fcitx-sunpinyin.conf.in:4
+msgid "Sunpinyin Wrapper For Fcitx"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:4
+msgid "Use Shuangpin Instead of Quanpin"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:10
+msgid "MS2003"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:11
+msgid "ABC"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:12
+msgid "ZIRANMA"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:13
+msgid "PINYINJIAJIA"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:14
+msgid "ZIGUANG"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:15
+msgid "XIAOHE"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:16
+msgid "Shuangpin Scheme in Sunpinyin"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:21
+msgid "Fuzzy Segmentation"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:26
+msgid "Fuzzy Inner Segmentation"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:32 src/fcitx-sunpinyin.desc:42
+msgid "1"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:33 src/fcitx-sunpinyin.desc:43
+msgid "2"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:34
+msgid "3"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:35
+msgid "Number of sentence that sunpinyin guess"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:41
+msgid "0"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:44
+msgid "Number of Best Tail Candidate"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:49
+msgid "Memory Strength"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:54
+msgid "Let sunpinyin process punctuation"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:56 src/fcitx-sunpinyin.desc:61
+#: src/fcitx-sunpinyin.desc:66 src/fcitx-sunpinyin.desc:71
+#: src/fcitx-sunpinyin.desc:76 src/fcitx-sunpinyin.desc:81
+#: src/fcitx-sunpinyin.desc:86 src/fcitx-sunpinyin.desc:91
+#: src/fcitx-sunpinyin.desc:96 src/fcitx-sunpinyin.desc:101
+#: src/fcitx-sunpinyin.desc:106 src/fcitx-sunpinyin.desc:111
+#: src/fcitx-sunpinyin.desc:116 src/fcitx-sunpinyin.desc:121
+#: src/fcitx-sunpinyin.desc:126 src/fcitx-sunpinyin.desc:131
+#: src/fcitx-sunpinyin.desc:136 src/fcitx-sunpinyin.desc:141
+#: src/fcitx-sunpinyin.desc:146
+msgid "QuanPin"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:59
+msgid "Fuzzy Zhi Zi"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:64
+msgid "Fuzzy Chi Ci"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:69
+msgid "Fuzzy Shi Si"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:74
+msgid "Fuzzy An Ang"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:79
+msgid "Fuzzy On Ong"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:84
+msgid "Fuzzy En Eng"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:89
+msgid "Fuzzy In Ing"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:94
+msgid "Fuzzy Eng Ong"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:99
+msgid "Fuzzy Ian Iang"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:104
+msgid "Fuzzy Uan Uang"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:109
+msgid "Fuzzy Ne Le"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:114
+msgid "Fuzzy Fo He"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:119
+msgid "Fuzzy Le Ri"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:124
+msgid "Fuzzy Ke Ge"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:129
+msgid "AutoCorrect gn ng"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:134
+msgid "AutoCorrect Uen Un"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:139
+msgid "AutoCorrect Img Ing"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:144
+msgid "AutoCorrect Iou Iu"
+msgstr ""
+
+#: src/fcitx-sunpinyin.desc:149
+msgid "AutoCorrect Uei Ui"
+msgstr ""
