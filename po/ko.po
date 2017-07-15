@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Bon Keun Seo <scobyseo@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: fcitx\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2013-04-25 00:02-0400\n"
+"PO-Revision-Date: 2017-07-15 12:56+0000\n"
+"Last-Translator: Bon Keun Seo <scobyseo@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/eim.cpp:407 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
+#: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
+#: src/fcitx-sunpinyin.desc:18 src/fcitx-sunpinyin.desc:23
+#: src/fcitx-sunpinyin.desc:28 src/fcitx-sunpinyin.desc:37
+#: src/fcitx-sunpinyin.desc:46 src/fcitx-sunpinyin.desc:51
+msgid "Sunpinyin"
+msgstr "Sunpinyin"
+
+#: src/fcitx-sunpinyin.conf.in:4
+msgid "Sunpinyin Wrapper For Fcitx"
+msgstr "Fcitx Sunpinyin 중국어 입력기"
+
+#: src/fcitx-sunpinyin.desc:4
+msgid "Use Shuangpin Instead of Quanpin"
+msgstr "Quanpin 대신에 Shuangpin 사용"
+
+#: src/fcitx-sunpinyin.desc:10
+msgid "MS2003"
+msgstr "마이크로소프트 2003"
+
+#: src/fcitx-sunpinyin.desc:11
+msgid "ABC"
+msgstr "지능 ABC"
+
+#: src/fcitx-sunpinyin.desc:12
+msgid "ZIRANMA"
+msgstr "지란마"
+
+#: src/fcitx-sunpinyin.desc:13
+msgid "PINYINJIAJIA"
+msgstr "병음가가"
+
+#: src/fcitx-sunpinyin.desc:14
+msgid "ZIGUANG"
+msgstr "자광"
+
+#: src/fcitx-sunpinyin.desc:15
+msgid "XIAOHE"
+msgstr "작은학"
+
+#: src/fcitx-sunpinyin.desc:16
+msgid "Shuangpin Scheme in Sunpinyin"
+msgstr "Shuangpin 스키마"
+
+#: src/fcitx-sunpinyin.desc:21
+msgid "Fuzzy Segmentation"
+msgstr "퍼지 분할"
+
+#: src/fcitx-sunpinyin.desc:26
+msgid "Fuzzy Inner Segmentation"
+msgstr "퍼지 내부 분할"
+
+#: src/fcitx-sunpinyin.desc:32 src/fcitx-sunpinyin.desc:42
+msgid "1"
+msgstr "1"
+
+#: src/fcitx-sunpinyin.desc:33 src/fcitx-sunpinyin.desc:43
+msgid "2"
+msgstr "2"
+
+#: src/fcitx-sunpinyin.desc:34
+msgid "3"
+msgstr "3"
+
+#: src/fcitx-sunpinyin.desc:35
+msgid "Number of sentence that sunpinyin guess"
+msgstr "입력기가 추천하는 문장의 수"
+
+#: src/fcitx-sunpinyin.desc:41
+msgid "0"
+msgstr "0"
+
+#: src/fcitx-sunpinyin.desc:44
+msgid "Number of Best Tail Candidate"
+msgstr "최적 끝 후보 개수"
+
+#: src/fcitx-sunpinyin.desc:49
+msgid "Memory Strength"
+msgstr "메모리 강도"
+
+#: src/fcitx-sunpinyin.desc:54
+msgid "Let sunpinyin process punctuation"
+msgstr "입력기가 문장부호를 처리"
+
+#: src/fcitx-sunpinyin.desc:56 src/fcitx-sunpinyin.desc:61
+#: src/fcitx-sunpinyin.desc:66 src/fcitx-sunpinyin.desc:71
+#: src/fcitx-sunpinyin.desc:76 src/fcitx-sunpinyin.desc:81
+#: src/fcitx-sunpinyin.desc:86 src/fcitx-sunpinyin.desc:91
+#: src/fcitx-sunpinyin.desc:96 src/fcitx-sunpinyin.desc:101
+#: src/fcitx-sunpinyin.desc:106 src/fcitx-sunpinyin.desc:111
+#: src/fcitx-sunpinyin.desc:116 src/fcitx-sunpinyin.desc:121
+#: src/fcitx-sunpinyin.desc:126 src/fcitx-sunpinyin.desc:131
+#: src/fcitx-sunpinyin.desc:136 src/fcitx-sunpinyin.desc:141
+#: src/fcitx-sunpinyin.desc:146
+msgid "QuanPin"
+msgstr "QuanPin"
+
+#: src/fcitx-sunpinyin.desc:59
+msgid "Fuzzy Zhi Zi"
+msgstr "퍼지 Zhi Zi"
+
+#: src/fcitx-sunpinyin.desc:64
+msgid "Fuzzy Chi Ci"
+msgstr "퍼지 Chi Ci"
+
+#: src/fcitx-sunpinyin.desc:69
+msgid "Fuzzy Shi Si"
+msgstr "퍼지 Shi Si"
+
+#: src/fcitx-sunpinyin.desc:74
+msgid "Fuzzy An Ang"
+msgstr "퍼지 An Ang"
+
+#: src/fcitx-sunpinyin.desc:79
+msgid "Fuzzy On Ong"
+msgstr "퍼지 On Ong"
+
+#: src/fcitx-sunpinyin.desc:84
+msgid "Fuzzy En Eng"
+msgstr "퍼지 En Eng"
+
+#: src/fcitx-sunpinyin.desc:89
+msgid "Fuzzy In Ing"
+msgstr "퍼지 In Ing"
+
+#: src/fcitx-sunpinyin.desc:94
+msgid "Fuzzy Eng Ong"
+msgstr "퍼지 Eng Ong"
+
+#: src/fcitx-sunpinyin.desc:99
+msgid "Fuzzy Ian Iang"
+msgstr "퍼지 Ian Iang"
+
+#: src/fcitx-sunpinyin.desc:104
+msgid "Fuzzy Uan Uang"
+msgstr "퍼지 Uan Uang"
+
+#: src/fcitx-sunpinyin.desc:109
+msgid "Fuzzy Ne Le"
+msgstr "퍼지 Ne Le"
+
+#: src/fcitx-sunpinyin.desc:114
+msgid "Fuzzy Fo He"
+msgstr "퍼지 Fo He"
+
+#: src/fcitx-sunpinyin.desc:119
+msgid "Fuzzy Le Ri"
+msgstr "퍼지 Le Ri"
+
+#: src/fcitx-sunpinyin.desc:124
+msgid "Fuzzy Ke Ge"
+msgstr "퍼지 Ke Ge"
+
+#: src/fcitx-sunpinyin.desc:129
+msgid "AutoCorrect gn ng"
+msgstr "gn ng 자동 교정"
+
+#: src/fcitx-sunpinyin.desc:134
+msgid "AutoCorrect Uen Un"
+msgstr "Uen Un 자동 교정"
+
+#: src/fcitx-sunpinyin.desc:139
+msgid "AutoCorrect Img Ing"
+msgstr "Img Ing 자동 교정"
+
+#: src/fcitx-sunpinyin.desc:144
+msgid "AutoCorrect Iou Iu"
+msgstr "Iou Iu 자동 교정"
+
+#: src/fcitx-sunpinyin.desc:149
+msgid "AutoCorrect Uei Ui"
+msgstr "Uei Ui 자동 교정"
