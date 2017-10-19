@@ -3,8 +3,6 @@ project(fcitx-sunpinyin)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
-option(ENABLE_TEST "enable function test" Off)
-
 find_package(Libintl REQUIRED)
 find_package(Fcitx 4.2.7 REQUIRED)
 find_package(Sunpinyin REQUIRED)
@@ -29,7 +27,3 @@ configure_file(
 add_subdirectory(po)
 add_subdirectory(src)
 add_subdirectory(data)
-if(ENABLE_TEST)
-  enable_testing()
-  add_subdirectory(test)
-endif()
