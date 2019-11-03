@@ -4,13 +4,13 @@
 #
 # Translators:
 # mar well <m.wellendorf@gmx.de>, 2013
-# mar well <m.wellendorf@gmx.de>, 2017
+# mar well <m.wellendorf@gmx.de>, 2013,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-07-28 04:02-0700\n"
-"PO-Revision-Date: 2017-07-28 10:23+0000\n"
+"POT-Creation-Date: 2019-11-03 12:28-0800\n"
+"PO-Revision-Date: 2018-10-20 23:50+0000\n"
 "Last-Translator: mar well <m.wellendorf@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/fcitx/fcitx/language/de/)\n"
 "Language: de\n"
@@ -125,7 +125,7 @@ msgstr "Fuzzy Zhi Zi"
 
 #: src/fcitx-sunpinyin.desc:54
 msgid "Let sunpinyin process punctuation"
-msgstr "Die Sunpinyin Eingebamethode übernimmt Punktuation"
+msgstr "Die Sunpinyin Eingabemethode übernimmt Punktuation"
 
 #: src/fcitx-sunpinyin.desc:10
 msgid "MS2003"
@@ -174,7 +174,7 @@ msgstr "Sunpinyin"
 
 #: src/fcitx-sunpinyin.conf.in:4
 msgid "Sunpinyin Wrapper For Fcitx"
-msgstr "Sunpinyin Eingabemethode für Fcitx"
+msgstr "Sunpinyin Wrapper für Fcitx"
 
 #: src/fcitx-sunpinyin.desc:4
 msgid "Use Shuangpin Instead of Quanpin"
