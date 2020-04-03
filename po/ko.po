@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-03-25 00:03-0700\n"
-"PO-Revision-Date: 2020-03-24 17:22+0000\n"
+"POT-Creation-Date: 2020-04-03 00:02-0700\n"
+"PO-Revision-Date: 2020-04-02 15:45+0000\n"
 "Last-Translator: MarongHappy <daemul72@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
@@ -125,7 +125,7 @@ msgstr "퍼지 Zhi Zi"
 
 #: src/fcitx-sunpinyin.desc:54
 msgid "Let sunpinyin process punctuation"
-msgstr "sunpinyin으로 구두점 처리"
+msgstr "Sunpinyin 프로세스 문장부호 사용"
 
 #: src/fcitx-sunpinyin.desc:10
 msgid "MS2003"
