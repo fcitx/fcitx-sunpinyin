@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-04-03 00:02-0700\n"
-"PO-Revision-Date: 2020-04-02 15:45+0000\n"
+"POT-Creation-Date: 2020-04-19 00:02-0700\n"
+"PO-Revision-Date: 2020-04-19 05:03+0000\n"
 "Last-Translator: MarongHappy <daemul72@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
@@ -145,7 +145,7 @@ msgstr "입력기가 추천하는 문장의 수"
 
 #: src/fcitx-sunpinyin.desc:13
 msgid "PINYINJIAJIA"
-msgstr "병음가가"
+msgstr "PINYINJIAJIA"
 
 #: src/fcitx-sunpinyin.desc:56 src/fcitx-sunpinyin.desc:61
 #: src/fcitx-sunpinyin.desc:66 src/fcitx-sunpinyin.desc:71
@@ -162,7 +162,7 @@ msgstr "QuanPin"
 
 #: src/fcitx-sunpinyin.desc:16
 msgid "Shuangpin Scheme in Sunpinyin"
-msgstr "Sunpinyin의 Shuangpin 스키마"
+msgstr "Sunpinyin의 이중병음 스키마"
 
 #: src/eim.cpp:434 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
 #: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
@@ -178,11 +178,11 @@ msgstr "Fcitx용 Sunpinyin 중국어 입력기"
 
 #: src/fcitx-sunpinyin.desc:4
 msgid "Use Shuangpin Instead of Quanpin"
-msgstr "Quanpin 대신에 Shuangpin 사용"
+msgstr "Quanpin 대신에 이중병음 사용"
 
 #: src/fcitx-sunpinyin.desc:15
 msgid "XIAOHE"
-msgstr "작은학"
+msgstr "XIAOHE"
 
 #: src/fcitx-sunpinyin.desc:14
 msgid "ZIGUANG"
