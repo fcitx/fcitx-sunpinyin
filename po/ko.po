@@ -4,14 +4,16 @@
 #
 # Translators:
 # Bon Keun Seo <scobyseo@gmail.com>, 2017
-# MarongHappy <daemul72@gmail.com>, 2020
+# JungHee Lee <daemul72@gmail.com>, 2020
+# JungHee Lee <daemul72@gmail.com>, 2022
+# JungHee Lee <daemul72@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-04-19 00:02-0700\n"
-"PO-Revision-Date: 2020-04-19 05:03+0000\n"
-"Last-Translator: MarongHappy <daemul72@gmail.com>\n"
+"POT-Creation-Date: 2022-03-01 20:28+0000\n"
+"PO-Revision-Date: 2022-03-01 14:52+0000\n"
+"Last-Translator: JungHee Lee <daemul72@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +176,7 @@ msgstr "Sunpinyin"
 
 #: src/fcitx-sunpinyin.conf.in:4
 msgid "Sunpinyin Wrapper For Fcitx"
-msgstr "Fcitx용 Sunpinyin 중국어 입력기"
+msgstr "Fcitx용 Sunpinyin 래퍼"
 
 #: src/fcitx-sunpinyin.desc:4
 msgid "Use Shuangpin Instead of Quanpin"
