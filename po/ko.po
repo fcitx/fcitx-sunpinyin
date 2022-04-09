@@ -4,16 +4,17 @@
 #
 # Translators:
 # Bon Keun Seo <scobyseo@gmail.com>, 2017
-# JungHee Lee <daemul72@gmail.com>, 2020
-# JungHee Lee <daemul72@gmail.com>, 2022
-# JungHee Lee <daemul72@gmail.com>, 2020
+# Junghee Lee <daemul72@gmail.com>, 2020
+# Junghee Lee <daemul72@gmail.com>, 2022
+# Junghee Lee <daemul72@gmail.com>, 2022
+# Junghee Lee <daemul72@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-03-01 20:28+0000\n"
-"PO-Revision-Date: 2022-03-01 14:52+0000\n"
-"Last-Translator: JungHee Lee <daemul72@gmail.com>\n"
+"POT-Creation-Date: 2022-04-09 20:28+0000\n"
+"PO-Revision-Date: 2011-11-16 01:57+0000\n"
+"Last-Translator: Junghee Lee <daemul72@gmail.com>, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +52,7 @@ msgstr "Iou Iu 자동 교정"
 
 #: src/fcitx-sunpinyin.desc:149
 msgid "AutoCorrect Uei Ui"
-msgstr "Uei Ui 자동 교정"
+msgstr "Uei Ui 자동교정"
 
 #: src/fcitx-sunpinyin.desc:134
 msgid "AutoCorrect Uen Un"
@@ -111,7 +112,7 @@ msgstr "퍼지 On Ong"
 
 #: src/fcitx-sunpinyin.desc:21
 msgid "Fuzzy Segmentation"
-msgstr "퍼지 분할"
+msgstr "퍼지 분할된 부분"
 
 #: src/fcitx-sunpinyin.desc:69
 msgid "Fuzzy Shi Si"
@@ -164,7 +165,7 @@ msgstr "QuanPin"
 
 #: src/fcitx-sunpinyin.desc:16
 msgid "Shuangpin Scheme in Sunpinyin"
-msgstr "Sunpinyin의 이중병음 스키마"
+msgstr "Sunpinyin의 이중자획 스키마"
 
 #: src/eim.cpp:434 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
 #: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
@@ -180,7 +181,7 @@ msgstr "Fcitx용 Sunpinyin 래퍼"
 
 #: src/fcitx-sunpinyin.desc:4
 msgid "Use Shuangpin Instead of Quanpin"
-msgstr "Quanpin 대신에 이중병음 사용"
+msgstr "Quanpin 대신 이중자획 사용"
 
 #: src/fcitx-sunpinyin.desc:15
 msgid "XIAOHE"
