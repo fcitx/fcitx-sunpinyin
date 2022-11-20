@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dmitry <dmitrydmitry761@gmail.com>, 2022
 # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-06-02 20:29+0000\n"
+"POT-Creation-Date: 2022-11-20 06:36+0000\n"
 "PO-Revision-Date: 2011-11-16 01:57+0000\n"
-"Last-Translator: TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016-2017\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -163,7 +164,7 @@ msgstr "QuanPin"
 
 #: src/fcitx-sunpinyin.desc:16
 msgid "Shuangpin Scheme in Sunpinyin"
-msgstr "Схема шуанпинь в Sunpinyin"
+msgstr "Схема Шуанпинь в Sunpinyin"
 
 #: src/eim.cpp:434 src/fcitx-sunpinyin.conf.in:3 src/sunpinyin.conf.in:3
 #: src/fcitx-sunpinyin.desc:1 src/fcitx-sunpinyin.desc:6
