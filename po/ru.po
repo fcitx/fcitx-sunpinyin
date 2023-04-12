@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2023-03-24 20:26+0000\n"
+"POT-Creation-Date: 2023-04-12 14:31+0000\n"
 "PO-Revision-Date: 2011-11-16 01:57+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022-2023\n"
-"Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
+"Language-Team: Russian (http://app.transifex.com/fcitx/fcitx/language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -147,7 +147,7 @@ msgstr "Число предложений для предсказания sunpin
 
 #: src/fcitx-sunpinyin.desc:13
 msgid "PINYINJIAJIA"
-msgstr "PINYINJIAJIA"
+msgstr "ПИНЬИНЬЦЗЯЦЗЯ"
 
 #: src/fcitx-sunpinyin.desc:56 src/fcitx-sunpinyin.desc:61
 #: src/fcitx-sunpinyin.desc:66 src/fcitx-sunpinyin.desc:71
@@ -160,7 +160,7 @@ msgstr "PINYINJIAJIA"
 #: src/fcitx-sunpinyin.desc:136 src/fcitx-sunpinyin.desc:141
 #: src/fcitx-sunpinyin.desc:146
 msgid "QuanPin"
-msgstr "QuanPin"
+msgstr "ЦюаньПинь"
 
 #: src/fcitx-sunpinyin.desc:16
 msgid "Shuangpin Scheme in Sunpinyin"
@@ -180,7 +180,7 @@ msgstr "Обертка LibPinyin для Fcitx"
 
 #: src/fcitx-sunpinyin.desc:4
 msgid "Use Shuangpin Instead of Quanpin"
-msgstr "Использовать Shuangpin вместо Quanpin"
+msgstr "Использовать Шуанпинь вместо Цюаньпинь"
 
 #: src/fcitx-sunpinyin.desc:15
 msgid "XIAOHE"
